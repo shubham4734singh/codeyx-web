@@ -5,13 +5,19 @@ import { Profile } from '../models/profile.model';
 import { User } from '../models/user.model';
 import { getSocketIo } from '../socket';
 
-// ─── Helper: compute radar axes and weighted Codeyx Score ─────────────────
-// Codeyx Score (0-100) = Competitive Score (70pts) + Developer Score (30pts)
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║          🔒 CODEYX SCORE — LOCKED RANKING SYSTEM                        ║
+// ║  DO NOT MODIFY buildUserEntry() without updating RANKING_SYSTEM.md      ║
+// ║  Full spec: src/controllers/RANKING_SYSTEM.md                           ║
+// ║  Max Raw Score = 105 pts | Final = (rawScore/105)×100 (1 decimal)       ║
+// ║  Competitive 70pts | Developer 30pts | Profile Bonus 5pts               ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
 function buildUserEntry(clerkUser: any, userStats: any[], userProfile?: any) {
     let totalSolved = 0;
     let leetcodeRating = 0;
     let codeforcesRating = 0;
     let codechefRating = 0;
+    let geeksforgeeksRating = 0;
     let contestsCount = 0;
     let highestStreak = 0;
     const platformBreakdown: Record<string, { rating: number; solved: number; contests: number }> = {};
@@ -39,6 +45,14 @@ function buildUserEntry(clerkUser: any, userStats: any[], userProfile?: any) {
             codechefRating = pRating;
             totalSolved += pSolved;
             pContests = Array.isArray(s.stats?.contests) ? s.stats.contests.length : (parseInt(s.stats?.contests) || 0);
+        } else if (s.platform === 'geeksforgeeks') {
+            geeksforgeeksRating = pRating;
+            totalSolved += pSolved;
+            if (s.stats?.contests !== undefined) {
+                pContests = typeof s.stats.contests === 'number' ? s.stats.contests : (parseInt(s.stats.contests) || 0);
+            } else if (Array.isArray(s.stats?.contestsHistory)) {
+                pContests = s.stats.contestsHistory.length;
+            }
         }
         // github and codeyx don't add to competitive score
 
@@ -51,47 +65,109 @@ function buildUserEntry(clerkUser: any, userStats: any[], userProfile?: any) {
     });
 
     // ── 1. COMPETITIVE SCORE (0-70 pts) ─────────────────────────────────────
-    // LeetCode Rating: 0-3500 → 0-20 pts
-    const lcScore   = Math.min(20, (leetcodeRating / 3500) * 20);
-    // Codeforces Rating: 0-3500 → 0-20 pts  
-    const cfScore   = Math.min(20, (codeforcesRating / 3500) * 20);
-    // CodeChef Rating: 0-3500 → 0-10 pts
-    const ccScore   = Math.min(10, (codechefRating / 3500) * 10);
-    // Problems Solved: 0-2000 → 0-15 pts
-    const solvedScore = Math.min(15, (totalSolved / 2000) * 15);
-    // Contests Participated: 0-200 → 0-5 pts
-    const contestScore = Math.min(5, (contestsCount / 200) * 5);
+    // LeetCode (15 Points Max): Rating (10 pts) + Weighted Solved (5 pts)
+    const leetcodeStats = userStats.find(s => s.platform === 'leetcode');
+    const lcRatingPoints = Math.min(10, (leetcodeRating / 2200) * 10);
+    const lcEasy   = leetcodeStats?.stats?.metadata?.extra?.easy   || leetcodeStats?.stats?.easy   || 0;
+    const lcMedium = leetcodeStats?.stats?.metadata?.extra?.medium || leetcodeStats?.stats?.medium || 0;
+    const lcHard   = leetcodeStats?.stats?.metadata?.extra?.hard   || leetcodeStats?.stats?.hard   || 0;
+    const lcTotalSolved = leetcodeStats?.totalSolved || 0;
+    // Use difficulty breakdown if available; fallback to totalSolved treated as Medium
+    const lcWeightedSolved = (lcEasy + lcMedium + lcHard) > 0
+        ? (lcEasy * 1) + (lcMedium * 3) + (lcHard * 6)
+        : lcTotalSolved * 3;   // fallback: treat all as Medium
+    const lcSolvedPoints = Math.min(5, (lcWeightedSolved / 1000) * 5);
+    const lcScore = lcRatingPoints + lcSolvedPoints;
 
-    const competitiveScore = lcScore + cfScore + ccScore + solvedScore + contestScore;
+    // Codeforces (15 Points Max): Rating (12 pts) + Contest Activity (3 pts)
+    const codeforcesStats = userStats.find(s => s.platform === 'codeforces');
+    const cfRatingPoints = Math.min(12, (codeforcesRating / 2000) * 12);
+    const cfContestsCount = codeforcesStats?.stats?.ratingCount || codeforcesStats?.stats?.contests || 0;
+    const cfContestPoints = Math.min(3, (cfContestsCount / 30) * 3);
+    const cfScore = cfRatingPoints + cfContestPoints;
+
+    // CodeChef (10 Points Max): Rating (8 pts) + Contest Activity (2 pts)
+    const codechefStats = userStats.find(s => s.platform === 'codechef');
+    const ccRatingPoints = Math.min(8, (codechefRating / 2200) * 8);
+    const ccContestsCount = Array.isArray(codechefStats?.stats?.contests) ? codechefStats.stats.contests.length : (parseInt(codechefStats?.stats?.contests) || 0);
+    const ccContestPoints = Math.min(2, (ccContestsCount / 20) * 2);
+    const ccScore = ccRatingPoints + ccContestPoints;
+
+    // GeeksforGeeks (10 Points Max): Rating/Score (6 pts) + Solved Problems (4 pts)
+    const geeksforgeeksStats = userStats.find(s => s.platform === 'geeksforgeeks');
+    const gfgRatingPoints = Math.min(6, (geeksforgeeksRating / 1500) * 6);
+    const gfgSolved = geeksforgeeksStats?.totalSolved || 0;
+    const gfgSolvedPoints = Math.min(4, (gfgSolved / 300) * 4);
+    const gfgScore = gfgRatingPoints + gfgSolvedPoints;
+
+    // Overall Problem Solving (15 Points Max): Weighted unique solved problems across all coding platforms
+    // CF solved defaults to medium, CC solved defaults to medium, GFG solved defaults to easy.
+    const cfMediumSolved = codeforcesStats?.totalSolved || 0;
+    const ccMediumSolved = codechefStats?.totalSolved || 0;
+    // Use weighted breakdown if available, otherwise fall back to totalSolved × 3 (Medium)
+    const lcWeightedForOverall = (lcEasy + lcMedium + lcHard) > 0
+        ? (lcEasy * 1 + lcMedium * 3 + lcHard * 6)
+        : (leetcodeStats?.totalSolved || 0) * 3;
+    const totalWeightedSolved = lcWeightedForOverall + (cfMediumSolved * 3) + (ccMediumSolved * 3) + (gfgSolved * 1);
+    const overallProblemSolvingScore = Math.min(15, (totalWeightedSolved / 2000) * 15);
+
+    // Overall Contest Activity (5 Points Max)
+    let overallContestScore = 0;
+    if (contestsCount > 0 && contestsCount <= 5) overallContestScore = 1;
+    else if (contestsCount >= 6 && contestsCount <= 10) overallContestScore = 2;
+    else if (contestsCount >= 11 && contestsCount <= 20) overallContestScore = 3;
+    else if (contestsCount >= 21 && contestsCount <= 30) overallContestScore = 4;
+    else if (contestsCount > 30) overallContestScore = 5;
+
+    const competitiveScore = lcScore + cfScore + ccScore + gfgScore + overallProblemSolvingScore + overallContestScore;
 
     // ── 2. DEVELOPER SCORE (0-30 pts) ────────────────────────────────────────
     const githubData = userStats.find(s => s.platform === 'github');
-    const repos  = githubData?.stats?.repos || 0;
-    const stars  = githubData?.stats?.totalStars || 0;
-    const commits = githubData?.stats?.totalCommits || githubData?.stats?.contributions || 0;
+    const repos = githubData?.totalSolved || githubData?.stats?.totalSolved || githubData?.stats?.metadata?.repositoriesCount || 0;
+    const stars = githubData?.stats?.starsNum || githubData?.stats?.stars || githubData?.stats?.metadata?.extra?.totalStars || 0;
+    const commits = githubData?.stats?.metadata?.extra?.commitsCount || githubData?.stats?.metadata?.extra?.totalContributions || githubData?.stats?.totalCommits || githubData?.stats?.contributions || 0;
 
-    // Repos: 0-50 → 0-10 pts
-    const repoScore    = Math.min(10, (repos / 50) * 10);
-    // Stars: 0-100 → 0-8 pts
-    const starScore    = Math.min(8, (stars / 100) * 8);
-    // Commits: 0-500 → 0-7 pts
-    const commitScore  = Math.min(7, (commits / 500) * 7);
-    // Profile quality: bio + college → 0-5 pts
-    const bioScore     = (userProfile?.bio?.length || 0) > 20 ? 3 : 0;
-    const collegeScore = (userProfile?.college?.length || 0) > 2 ? 2 : 0;
+    // Projects: 0-15 pts — 1 pt per repo, max 15 repos needed for full score
+    const projectScore = Math.min(15, repos);
+    // GitHub Stars: 0-5 pts (1 pt per star, max 5)
+    const starScore = Math.min(5, stars);
+    // Contributions: 0-10 pts (normalized over 300 commits, max 10)
+    const contributionScore = Math.min(10, (commits / 300) * 10);
 
-    const developerScore = repoScore + starScore + commitScore + bioScore + collegeScore;
+    const developerScore = projectScore + starScore + contributionScore;
+
+    // ── 3. PROFILE BONUS (+5 pts) ───────────────────────────────────────────
+    const collegeBonus = (userProfile?.college?.length || 0) > 2 ? 2 : 0;
+    const bioBonus     = (userProfile?.bio?.length || 0) > 20 ? 3 : 0;
+    const profileBonus = collegeBonus + bioBonus;
 
     // ── FINAL CODEYX SCORE (0-100) ────────────────────────────────────────────
-    const codeyxScore = Math.min(100, Math.round(competitiveScore + developerScore));
+    const rawScore = competitiveScore + developerScore + profileBonus;
+    const codeyxScore = Math.min(100, Math.round(((rawScore / 105) * 100) * 10) / 10);
 
     // ── RADAR STATS (normalized 0-100 for each axis) ─────────────────────────
-    const combinedRating = leetcodeRating + codeforcesRating + codechefRating;
-    const problemSolving = Math.min(100, Math.round((totalSolved / 2000) * 100));
-    const contestAxis    = Math.min(100, Math.round((combinedRating / 7000) * 100));
-    const speed          = Math.min(100, Math.round((contestsCount / 100) * 100));
-    const accuracy       = Math.min(100, Math.round((Math.max(leetcodeRating, codeforcesRating, codechefRating) / 3500) * 100));
-    const consistency    = Math.min(100, Math.round((highestStreak / 365) * 100));
+    const maxRatingForContestAxis = Math.max(leetcodeRating, codeforcesRating, codechefRating, geeksforgeeksRating);
+    const combinedRating = leetcodeRating + codeforcesRating + codechefRating + geeksforgeeksRating;
+    const problemSolving = Math.min(100, Math.round((totalSolved / 500) * 100));
+    const contestAxis    = Math.min(100, Math.round((maxRatingForContestAxis / 2200) * 100));
+    const speed          = Math.min(100, Math.round((contestsCount / 25) * 100));
+    const accuracy       = Math.min(100, Math.round((maxRatingForContestAxis / 2000) * 100));
+    const consistency    = Math.min(100, Math.round((highestStreak / 100) * 100));
+
+    // ── CONTEST RATING (platform-method weighted, 0–10000 scale) ─────────────
+    // Each platform's rating normalized to 0-1 using their own max scale, then
+    // weighted by platform prestige (mirrors how each site ranks its users):
+    //   Codeforces 40%  (ELO-based, most rigorous)   → max 3500
+    //   LeetCode   35%  (official contest rating)     → max 3500
+    //   CodeChef   15%  (star-rated contest system)   → max 2500
+    //   GFG        10%  (practice-contest hybrid)     → max 1500
+    const cfNorm  = Math.min(1, codeforcesRating / 3500);
+    const lcNorm  = Math.min(1, leetcodeRating   / 3500);
+    const ccNorm  = Math.min(1, codechefRating   / 2500);
+    const gfgNorm = Math.min(1, geeksforgeeksRating / 1500);
+    const contestRating = Math.round(
+        (cfNorm * 0.40 + lcNorm * 0.35 + ccNorm * 0.15 + gfgNorm * 0.10) * 10000
+    );
 
     const externalPlatforms = Object.keys(platformBreakdown).filter(p => p !== 'codeyx');
     const hasConnected = externalPlatforms.length > 0;
@@ -120,17 +196,23 @@ function buildUserEntry(clerkUser: any, userStats: any[], userProfile?: any) {
         user:      fullName || username,
         rating:    codeyxScore,
         rawCombinedRating: combinedRating,
+        contestRating,
         problems:  totalSolved,
         streak:    highestStreak,
         contests:  contestsCount,
-        winRate:   totalSolved > 0 ? Math.min(85, Math.round(50 + (totalSolved / 100))) : 0,
+        // bestRating: highest contest rating across all competitive platforms
+        bestRating: Math.max(leetcodeRating, codeforcesRating, codechefRating, geeksforgeeksRating),
+        winRate: 0, // kept for backwards compat — use bestRating instead
         avatarUrl,
-        isVerified: false,          // extend with premium check later
+        isVerified: false,
         hasConnected,
         hasData,
         isPublic,
         college:   userProfile?.college || '',
-        platformBreakdown,
+        // Filter out internal 'codeyx' platform from UI display
+        platformBreakdown: Object.fromEntries(
+            Object.entries(platformBreakdown).filter(([p]) => p !== 'codeyx')
+        ),
         radarStats: hasData ? { problemSolving, speed, accuracy, consistency, contest: contestAxis } : null,
     };
 }
@@ -180,12 +262,17 @@ export const getLeaderboard = async (req: Request, res: Response) => {
             return u;
         });
 
-        // 4. Sort purely by Codeyx Score (highest first)
-        // Users with no data have score=0 → naturally go to bottom
+        // 4. Sort: active coders (hasData=true) ALWAYS above profile-only users
+        // Within each group sort by Codeyx Score DESC → problems DESC → rating DESC
         leaderboardData.sort((a: any, b: any) => {
-            if (b.rating !== a.rating) return b.rating - a.rating;       // Score DESC
-            if (b.problems !== a.problems) return b.problems - a.problems; // Tie: problems DESC
-            return b.rawCombinedRating - a.rawCombinedRating;             // Tie: rating DESC
+            // Primary: users with platform data come before those without
+            if (a.hasData !== b.hasData) return a.hasData ? -1 : 1;
+            // Secondary: Codeyx Score DESC
+            if (b.rating !== a.rating) return b.rating - a.rating;
+            // Tertiary: problems solved DESC
+            if (b.problems !== a.problems) return b.problems - a.problems;
+            // Quaternary: combined rating DESC
+            return b.rawCombinedRating - a.rawCombinedRating;
         });
 
         // 5. Assign rank badges

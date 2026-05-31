@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../models/user.model';
+import { clerkClient } from '@clerk/express';
 
 // ⚠️  HARDCODED ADMIN WHITELIST — Only these emails can access admin APIs
 const ADMIN_WHITELIST = ['lalitkumargeloth16@gmail.com'];
@@ -21,17 +22,41 @@ export const requireAdmin = async (req: Request, res: Response, next: NextFuncti
     }
 
     // Check 2: Lookup user in DB
-    const user = await User.findOne({ clerkUserId: userId });
+    let user = await User.findOne({ clerkUserId: userId });
     if (!user) {
-      console.warn(`[AdminGuard] ❌ User ${userId} not found in DB`);
-      return res.status(403).json({ success: false, message: 'Forbidden: User not found' });
+      console.warn(`[AdminGuard] 🛡️ User ${userId} not found in DB. Attempting to fetch from Clerk...`);
+      try {
+        const clerkUser = await clerkClient.users.getUser(userId);
+        const email = clerkUser.emailAddresses?.[0]?.emailAddress;
+        const emailNormalized = email?.toLowerCase()?.trim();
+
+        if (emailNormalized && ADMIN_WHITELIST.includes(emailNormalized)) {
+          console.log(`[AdminGuard] 🌟 Whitelisted user ${emailNormalized} found on Clerk. Auto-syncing/creating in local DB...`);
+          user = await User.create({
+            clerkUserId: userId,
+            email: emailNormalized,
+            firstName: clerkUser.firstName || '',
+            lastName: clerkUser.lastName || '',
+            username: clerkUser.username || undefined,
+            avatarUrl: clerkUser.imageUrl || '',
+            role: 'admin',
+          });
+        }
+      } catch (clerkErr: any) {
+        console.error(`[AdminGuard] ❌ Failed to fetch user from Clerk:`, clerkErr.message);
+      }
+    }
+
+    if (!user) {
+      console.warn(`[AdminGuard] ❌ User ${userId} not found in DB and could not be auto-created`);
+      return res.status(403).json({ success: false, message: `Forbidden: User with Clerk ID ${userId} not found in DB` });
     }
 
     // Check 3: Email must be in the admin whitelist
     const emailNormalized = user.email?.toLowerCase()?.trim();
     if (!ADMIN_WHITELIST.includes(emailNormalized)) {
       console.warn(`[AdminGuard] ❌ Email "${emailNormalized}" is NOT in admin whitelist`);
-      return res.status(403).json({ success: false, message: 'Forbidden: Not an admin account' });
+      return res.status(403).json({ success: false, message: `Forbidden: Email "${emailNormalized}" is not in admin whitelist` });
     }
 
     // Check 4: DB role must be 'admin' (auto-fix if whitelisted)

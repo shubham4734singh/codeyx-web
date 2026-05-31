@@ -190,19 +190,19 @@ export default function LeaderboardPage() {
       filtered.sort((a, b) => b.rating - a.rating);
     } 
     else if (activeLeaderboard === 'Contest Leaderboard') {
-      // Use the actual raw combined rating directly instead of normalizing it to 100
-      filtered = filtered.map(row => {
-        return { ...row, calculatedContestScore: row.rawCombinedRating || 0 };
-      });
+      // Show ALL users — rank derived from platform-weighted contest rating
+      // (CF 40% + LC 35% + CC 15% + GFG 10%, scaled 0-10000)
+      filtered = filtered.map(row => ({
+        ...row,
+        calculatedContestScore: row.contestRating ?? row.rawCombinedRating ?? 0
+      }));
 
-      // Sort by Contest Rating primarily
+      // Sort: weighted contest rating → contest count → codeyx score
       filtered.sort((a, b) => {
-        if (b.calculatedContestScore !== a.calculatedContestScore) {
+        if (b.calculatedContestScore !== a.calculatedContestScore)
           return b.calculatedContestScore - a.calculatedContestScore;
-        }
-        if ((b.contests || 0) !== (a.contests || 0)) {
+        if ((b.contests || 0) !== (a.contests || 0))
           return (b.contests || 0) - (a.contests || 0);
-        }
         return (b.rating || 0) - (a.rating || 0);
       });
     }
@@ -257,17 +257,25 @@ export default function LeaderboardPage() {
 
     if (activeLeaderboard === 'University Leaderboard' || activeSubTab === 'University') {
       const userCollegeNormalized = myCollege?.trim().toLowerCase();
-      filtered = filtered.filter(row => {
-        const rowCollege = row.college?.trim().toLowerCase();
-        const rowUser = row.user?.toLowerCase();
-        const rowUsername = row.username?.toLowerCase();
-        const rowUserId = row.userId;
 
-        const isSameCollege = userCollegeNormalized && rowCollege && rowCollege === userCollegeNormalized;
-        const isMe = user && (rowUserId === user.id || rowUsername === user.username?.toLowerCase() || rowUser === user.fullName?.toLowerCase());
+      // Not logged in OR college not set → empty (UI shows prompt)
+      if (!user || !userCollegeNormalized) {
+        filtered = [];
+      } else {
+        filtered = filtered.filter(row => {
+          const rowCollege  = row.college?.trim().toLowerCase();
+          const rowUserId   = row.userId;
+          const rowUser     = row.user?.toLowerCase();
+          const rowUsername = row.username?.toLowerCase();
 
-        return isSameCollege || isMe;
-      });
+          const isSameCollege = rowCollege && rowCollege === userCollegeNormalized;
+          const isMe = rowUserId === user.id
+            || rowUsername === user.username?.toLowerCase()
+            || rowUser    === user.fullName?.toLowerCase();
+
+          return isSameCollege || isMe;
+        });
+      }
     }
 
     // 3. Dynamic Relative Rank Recalculation for ALL views!
@@ -463,7 +471,7 @@ export default function LeaderboardPage() {
                   { label: 'Codeyx Score', value: `${selectedUser.rating}%`, color: '#FF8A00' },
                   { label: 'Problems Solved', value: selectedUser.problems, color: '#22c55e' },
                   { label: 'Contests', value: selectedUser.contests, color: '#3b82f6' },
-                  { label: 'Win Rate', value: `${selectedUser.winRate}%`, color: '#d946ef' },
+                  { label: 'Best Rating', value: (selectedUser.bestRating ?? 0) > 0 ? `${(selectedUser.bestRating ?? 0).toLocaleString()}` : 'Unrated', color: '#d946ef' },
                 ].map((stat, i) => (
                   <div key={i} className="flex flex-col items-center py-4 px-2 gap-1">
                     <span className="text-lg font-black" style={{ color: stat.color }}>{stat.value}</span>
@@ -494,7 +502,7 @@ export default function LeaderboardPage() {
                         <div className="flex flex-col gap-3">
                           <ResponsiveContainer width="100%" height={180}>
                             <RadarChart data={radarData} margin={{ top: 5, right: 20, bottom: 5, left: 20 }}>
-                              <PolarGrid stroke="rgba(255,255,255,0.07)" />
+                              <PolarGrid stroke="var(--radar-grid)" />
                               <PolarAngleAxis dataKey="subject" tick={{ fill: '#6b7280', fontSize: 9, fontWeight: 700 }} />
                               <PolarRadiusAxis angle={90} domain={[0, 100]} tick={false} axisLine={false} />
                               <Radar dataKey="value" stroke="#FF8A00" fill="#FF8A00" fillOpacity={0.18} strokeWidth={1.5} dot={{ r: 2.5, fill: '#FF8A00', strokeWidth: 0 }} />
@@ -546,33 +554,52 @@ export default function LeaderboardPage() {
                 {/* Platform breakdown */}
                 <div className="p-6 flex flex-col gap-3">
                   <p className="text-[10px] font-extrabold text-gray-600 uppercase tracking-widest mb-1">Platform Ratings</p>
-                  {selectedUser.platformBreakdown && Object.keys(selectedUser.platformBreakdown).length > 0 ? (
-                    Object.entries(selectedUser.platformBreakdown).map(([platform, data]: [string, any]) => {
+                  {selectedUser.platformBreakdown && Object.keys(selectedUser.platformBreakdown).filter(p => p !== 'codeyx').length > 0 ? (
+                    Object.entries(selectedUser.platformBreakdown)
+                    .filter(([platform]) => platform !== 'codeyx')
+                    .map(([platform, data]: [string, any]) => {
                       const colorMap: Record<string, string> = {
-                        leetcode: '#FF8A00', codeforces: '#3b82f6', codechef: '#a855f7', github: '#22c55e'
+                        leetcode: '#FF8A00', codeforces: '#3b82f6', codechef: '#a855f7',
+                        github: '#22c55e', geeksforgeeks: '#34a853'
                       };
-                      const color = colorMap[platform] || '#gray';
-                      const pRating  = data.rating || 0;
-                      const pSolved  = data.solved || 0;
+                      const color = colorMap[platform] || '#FF8A00';
+                      const pRating   = data.rating   || 0;
+                      const pSolved   = data.solved   || 0;
                       const pContests = data.contests || 0;
 
-                      const maxRating = 10000;
-                      const maxSolved = 3000;
-                      const maxContests = 500;
+                      // ── Exact backend-matching score per platform ──────────────
+                      let actualPts = 0;
+                      let maxPts    = 15; // default
 
-                      const problemSolving = Math.min(100, Math.round((pSolved / maxSolved) * 100));
-                      const contestAxis    = Math.min(100, Math.round((pRating / maxRating) * 100));
-                      const speed          = Math.min(100, Math.round(40 + (pSolved / 100)));
-                      const accuracy       = Math.min(100, Math.round(50 + (pRating / 200)));
-                      const consistency    = Math.min(100, Math.round(((pContests / maxContests) * 100) + 20));
+                      if (platform === 'leetcode') {
+                        maxPts = 15;
+                        const ratingPts  = Math.min(10, (pRating / 2200) * 10);
+                        const solvedPts  = Math.min(5,  (pSolved * 3 / 1000) * 5); // medium fallback
+                        actualPts = ratingPts + solvedPts;
+                      } else if (platform === 'codeforces') {
+                        maxPts = 15;
+                        const ratingPts  = Math.min(12, (pRating / 2000) * 12);
+                        const contestPts = Math.min(3,  (pContests / 30)  * 3);
+                        actualPts = ratingPts + contestPts;
+                      } else if (platform === 'codechef') {
+                        maxPts = 10;
+                        const ratingPts  = Math.min(8, (pRating / 2200) * 8);
+                        const contestPts = Math.min(2, (pContests / 20)  * 2);
+                        actualPts = ratingPts + contestPts;
+                      } else if (platform === 'geeksforgeeks') {
+                        maxPts = 10;
+                        const ratingPts = Math.min(6, (pRating / 1500) * 6);
+                        const solvedPts = Math.min(4, (pSolved / 300)  * 4);
+                        actualPts = ratingPts + solvedPts;
+                      } else if (platform === 'github') {
+                        maxPts = 30;
+                        const repoScore  = Math.min(15, (pSolved / 15) * 15);
+                        const starScore  = Math.min(5,   pRating);          // stars stored as rating
+                        actualPts = repoScore + starScore;
+                      }
 
-                      const platformWeight = Math.round(
-                        contestAxis    * 0.45 +
-                        problemSolving * 0.25 +
-                        accuracy       * 0.15 +
-                        consistency    * 0.10 +
-                        speed          * 0.05
-                      );
+                      const barPct = Math.min(100, Math.max(4, Math.round((actualPts / maxPts) * 100)));
+                      const displayPts = Math.round(actualPts * 10) / 10;
 
                       return (
                         <div key={platform} className="bg-white/[0.03] border border-white/5 rounded-xl p-3 flex flex-col gap-2">
@@ -580,21 +607,21 @@ export default function LeaderboardPage() {
                             <span className="text-xs font-black capitalize" style={{ color }}>{platform}</span>
                             <div className="flex items-center gap-2">
                               <span className="text-[10px] font-bold text-gray-500 bg-white/5 border border-white/10 px-1.5 py-0.5 rounded-md">
-                                Weight: {platformWeight} pts
+                                Score: {displayPts}/{maxPts} pts
                               </span>
-                              <span className="text-xs font-bold text-white">{data.rating > 0 ? `${data.rating} pts` : 'Not rated'}</span>
+                              <span className="text-xs font-bold text-white">{pRating > 0 ? `${pRating} pts` : 'Not rated'}</span>
                             </div>
                           </div>
-                          <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                          <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
                             <div className="h-full rounded-full transition-all duration-700" style={{
-                              width: `${Math.min(100, Math.max(10, platformWeight))}%`,
+                              width: `${barPct}%`,
                               backgroundColor: color,
                               boxShadow: `0 0 6px ${color}`
                             }} />
                           </div>
                           <div className="flex items-center justify-between text-[10px] text-gray-600 font-semibold">
-                            <span>{data.solved} solved</span>
-                            <span>{data.contests} contests</span>
+                            <span>{pSolved} solved</span>
+                            <span>{pContests} contests</span>
                           </div>
                         </div>
                       );
@@ -708,10 +735,11 @@ export default function LeaderboardPage() {
                     <select
                       value={filter.value}
                       onChange={(e) => filter.onChange(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-xs font-bold text-white cursor-pointer hover:border-white/20 transition-all appearance-none focus:outline-none focus:border-[#FF8A00]/50"
+                      className="w-full border border-white/10 rounded-lg px-3 py-2.5 text-xs font-bold text-white cursor-pointer hover:border-white/20 transition-all appearance-none focus:outline-none focus:border-[#FF8A00]/50"
+                      style={{ backgroundColor: '#101014' }}
                     >
                       {filter.options.map(opt => (
-                        <option key={opt} value={opt} className="bg-[#101014] text-white py-2">
+                        <option key={opt} value={opt} style={{ backgroundColor: '#101014', color: '#fff' }}>
                           {opt}
                         </option>
                       ))}
@@ -914,7 +942,7 @@ export default function LeaderboardPage() {
                 </div>
                 <div className="col-span-2 text-right flex items-center justify-end">Problems Solved</div>
                 <div className="col-span-1 text-right flex items-center justify-end">Contests</div>
-                <div className="col-span-1 text-right flex items-center justify-end leading-tight">Win Rate</div>
+                <div className="col-span-1 text-right flex items-center justify-end leading-tight">Best Rating</div>
                 <div className="col-span-1 text-center flex items-center justify-center">Badge</div>
              </div>
 
@@ -927,14 +955,53 @@ export default function LeaderboardPage() {
                   </div>
                 ) : displayData.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-                    <Trophy size={48} className="text-gray-600/30 mb-4 animate-pulse" />
-                    <h3 className="text-sm font-black text-white mb-2">No Active Coders Yet</h3>
-                    <p className="text-[11px] text-gray-500 max-w-xs mb-6 leading-relaxed">
-                      Connect your developer accounts (LeetCode, Codeforces, CodeChef, GitHub) in the Dashboard to join the real-time leaderboard rankings!
-                    </p>
-                    <Link href="/dashboard" className="px-4 py-2 bg-[#FF8A00] hover:bg-[#E07A00] text-black text-[11px] font-black rounded-lg transition-all shadow-[0_0_15px_rgba(255,138,0,0.15)]">
-                      Connect Profiles
-                    </Link>
+                    {activeLeaderboard === 'University Leaderboard' ? (
+                      !user ? (
+                        <>
+                          <Building2 size={48} className="text-gray-600/30 mb-4" />
+                          <h3 className="text-sm font-black text-white mb-2">Login Required</h3>
+                          <p className="text-[11px] text-gray-500 max-w-xs mb-6 leading-relaxed">
+                            Please log in to see your university leaderboard and compete with your college peers!
+                          </p>
+                          <Link href="/login" className="px-4 py-2 bg-[#FF8A00] hover:bg-[#E07A00] text-black text-[11px] font-black rounded-lg transition-all">
+                            Log In
+                          </Link>
+                        </>
+                      ) : !myCollege ? (
+                        <>
+                          <Building2 size={48} className="text-gray-600/30 mb-4 animate-pulse" />
+                          <h3 className="text-sm font-black text-white mb-2">No University Set</h3>
+                          <p className="text-[11px] text-gray-500 max-w-xs mb-6 leading-relaxed">
+                            Set your college or university in your profile to see your campus leaderboard!
+                          </p>
+                          <Link href="/profile" className="px-4 py-2 bg-[#FF8A00] hover:bg-[#E07A00] text-black text-[11px] font-black rounded-lg transition-all">
+                            Set University →
+                          </Link>
+                        </>
+                      ) : (
+                        <>
+                          <Building2 size={48} className="text-gray-600/30 mb-4 animate-pulse" />
+                          <h3 className="text-sm font-black text-white mb-2">No Peers Found Yet</h3>
+                          <p className="text-[11px] text-gray-500 max-w-xs mb-6 leading-relaxed">
+                            No other coders from <span className="text-[#FF8A00] font-black">{myCollege}</span> have joined yet. Invite your friends!
+                          </p>
+                          <Link href="/dashboard" className="px-4 py-2 bg-[#FF8A00] hover:bg-[#E07A00] text-black text-[11px] font-black rounded-lg transition-all">
+                            Connect Profiles
+                          </Link>
+                        </>
+                      )
+                    ) : (
+                      <>
+                        <Trophy size={48} className="text-gray-600/30 mb-4 animate-pulse" />
+                        <h3 className="text-sm font-black text-white mb-2">No Active Coders Yet</h3>
+                        <p className="text-[11px] text-gray-500 max-w-xs mb-6 leading-relaxed">
+                          Connect your developer accounts (LeetCode, Codeforces, CodeChef, GitHub) in the Dashboard to join the real-time leaderboard rankings!
+                        </p>
+                        <Link href="/dashboard" className="px-4 py-2 bg-[#FF8A00] hover:bg-[#E07A00] text-black text-[11px] font-black rounded-lg transition-all shadow-[0_0_15px_rgba(255,138,0,0.15)]">
+                          Connect Profiles
+                        </Link>
+                      </>
+                    )}
                   </div>
                 ) : (
                   displayData.map((row, i) => (
@@ -1032,10 +1099,12 @@ export default function LeaderboardPage() {
                         )}
                       </div>
 
-                      {/* Win Rate */}
+                      {/* Best Rating */}
                       <div className="col-span-1 flex items-center justify-end text-sm font-bold">
-                        {row.hasData ? (
-                          <span className="text-gray-300">{row.winRate}%</span>
+                        {row.hasData && (row.bestRating ?? 0) > 0 ? (
+                          <span className="text-purple-400">{(row.bestRating ?? 0).toLocaleString()}</span>
+                        ) : row.hasData ? (
+                          <span className="text-gray-600 text-xs font-bold">Unrated</span>
                         ) : (
                           <span className="text-gray-700 italic">—</span>
                         )}
@@ -1265,7 +1334,7 @@ export default function LeaderboardPage() {
                 {/* Standing points */}
                 <div className="flex flex-col items-end shrink-0">
                   <span className="text-sm font-black text-[#FF8A00]">
-                    {activeLeaderboard === 'Contest Leaderboard' ? `${(myStanding.rawCombinedRating || 0).toLocaleString()}` : `${myStanding.rating}/100`}
+                    {activeLeaderboard === 'Contest Leaderboard' ? `${(myStanding.contestRating ?? myStanding.rawCombinedRating ?? 0).toLocaleString()}` : `${myStanding.rating}/100`}
                   </span>
                   <span className="text-[7px] text-gray-600 font-black uppercase tracking-widest">
                     {activeLeaderboard === 'Contest Leaderboard' ? 'Rating' : 'Score'}
@@ -1304,7 +1373,7 @@ export default function LeaderboardPage() {
                     { subject: 'Accuracy', value: values[3], fullMark: 100 },
                     { subject: 'Consistency', value: values[4], fullMark: 100 },
                   ]} margin={{ top: 5, right: 20, bottom: 5, left: 20 }}>
-                    <PolarGrid stroke="rgba(255,255,255,0.06)" />
+                    <PolarGrid stroke="var(--radar-grid)" />
                     <PolarAngleAxis dataKey="subject" tick={{ fill: '#6b7280', fontSize: 8, fontWeight: 700 }} />
                     <PolarRadiusAxis angle={90} domain={[0, 100]} tick={false} axisLine={false} />
                     <Radar dataKey="value" stroke="#FF8A00" fill="#FF8A00" fillOpacity={0.15} strokeWidth={1.5}

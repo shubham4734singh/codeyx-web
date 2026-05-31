@@ -4,7 +4,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { RefreshCw, CheckCircle, XCircle, Clock, Zap, Users, ChevronRight, Play, Pause } from "lucide-react";
 import { useAuth } from "@clerk/nextjs";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5005/api";
+const getApiUrl = () => {
+  if (typeof window !== "undefined" && window.location.hostname === "localhost") {
+    return "http://localhost:5005/api";
+  }
+  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:5005/api";
+};
+const API_URL = getApiUrl();
 const DELAY_BETWEEN_SYNCS_MS = 3000; // 3s delay between each user to avoid rate limits
 
 type SyncStatus = "idle" | "pending" | "syncing" | "done" | "error";
@@ -29,15 +35,57 @@ export default function SyncPage() {
   const [totalDone, setTotalDone] = useState(0);
   const pauseRef = useRef(false);
 
+  // Group flat entries by userId for display
+  const groupedUsers = React.useMemo(() => {
+    const groups: Record<string, {
+      userId: string;
+      displayName: string;
+      avatarUrl?: string;
+      platforms: {
+        platform: string;
+        username: string;
+        status: SyncStatus;
+        message?: string;
+        originalIndex: number;
+      }[];
+    }> = {};
+
+    entries.forEach((entry, originalIndex) => {
+      if (!groups[entry.userId]) {
+        groups[entry.userId] = {
+          userId: entry.userId,
+          displayName: entry.displayName,
+          avatarUrl: entry.avatarUrl,
+          platforms: [],
+        };
+      }
+      groups[entry.userId].platforms.push({
+        platform: entry.platform,
+        username: entry.username,
+        status: entry.status,
+        message: entry.message,
+        originalIndex,
+      });
+    });
+
+    return Object.values(groups);
+  }, [entries]);
+
+  const [fetchError, setFetchError] = useState<string | null>(null);
+
   // Fetch all connected platform stats
   const fetchEntries = async () => {
     setIsLoading(true);
+    setFetchError(null);
     try {
       const token = await getToken();
       const res = await fetch(`${API_URL}/admin/sync-list`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data.message || `Server responded with HTTP ${res.status}: ${res.statusText}`);
+      }
       if (data.success) {
         setEntries(
           data.data.map((e: any) => ({
@@ -45,9 +93,12 @@ export default function SyncPage() {
             status: "idle" as SyncStatus,
           }))
         );
+      } else {
+        throw new Error(data.message || "Failed to load sync list");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Failed to load sync list:", err);
+      setFetchError(err.message || "An unknown error occurred");
     } finally {
       setIsLoading(false);
     }
@@ -245,6 +296,25 @@ export default function SyncPage() {
             Connected Platform Entries ({entries.length})
           </h3>
         </div>
+ 
+        {fetchError && (
+          <div className="flex flex-col items-center justify-center py-10 px-4 text-center bg-red-500/5 border-b border-red-500/10">
+            <XCircle size={32} className="text-red-500 mb-2" />
+            <p className="text-red-400 text-sm font-bold">API Connection Error</p>
+            <p className="text-muted-foreground text-xs mt-1 font-mono max-w-md">{fetchError}</p>
+            {fetchError.toLowerCase().includes("failed to fetch") && (
+              <p className="text-yellow-500/80 text-[10px] mt-2 font-semibold bg-yellow-500/5 border border-yellow-500/10 rounded-lg px-3 py-1.5 max-w-sm">
+                💡 Tip: Please ensure your backend dev server is running! Run <code className="bg-black/40 px-1 py-0.5 rounded text-white font-mono text-[9px]">npm run dev</code> inside the <code className="bg-black/40 px-1 py-0.5 rounded text-white font-mono text-[9px]">backend</code> directory (Port 5005).
+              </p>
+            )}
+            <button
+              onClick={fetchEntries}
+              className="mt-3 px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs font-bold transition-colors"
+            >
+              Retry Connection
+            </button>
+          </div>
+        )}
 
         {isLoading ? (
           <div className="flex items-center justify-center py-20 gap-3">
@@ -258,43 +328,63 @@ export default function SyncPage() {
           </div>
         ) : (
           <div className="divide-y divide-border max-h-[60vh] overflow-y-auto">
-            {entries.map((entry, i) => (
+            {groupedUsers.map((user, i) => (
               <div
-                key={`${entry.userId}-${entry.platform}`}
-                className={`flex items-center gap-4 px-4 py-3 border-l-2 transition-all ${
-                  currentIdx === i ? "border-l-blue-500" : "border-l-transparent"
-                } ${getStatusBg(entry.status)}`}
+                key={user.userId}
+                className="flex flex-col md:flex-row md:items-center justify-between gap-4 px-5 py-4 hover:bg-white/[0.01] transition-all"
               >
-                <div className="w-6 flex justify-center shrink-0">
-                  {getStatusIcon(entry.status, currentIdx === i)}
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-foreground truncate">
-                      {entry.displayName || entry.userId.slice(-6)}
-                    </span>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
-                      entry.platform === "leetcode"   ? "bg-yellow-500/10 text-yellow-400 border-yellow-500/20" :
-                      entry.platform === "codeforces" ? "bg-blue-500/10   text-blue-400   border-blue-500/20"   :
-                      entry.platform === "codechef"   ? "bg-purple-500/10 text-purple-400 border-purple-500/20" :
-                      entry.platform === "github"     ? "bg-gray-500/10   text-gray-400   border-gray-500/20"   :
-                      "bg-orange-500/10 text-orange-400 border-orange-500/20"
-                    }`}>
-                      {entry.platform}
-                    </span>
+                {/* User Info (Left) */}
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold text-sm shrink-0 uppercase">
+                    {user.displayName ? user.displayName[0] : "?"}
                   </div>
-                  <p className="text-xs text-muted-foreground truncate">@{entry.username}</p>
-                  {entry.message && (
-                    <p className={`text-[10px] mt-0.5 font-semibold ${
-                      entry.status === "error" ? "text-red-400" : "text-emerald-400"
-                    }`}>
-                      {entry.message}
-                    </p>
-                  )}
+                  <div className="min-w-0">
+                    <span className="text-sm font-bold text-foreground block truncate">
+                      {user.displayName || `User ${user.userId.slice(-6)}`}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground font-mono truncate block">ID: {user.userId}</span>
+                  </div>
                 </div>
 
-                <span className="text-xs text-muted-foreground font-mono shrink-0">#{i + 1}</span>
+                {/* Platforms & Sync Buttons (Right) */}
+                <div className="flex flex-wrap items-center gap-2">
+                  {user.platforms.map((plat) => {
+                    const colorMap: Record<string, string> = {
+                      leetcode: "hover:bg-yellow-500/20 text-yellow-400 border-yellow-500/20 bg-yellow-500/5",
+                      codeforces: "hover:bg-blue-500/20 text-blue-400 border-blue-500/20 bg-blue-500/5",
+                      codechef: "hover:bg-purple-500/20 text-purple-400 border-purple-500/20 bg-purple-500/5",
+                      github: "hover:bg-gray-500/20 text-gray-400 border-gray-500/20 bg-gray-500/5",
+                      geeksforgeeks: "hover:bg-emerald-500/20 text-emerald-400 border-emerald-500/20 bg-emerald-500/5",
+                    };
+                    const badgeClass = colorMap[plat.platform] || "hover:bg-orange-500/20 text-orange-400 border-orange-500/20 bg-orange-500/5";
+
+                    return (
+                      <div key={plat.platform} className="flex flex-col gap-1 items-end">
+                        <button
+                          onClick={async () => {
+                            const token = await getToken() || "";
+                            await syncOne(plat.originalIndex, token);
+                          }}
+                          disabled={isBulkRunning || plat.status === "syncing"}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed ${badgeClass} ${
+                            plat.status === "syncing" ? "ring-2 ring-primary animate-pulse" :
+                            plat.status === "done" ? "border-emerald-500 bg-emerald-500/10 text-emerald-400" :
+                            plat.status === "error" ? "border-red-500 bg-red-500/10 text-red-400" : ""
+                          }`}
+                        >
+                          <RefreshCw size={11} className={plat.status === "syncing" ? "animate-spin" : ""} />
+                          <span className="capitalize">{plat.platform}</span>
+                          <span className="text-[10px] opacity-60 font-mono font-normal">(@{plat.username})</span>
+                        </button>
+                        {plat.message && (
+                          <span className={`text-[9px] px-1 font-semibold block ${plat.status === "error" ? "text-red-400" : "text-emerald-400"}`}>
+                            {plat.message}
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             ))}
           </div>

@@ -8,6 +8,7 @@
   --text-main: #111827;
   --text-muted: #6B7280;
   --border-color: #E5E7EB;
+  --radar-grid: rgba(0, 0, 0, 0.08);
 }
 
 .dark {
@@ -16,6 +17,7 @@
   --text-main: #E5E7EB;
   --text-muted: #9CA3AF;
   --border-color: rgba(255, 255, 255, 0.08);
+  --radar-grid: rgba(255, 255, 255, 0.08);
 }
 
 body {
@@ -257,6 +259,25 @@ html:not(.dark) .from-\[\#101014\] { --tw-gradient-from: #FFFFFF !important; --t
 html:not(.dark) .text-\[\#c9d1d9\] { color: #24292F !important; }
 html:not(.dark) .text-\[\#FAFAFA\] { color: #111827 !important; }
 html:not(.dark) .text-\[\#f0f6fc\] { color: #111827 !important; }
+
+/* ── Leaderboard Popup Modal & Border overrides for Light Mode ── */
+html:not(.dark) .bg-\[\#0d0d12\] { background-color: #FFFFFF !important; }
+html:not(.dark) .border-\[\#0d0d12\] { border-color: #FFFFFF !important; }
+
+/* ── Native select/option dark mode fix ── */
+/* Browsers ignore CSS on <option> — use colorscheme property instead */
+.dark select,
+.dark select option {
+  color-scheme: dark;
+  background-color: #101014;
+  color: #e5e7eb;
+}
+html:not(.dark) select,
+html:not(.dark) select option {
+  color-scheme: light;
+  background-color: #ffffff;
+  color: #111827;
+}
 
 
 
