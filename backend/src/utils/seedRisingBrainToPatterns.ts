@@ -55,8 +55,8 @@ async function findOrCreateMasterProblem(title: string, difficulty: string, plat
   if (mp) {
     let updated = false;
     const platKey = (platform || 'LeetCode').toLowerCase();
-    if (link && mp.links && !mp.links[platKey]) {
-      mp.links[platKey] = link;
+    if (link && mp.links && !(mp.links as any)[platKey]) {
+      (mp.links as any)[platKey] = link;
       updated = true;
     }
     if (!mp.link && link) {
@@ -70,7 +70,7 @@ async function findOrCreateMasterProblem(title: string, difficulty: string, plat
   }
 
   const nextId = await getNextProblemId();
-  const mappedDifficulty = difficultyMap[difficulty] || 'Medium';
+  const mappedDifficulty = (difficultyMap[difficulty] || 'Medium') as 'Easy' | 'Medium' | 'Hard';
 
   const links: Record<string, string> = {};
   const platKey = (platform || 'LeetCode').toLowerCase();
