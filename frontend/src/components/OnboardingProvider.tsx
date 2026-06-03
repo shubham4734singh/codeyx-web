@@ -29,6 +29,15 @@ export interface UserProfile {
   isOnboarded: boolean;
   step1Complete: boolean;
   platformHandles: PlatformHandles;
+  bio?: string;
+  portfolio?: string;
+  socialLinks?: {
+    linkedin?: string;
+    github?: string;
+    twitter?: string;
+    instagram?: string;
+    website?: string;
+  };
 }
 
 interface OnboardingContextProps {
@@ -63,6 +72,12 @@ const defaultProfile: UserProfile = {
   isOnboarded: false,
   step1Complete: false,
   platformHandles: { ...defaultPlatformHandles },
+  bio: '',
+  portfolio: '',
+  socialLinks: {
+    linkedin: '',
+    github: '',
+  }
 };
 
 const OnboardingContext = createContext<OnboardingContextProps | undefined>(undefined);
