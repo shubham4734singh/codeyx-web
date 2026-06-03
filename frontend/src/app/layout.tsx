@@ -49,6 +49,9 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
   },
+  other: {
+    "google-adsense-account": "ca-pub-2934790485812892",
+  },
 };
 
 import NextTopLoader from 'nextjs-toploader';

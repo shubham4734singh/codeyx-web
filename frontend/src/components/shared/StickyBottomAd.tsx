@@ -16,8 +16,8 @@ interface AdSettings {
 export default function StickyBottomAd() {
   const [adSettings, setAdSettings] = useState<AdSettings>({
     adType: 'custom',
-    googleAdClient: 'ca-pub-YOUR_PUBLISHER_ID',
-    googleAdSlot: 'YOUR_DEFAULT_SLOT_ID',
+    googleAdClient: 'ca-pub-2934790485812892',
+    googleAdSlot: '',
     customAdImageUrl: '',
     customAdLinkUrl: 'https://codeyx.com/premium',
     customAdTitle: 'Codeyx Premium Pro',

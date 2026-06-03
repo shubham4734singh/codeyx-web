@@ -143,14 +143,33 @@ app.get('/api/settings', async (req, res) => {
     let settings = await SystemSettings.findOne();
     if (!settings) {
       settings = await SystemSettings.create({});
+    } else {
+      // Self-healing migration for old placeholder values in database
+      let updated = false;
+      if (settings.googleAdClient === 'ca-pub-YOUR_PUBLISHER_ID') {
+        settings.googleAdClient = 'ca-pub-2934790485812892';
+        updated = true;
+      }
+      if (settings.googleAdSlot === 'YOUR_DEFAULT_SLOT_ID') {
+        settings.googleAdSlot = '';
+        updated = true;
+      }
+      if (settings.googleAdSlotSidebar === 'YOUR_DEFAULT_SLOT_ID') {
+        settings.googleAdSlotSidebar = '';
+        updated = true;
+      }
+      if (updated) {
+        await settings.save();
+      }
     }
     const publicSettings = {
       platformName: settings.platformName,
       siteDescription: settings.siteDescription,
       maintenanceMode: settings.maintenanceMode,
       adType: settings.adType || 'google',
-      googleAdClient: settings.googleAdClient || 'ca-pub-YOUR_PUBLISHER_ID',
-      googleAdSlot: settings.googleAdSlot || 'YOUR_DEFAULT_SLOT_ID',
+      googleAdClient: settings.googleAdClient || 'ca-pub-2934790485812892',
+      googleAdSlot: settings.googleAdSlot || '',
+      googleAdSlotSidebar: settings.googleAdSlotSidebar || '',
       customAdImageUrl: settings.customAdImageUrl || '',
       customAdLinkUrl: settings.customAdLinkUrl || '',
       customAdTitle: settings.customAdTitle || '',

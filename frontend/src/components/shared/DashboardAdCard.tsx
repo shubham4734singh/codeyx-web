@@ -17,9 +17,9 @@ interface AdSettings {
 export default function DashboardAdCard() {
   const [adSettings, setAdSettings] = useState<AdSettings>({
     adType: 'custom',
-    googleAdClient: 'ca-pub-YOUR_PUBLISHER_ID',
-    googleAdSlot: 'YOUR_DEFAULT_SLOT_ID',
-    googleAdSlotSidebar: 'YOUR_DEFAULT_SLOT_ID',
+    googleAdClient: 'ca-pub-2934790485812892',
+    googleAdSlot: '',
+    googleAdSlotSidebar: '',
     customAdImageUrl: '',
     customAdLinkUrl: 'https://codeyx.com/premium',
     customAdTitle: 'Codeyx Premium Pro',

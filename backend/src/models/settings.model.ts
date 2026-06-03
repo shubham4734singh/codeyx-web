@@ -32,9 +32,9 @@ const SystemSettingsSchema = new Schema<ISystemSettings>(
     
     // Ad Settings
     adType: { type: String, enum: ['google', 'custom', 'none'], default: 'google' },
-    googleAdClient: { type: String, default: 'ca-pub-YOUR_PUBLISHER_ID' },
-    googleAdSlot: { type: String, default: 'YOUR_DEFAULT_SLOT_ID' },
-    googleAdSlotSidebar: { type: String, default: 'YOUR_DEFAULT_SLOT_ID' },
+    googleAdClient: { type: String, default: 'ca-pub-2934790485812892' },
+    googleAdSlot: { type: String, default: '' },
+    googleAdSlotSidebar: { type: String, default: '' },
     customAdImageUrl: { type: String, default: '' },
     customAdLinkUrl: { type: String, default: '' },
     customAdTitle: { type: String, default: 'Learn Web Development' },

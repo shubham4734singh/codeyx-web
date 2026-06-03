@@ -10,7 +10,7 @@ interface StickySidebarAdProps {
 
 export default function StickySidebarAd({
   dataAdSlot,
-  dataAdClient = 'ca-pub-YOUR_PUBLISHER_ID', // Replace with your real Publisher ID
+  dataAdClient = 'ca-pub-2934790485812892',
   height = '300px',
 }: StickySidebarAdProps) {
   useEffect(() => {
