@@ -1,31 +1,35 @@
 [
   {
-    "_id": "6a1ba992db7b365cbc785892",
+    "_id": "6a194d0cdb7b365cbc78524b",
     "platform": "leetcode",
-    "userId": "user_3ETHTyIaf4fFQ0rPG1n4Fn1Zxp0",
+    "userId": "user_3EOG2Gt8xauudBD5yxKSHpz381G",
     "__v": 0,
-    "createdAt": "2026-05-31T03:22:58.242Z",
-    "lastSyncedAt": "2026-05-31T14:01:05.925Z",
-    "rating": 0,
+    "createdAt": "2026-05-29T08:23:40.091Z",
+    "lastSyncedAt": "2026-05-30T12:00:05.967Z",
+    "rating": 1469,
     "stats": {
-      "username": "LalitModi90",
-      "totalSolved": 334,
-      "rating": 0,
+      "username": "mTQb0YqjQb",
+      "totalSolved": 182,
+      "rating": 1469,
       "stars": 0,
-      "globalRank": "Global Rank: 392839",
+      "globalRank": "Global Rank: 868762",
       "contests": [
         {
-          "contestName": "Biweekly Contest 182",
-          "rating": 1500,
-          "rank": 0,
+          "contestName": "Biweekly Contest 181",
+          "rating": 1487,
+          "rank": 8310,
+          "ratingChange": 0
+        },
+        {
+          "contestName": "Weekly Contest 502",
+          "rating": 1469,
+          "rank": 14668,
           "ratingChange": 0
         }
       ],
       "followers": 0,
       "badges": [
-        "100 Days Badge 2026",
-        "50 Days Badge 2026",
-        "50 Days Badge 2025"
+        "50 Days Badge 2026"
       ],
       "streak": 0,
       "topics": [
@@ -37,23 +41,9 @@
           "category": "Advanced"
         },
         {
-          "tagName": "Game Theory",
-          "problemsSolved": 1,
-          "count": 1,
-          "name": "Game Theory",
-          "category": "Advanced"
-        },
-        {
-          "tagName": "Rolling Hash",
-          "problemsSolved": 4,
-          "count": 4,
-          "name": "Rolling Hash",
-          "category": "Advanced"
-        },
-        {
           "tagName": "Backtracking",
-          "problemsSolved": 18,
-          "count": 18,
+          "problemsSolved": 19,
+          "count": 19,
           "name": "Backtracking",
           "category": "Advanced"
         },
@@ -66,99 +56,85 @@
         },
         {
           "tagName": "Dynamic Programming",
-          "problemsSolved": 32,
-          "count": 32,
+          "problemsSolved": 9,
+          "count": 9,
           "name": "Dynamic Programming",
           "category": "Advanced"
         },
         {
           "tagName": "Divide and Conquer",
-          "problemsSolved": 15,
-          "count": 15,
+          "problemsSolved": 6,
+          "count": 6,
           "name": "Divide and Conquer",
           "category": "Advanced"
         },
         {
           "tagName": "Trie",
-          "problemsSolved": 3,
-          "count": 3,
+          "problemsSolved": 2,
+          "count": 2,
           "name": "Trie",
           "category": "Advanced"
         },
         {
-          "tagName": "Union-Find",
+          "tagName": "Binary Indexed Tree",
           "problemsSolved": 1,
           "count": 1,
-          "name": "Union-Find",
-          "category": "Advanced"
-        },
-        {
-          "tagName": "Binary Indexed Tree",
-          "problemsSolved": 2,
-          "count": 2,
           "name": "Binary Indexed Tree",
           "category": "Advanced"
         },
         {
           "tagName": "Segment Tree",
-          "problemsSolved": 2,
-          "count": 2,
+          "problemsSolved": 1,
+          "count": 1,
           "name": "Segment Tree",
           "category": "Advanced"
         },
         {
           "tagName": "Monotonic Stack",
-          "problemsSolved": 17,
-          "count": 17,
+          "problemsSolved": 14,
+          "count": 14,
           "name": "Monotonic Stack",
           "category": "Advanced"
         },
         {
-          "tagName": "Monotonic Queue",
-          "problemsSolved": 3,
-          "count": 3,
-          "name": "Monotonic Queue",
-          "category": "Advanced"
-        },
-        {
           "tagName": "Tree",
-          "problemsSolved": 21,
-          "count": 21,
+          "problemsSolved": 20,
+          "count": 20,
           "name": "Tree",
           "category": "Intermediate"
         },
         {
           "tagName": "Binary Tree",
-          "problemsSolved": 21,
-          "count": 21,
+          "problemsSolved": 20,
+          "count": 20,
           "name": "Binary Tree",
           "category": "Intermediate"
         },
         {
           "tagName": "Hash Table",
-          "problemsSolved": 63,
-          "count": 63,
+          "problemsSolved": 29,
+          "count": 29,
           "name": "Hash Table",
           "category": "Intermediate"
         },
         {
           "tagName": "Ordered Set",
-          "problemsSolved": 4,
-          "count": 4,
+          "problemsSolved": 1,
+          "count": 1,
           "name": "Ordered Set",
           "category": "Intermediate"
         },
         {
           "tagName": "Greedy",
-          "problemsSolved": 18,
-          "count": 18,
+          "problemsSolved": 10,
+          "count": 10,
           "name": "Greedy",
           "category": "Intermediate"
         },
         {
           "tagName": "Binary Search",
-          "problemsSolved": 37,
-          "count": 37,
+          "problemsSolved": 9,
+          "count": 9,
           "name": "Binary Search",
           "category": "Intermediate"
         },
@@ -178,121 +154,121 @@
         },
         {
           "tagName": "Recursion",
-          "problemsSolved": 24,
-          "count": 24,
+          "problemsSolved": 16,
+          "count": 16,
           "name": "Recursion",
           "category": "Intermediate"
         },
         {
           "tagName": "Sliding Window",
-          "problemsSolved": 25,
-          "count": 25,
+          "problemsSolved": 10,
+          "count": 10,
           "name": "Sliding Window",
           "category": "Intermediate"
         },
         {
           "tagName": "Bit Manipulation",
-          "problemsSolved": 33,
-          "count": 33,
+          "problemsSolved": 26,
+          "count": 26,
           "name": "Bit Manipulation",
           "category": "Intermediate"
         },
         {
           "tagName": "Math",
-          "problemsSolved": 56,
-          "count": 56,
+          "problemsSolved": 31,
+          "count": 31,
           "name": "Math",
           "category": "Intermediate"
         },
         {
           "tagName": "Design",
-          "problemsSolved": 12,
-          "count": 12,
+          "problemsSolved": 8,
+          "count": 8,
           "name": "Design",
           "category": "Intermediate"
         },
         {
           "tagName": "Brainteaser",
-          "problemsSolved": 2,
-          "count": 2,
+          "problemsSolved": 1,
+          "count": 1,
           "name": "Brainteaser",
           "category": "Intermediate"
         },
         {
           "tagName": "Array",
-          "problemsSolved": 176,
-          "count": 176,
+          "problemsSolved": 86,
+          "count": 86,
           "name": "Array",
           "category": "Fundamental"
         },
         {
           "tagName": "Matrix",
-          "problemsSolved": 23,
-          "count": 23,
+          "problemsSolved": 14,
+          "count": 14,
           "name": "Matrix",
           "category": "Fundamental"
         },
         {
           "tagName": "String",
-          "problemsSolved": 79,
-          "count": 79,
+          "problemsSolved": 37,
+          "count": 37,
           "name": "String",
           "category": "Fundamental"
         },
         {
           "tagName": "Simulation",
-          "problemsSolved": 27,
-          "count": 27,
+          "problemsSolved": 19,
+          "count": 19,
           "name": "Simulation",
           "category": "Fundamental"
         },
         {
           "tagName": "Enumeration",
-          "problemsSolved": 6,
-          "count": 6,
+          "problemsSolved": 4,
+          "count": 4,
           "name": "Enumeration",
           "category": "Fundamental"
         },
         {
           "tagName": "Sorting",
-          "problemsSolved": 38,
-          "count": 38,
+          "problemsSolved": 23,
+          "count": 23,
           "name": "Sorting",
           "category": "Fundamental"
         },
         {
           "tagName": "Stack",
-          "problemsSolved": 49,
-          "count": 49,
+          "problemsSolved": 39,
+          "count": 39,
           "name": "Stack",
           "category": "Fundamental"
         },
         {
           "tagName": "Queue",
-          "problemsSolved": 6,
-          "count": 6,
+          "problemsSolved": 3,
+          "count": 3,
           "name": "Queue",
           "category": "Fundamental"
         },
         {
           "tagName": "Linked List",
-          "problemsSolved": 34,
-          "count": 34,
+          "problemsSolved": 15,
+          "count": 15,
           "name": "Linked List",
           "category": "Fundamental"
         },
         {
           "tagName": "Two Pointers",
-          "problemsSolved": 46,
-          "count": 46,
+          "problemsSolved": 19,
+          "count": 19,
           "name": "Two Pointers",
           "category": "Fundamental"
         }
       ],
       "submissions": [
         {
-          "name": "Binary Tree Maximum Path Sum",
-          "date": "5/31/2026, 7:30:42 AM",
+          "name": "Two Sum",
+          "date": "5/30/2026, 9:50:31 AM",
           "status": "Accepted",
           "language": "java",
           "memory": "Unknown",
@@ -300,8 +276,8 @@
           "difficulty": "Unknown"
         },
         {
-          "name": "Sum Root to Leaf Numbers",
-          "date": "5/30/2026, 5:26:38 AM",
+          "name": "Two Sum",
+          "date": "5/30/2026, 9:48:02 AM",
           "status": "Accepted",
           "language": "java",
           "memory": "Unknown",
@@ -309,8 +285,8 @@
           "difficulty": "Unknown"
         },
         {
-          "name": "Path Sum II",
-          "date": "5/29/2026, 10:57:37 AM",
+          "name": "Two Sum",
+          "date": "5/30/2026, 9:45:21 AM",
           "status": "Accepted",
           "language": "java",
           "memory": "Unknown",
@@ -318,8 +294,8 @@
           "difficulty": "Unknown"
         },
         {
-          "name": "Vertical Order Traversal of a Binary Tree",
-          "date": "5/28/2026, 4:21:09 AM",
+          "name": "Two Sum",
+          "date": "5/30/2026, 9:44:33 AM",
           "status": "Accepted",
           "language": "java",
           "memory": "Unknown",
@@ -327,8 +303,8 @@
           "difficulty": "Unknown"
         },
         {
-          "name": "Cousins in Binary Tree",
-          "date": "5/27/2026, 4:52:42 AM",
+          "name": "Two Sum",
+          "date": "5/30/2026, 9:43:41 AM",
           "status": "Accepted",
           "language": "java",
           "memory": "Unknown",
@@ -336,8 +312,8 @@
           "difficulty": "Unknown"
         },
         {
-          "name": "Binary Tree Zigzag Level Order Traversal",
-          "date": "5/26/2026, 7:36:18 AM",
+          "name": "Two Sum",
+          "date": "5/30/2026, 9:42:25 AM",
           "status": "Accepted",
           "language": "java",
           "memory": "Unknown",
@@ -345,8 +321,8 @@
           "difficulty": "Unknown"
         },
         {
-          "name": "Binary Tree Level Order Traversal",
-          "date": "5/26/2026, 7:23:55 AM",
+          "name": "Two Sum",
+          "date": "5/30/2026, 9:39:54 AM",
           "status": "Accepted",
           "language": "java",
           "memory": "Unknown",
@@ -354,8 +330,8 @@
           "difficulty": "Unknown"
         },
         {
-          "name": "Invert Binary Tree",
-          "date": "5/26/2026, 2:39:43 AM",
+          "name": "Two Sum",
+          "date": "5/30/2026, 9:35:45 AM",
           "status": "Accepted",
           "language": "java",
           "memory": "Unknown",
@@ -363,63 +339,63 @@
           "difficulty": "Unknown"
         },
         {
-          "name": "Invert Binary Tree",
-          "date": "5/26/2026, 2:38:46 AM",
+          "name": "Two Sum",
+          "date": "5/30/2026, 6:51:54 AM",
+          "status": "Accepted",
+          "language": "java",
+          "memory": "Unknown",
+          "runtime": "Unknown",
+          "difficulty": "Unknown"
+        },
+        {
+          "name": "Two Sum",
+          "date": "5/30/2026, 6:49:12 AM",
+          "status": "Accepted",
+          "language": "java",
+          "memory": "Unknown",
+          "runtime": "Unknown",
+          "difficulty": "Unknown"
+        },
+        {
+          "name": "Two Sum",
+          "date": "5/30/2026, 6:47:25 AM",
+          "status": "Accepted",
+          "language": "java",
+          "memory": "Unknown",
+          "runtime": "Unknown",
+          "difficulty": "Unknown"
+        },
+        {
+          "name": "Two Sum",
+          "date": "5/30/2026, 6:45:29 AM",
+          "status": "Accepted",
+          "language": "java",
+          "memory": "Unknown",
+          "runtime": "Unknown",
+          "difficulty": "Unknown"
+        },
+        {
+          "name": "Two Sum",
+          "date": "5/30/2026, 6:43:54 AM",
+          "status": "Accepted",
+          "language": "java",
+          "memory": "Unknown",
+          "runtime": "Unknown",
+          "difficulty": "Unknown"
+        },
+        {
+          "name": "Two Sum",
+          "date": "5/30/2026, 6:38:13 AM",
+          "status": "Accepted",
+          "language": "java",
+          "memory": "Unknown",
+          "runtime": "Unknown",
+          "difficulty": "Unknown"
+        },
+        {
+          "name": "Two Sum",
+          "date": "5/30/2026, 6:35:53 AM",
           "status": "Wrong Answer",
-          "language": "java",
-          "memory": "Unknown",
-          "runtime": "Unknown",
-          "difficulty": "Unknown"
-        },
-        {
-          "name": "Invert Binary Tree",
-          "date": "5/25/2026, 4:40:34 AM",
-          "status": "Wrong Answer",
-          "language": "java",
-          "memory": "Unknown",
-          "runtime": "Unknown",
-          "difficulty": "Unknown"
-        },
-        {
-          "name": "Minimum Depth of Binary Tree",
-          "date": "5/25/2026, 4:23:17 AM",
-          "status": "Accepted",
-          "language": "java",
-          "memory": "Unknown",
-          "runtime": "Unknown",
-          "difficulty": "Unknown"
-        },
-        {
-          "name": "Symmetric Tree",
-          "date": "5/25/2026, 3:56:33 AM",
-          "status": "Accepted",
-          "language": "java",
-          "memory": "Unknown",
-          "runtime": "Unknown",
-          "difficulty": "Unknown"
-        },
-        {
-          "name": "Balanced Binary Tree",
-          "date": "5/24/2026, 4:19:56 PM",
-          "status": "Accepted",
-          "language": "java",
-          "memory": "Unknown",
-          "runtime": "Unknown",
-          "difficulty": "Unknown"
-        },
-        {
-          "name": "Count Subarrays Where Max Element Appears at Least K Times",
-          "date": "5/23/2026, 11:08:38 PM",
-          "status": "Accepted",
-          "language": "java",
-          "memory": "Unknown",
-          "runtime": "Unknown",
-          "difficulty": "Unknown"
-        },
-        {
-          "name": "Count Subarrays Where Max Element Appears at Least K Times",
-          "date": "5/22/2026, 4:27:56 PM",
-          "status": "Accepted",
           "language": "java",
           "memory": "Unknown",
           "runtime": "Unknown",
@@ -429,383 +405,55 @@
       "languages": [],
       "reputation": 0,
       "extra": {
-        "easy": 146,
-        "medium": 161,
-        "hard": 27,
-        "globalRanking": 392839,
+        "easy": 81,
+        "medium": 86,
+        "hard": 15,
+        "globalRanking": 868762,
         "avatar": "",
         "heatmap": [
           {
-            "date": "2025-06-26",
-            "count": 3
-          },
-          {
-            "date": "2025-06-28",
-            "count": 2
-          },
-          {
-            "date": "2025-07-11",
-            "count": 1
-          },
-          {
-            "date": "2025-07-12",
-            "count": 3
-          },
-          {
-            "date": "2025-07-22",
-            "count": 3
-          },
-          {
-            "date": "2025-07-23",
-            "count": 1
-          },
-          {
-            "date": "2025-08-23",
-            "count": 14
-          },
-          {
-            "date": "2025-08-26",
-            "count": 2
-          },
-          {
-            "date": "2025-08-28",
-            "count": 7
-          },
-          {
-            "date": "2025-09-04",
-            "count": 6
-          },
-          {
-            "date": "2025-09-05",
-            "count": 4
-          },
-          {
-            "date": "2025-09-06",
-            "count": 16
-          },
-          {
-            "date": "2025-09-07",
-            "count": 6
-          },
-          {
-            "date": "2025-09-08",
-            "count": 4
-          },
-          {
-            "date": "2025-09-09",
-            "count": 5
-          },
-          {
-            "date": "2025-09-10",
-            "count": 2
-          },
-          {
-            "date": "2025-09-11",
-            "count": 2
-          },
-          {
-            "date": "2025-09-12",
-            "count": 3
-          },
-          {
-            "date": "2025-09-13",
-            "count": 14
-          },
-          {
-            "date": "2025-09-14",
-            "count": 7
-          },
-          {
-            "date": "2025-09-15",
-            "count": 1
-          },
-          {
-            "date": "2025-09-16",
-            "count": 6
-          },
-          {
-            "date": "2025-09-17",
-            "count": 7
-          },
-          {
-            "date": "2025-09-18",
-            "count": 3
-          },
-          {
-            "date": "2025-09-19",
-            "count": 5
-          },
-          {
-            "date": "2025-09-20",
-            "count": 3
-          },
-          {
-            "date": "2025-09-21",
-            "count": 2
-          },
-          {
-            "date": "2025-09-22",
-            "count": 1
-          },
-          {
-            "date": "2025-09-23",
-            "count": 1
-          },
-          {
-            "date": "2025-09-24",
-            "count": 3
-          },
-          {
-            "date": "2025-09-25",
-            "count": 5
-          },
-          {
-            "date": "2025-09-27",
-            "count": 4
-          },
-          {
-            "date": "2025-09-28",
-            "count": 1
-          },
-          {
-            "date": "2025-10-01",
-            "count": 1
-          },
-          {
-            "date": "2025-10-04",
-            "count": 2
-          },
-          {
-            "date": "2025-10-05",
-            "count": 1
-          },
-          {
-            "date": "2025-10-06",
-            "count": 1
-          },
-          {
-            "date": "2025-10-08",
-            "count": 1
-          },
-          {
-            "date": "2025-12-29",
-            "count": 1
-          },
-          {
-            "date": "2026-02-08",
-            "count": 4
-          },
-          {
-            "date": "2026-02-09",
-            "count": 6
-          },
-          {
-            "date": "2026-02-10",
-            "count": 13
-          },
-          {
-            "date": "2026-02-11",
-            "count": 5
-          },
-          {
-            "date": "2026-02-12",
-            "count": 10
-          },
-          {
-            "date": "2026-02-13",
-            "count": 2
-          },
-          {
-            "date": "2026-02-14",
-            "count": 8
-          },
-          {
-            "date": "2026-02-15",
-            "count": 5
-          },
-          {
-            "date": "2026-02-16",
-            "count": 1
-          },
-          {
-            "date": "2026-02-17",
-            "count": 1
-          },
-          {
-            "date": "2026-02-18",
-            "count": 14
-          },
-          {
-            "date": "2026-02-19",
-            "count": 2
-          },
-          {
-            "date": "2026-02-20",
-            "count": 12
-          },
-          {
-            "date": "2026-02-21",
-            "count": 5
-          },
-          {
-            "date": "2026-02-22",
-            "count": 1
-          },
-          {
-            "date": "2026-02-23",
-            "count": 1
-          },
-          {
-            "date": "2026-02-24",
-            "count": 2
-          },
-          {
-            "date": "2026-02-25",
-            "count": 11
-          },
-          {
-            "date": "2026-02-26",
-            "count": 15
-          },
-          {
             "date": "2026-02-27",
-            "count": 10
-          },
-          {
-            "date": "2026-02-28",
-            "count": 14
-          },
-          {
-            "date": "2026-03-01",
-            "count": 27
-          },
-          {
-            "date": "2026-03-02",
             "count": 2
-          },
-          {
-            "date": "2026-03-03",
-            "count": 33
-          },
-          {
-            "date": "2026-03-04",
-            "count": 11
-          },
-          {
-            "date": "2026-03-05",
-            "count": 12
-          },
-          {
-            "date": "2026-03-06",
-            "count": 6
-          },
-          {
-            "date": "2026-03-07",
-            "count": 2
-          },
-          {
-            "date": "2026-03-08",
-            "count": 3
-          },
-          {
-            "date": "2026-03-09",
-            "count": 14
-          },
-          {
-            "date": "2026-03-10",
-            "count": 7
-          },
-          {
-            "date": "2026-03-11",
-            "count": 11
-          },
-          {
-            "date": "2026-03-12",
-            "count": 11
-          },
-          {
-            "date": "2026-03-13",
-            "count": 9
-          },
-          {
-            "date": "2026-03-14",
-            "count": 1
-          },
-          {
-            "date": "2026-03-15",
-            "count": 5
-          },
-          {
-            "date": "2026-03-16",
-            "count": 1
-          },
-          {
-            "date": "2026-03-17",
-            "count": 2
-          },
-          {
-            "date": "2026-03-19",
-            "count": 5
-          },
-          {
-            "date": "2026-03-20",
-            "count": 1
-          },
-          {
-            "date": "2026-03-21",
-            "count": 5
-          },
-          {
-            "date": "2026-03-22",
-            "count": 2
-          },
-          {
-            "date": "2026-03-23",
-            "count": 3
-          },
-          {
-            "date": "2026-03-24",
-            "count": 10
           },
           {
             "date": "2026-03-25",
-            "count": 11
-          },
-          {
-            "date": "2026-03-26",
-            "count": 8
-          },
-          {
-            "date": "2026-03-27",
-            "count": 3
-          },
-          {
-            "date": "2026-03-28",
-            "count": 3
-          },
-          {
-            "date": "2026-03-29",
-            "count": 6
-          },
-          {
-            "date": "2026-03-30",
-            "count": 3
-          },
-          {
-            "date": "2026-03-31",
             "count": 4
           },
           {
+            "date": "2026-03-26",
+            "count": 12
+          },
+          {
+            "date": "2026-03-27",
+            "count": 6
+          },
+          {
+            "date": "2026-03-28",
+            "count": 5
+          },
+          {
+            "date": "2026-03-29",
+            "count": 33
+          },
+          {
+            "date": "2026-03-30",
+            "count": 20
+          },
+          {
+            "date": "2026-03-31",
+            "count": 15
+          },
+          {
             "date": "2026-04-01",
-            "count": 1
+            "count": 9
           },
           {
             "date": "2026-04-02",
-            "count": 8
+            "count": 15
           },
           {
             "date": "2026-04-03",
-            "count": 1
+            "count": 4
           },
           {
             "date": "2026-04-04",
@@ -813,7 +461,7 @@
           },
           {
             "date": "2026-04-05",
-            "count": 4
+            "count": 9
           },
           {
             "date": "2026-04-06",
@@ -821,11 +469,11 @@
           },
           {
             "date": "2026-04-07",
-            "count": 1
+            "count": 2
           },
           {
             "date": "2026-04-08",
-            "count": 3
+            "count": 4
           },
           {
             "date": "2026-04-09",
@@ -833,15 +481,15 @@
           },
           {
             "date": "2026-04-10",
-            "count": 4
+            "count": 8
           },
           {
             "date": "2026-04-11",
-            "count": 3
+            "count": 11
           },
           {
             "date": "2026-04-12",
-            "count": 6
+            "count": 14
           },
           {
             "date": "2026-04-13",
@@ -849,19 +497,23 @@
           },
           {
             "date": "2026-04-14",
-            "count": 1
+            "count": 2
           },
           {
             "date": "2026-04-15",
-            "count": 4
+            "count": 6
           },
           {
             "date": "2026-04-16",
+            "count": 14
+          },
+          {
+            "date": "2026-04-17",
             "count": 6
           },
           {
             "date": "2026-04-18",
-            "count": 3
+            "count": 10
           },
           {
             "date": "2026-04-19",
@@ -873,23 +525,23 @@
           },
           {
             "date": "2026-04-21",
-            "count": 2
+            "count": 4
           },
           {
             "date": "2026-04-22",
-            "count": 2
+            "count": 9
           },
           {
             "date": "2026-04-23",
-            "count": 1
+            "count": 3
           },
           {
             "date": "2026-04-24",
-            "count": 2
+            "count": 5
           },
           {
             "date": "2026-04-25",
-            "count": 1
+            "count": 16
           },
           {
             "date": "2026-04-26",
@@ -905,19 +557,15 @@
           },
           {
             "date": "2026-04-29",
-            "count": 3
+            "count": 4
           },
           {
             "date": "2026-04-30",
-            "count": 3
-          },
-          {
-            "date": "2026-05-01",
-            "count": 1
+            "count": 5
           },
           {
             "date": "2026-05-02",
-            "count": 1
+            "count": 2
           },
           {
             "date": "2026-05-03",
@@ -925,27 +573,27 @@
           },
           {
             "date": "2026-05-04",
-            "count": 2
-          },
-          {
-            "date": "2026-05-05",
             "count": 3
           },
           {
+            "date": "2026-05-05",
+            "count": 2
+          },
+          {
             "date": "2026-05-06",
-            "count": 4
+            "count": 7
           },
           {
             "date": "2026-05-07",
-            "count": 4
+            "count": 10
           },
           {
             "date": "2026-05-08",
-            "count": 4
+            "count": 6
           },
           {
             "date": "2026-05-09",
-            "count": 19
+            "count": 12
           },
           {
             "date": "2026-05-10",
@@ -953,23 +601,23 @@
           },
           {
             "date": "2026-05-11",
-            "count": 3
+            "count": 10
           },
           {
             "date": "2026-05-12",
-            "count": 3
+            "count": 8
           },
           {
             "date": "2026-05-13",
-            "count": 5
+            "count": 6
           },
           {
             "date": "2026-05-14",
-            "count": 5
+            "count": 9
           },
           {
             "date": "2026-05-15",
-            "count": 6
+            "count": 12
           },
           {
             "date": "2026-05-16",
@@ -977,27 +625,27 @@
           },
           {
             "date": "2026-05-17",
-            "count": 4
+            "count": 8
           },
           {
             "date": "2026-05-18",
-            "count": 3
+            "count": 7
           },
           {
             "date": "2026-05-19",
-            "count": 2
+            "count": 10
           },
           {
             "date": "2026-05-20",
-            "count": 2
+            "count": 17
           },
           {
             "date": "2026-05-21",
-            "count": 5
+            "count": 6
           },
           {
             "date": "2026-05-22",
-            "count": 4
+            "count": 8
           },
           {
             "date": "2026-05-23",
@@ -1005,7 +653,7 @@
           },
           {
             "date": "2026-05-24",
-            "count": 1
+            "count": 3
           },
           {
             "date": "2026-05-25",
@@ -1017,11 +665,11 @@
           },
           {
             "date": "2026-05-27",
-            "count": 1
+            "count": 6
           },
           {
             "date": "2026-05-28",
-            "count": 1
+            "count": 3
           },
           {
             "date": "2026-05-29",
@@ -1029,17 +677,278 @@
           },
           {
             "date": "2026-05-30",
-            "count": 1
-          },
-          {
-            "date": "2026-05-31",
-            "count": 1
+            "count": 16
           }
         ],
         "languages": [],
         "countryRank": 0,
         "globalRank": 0,
+        "name": "mTQb0YqjQb",
+        "country": "",
+        "contests": [],
+        "partiallySolved": 0,
+        "fullySolved": 0
+      },
+      "highestRating": 1469,
+      "resolutionDetails": {
+        "strategyUsed": "backup",
+        "timestamp": "2026-05-30T12:00:05.716Z"
+      }
+    },
+    "totalSolved": 48,
+    "updatedAt": "2026-06-03T05:58:26.681Z",
+    "username": "user_3EOG2Gt8xauudBD5yxKSHpz381G"
+  },
+  {
+    "_id": "6a194d70db7b365cbc785251",
+    "userId": "user_3EOG2Gt8xauudBD5yxKSHpz381G",
+    "platform": "github",
+    "__v": 0,
+    "createdAt": "2026-05-29T08:25:20.417Z",
+    "lastSyncedAt": "2026-06-03T04:00:17.207Z",
+    "rating": 0,
+    "stats": {
+      "username": "LalitModi90",
+      "totalSolved": 5,
+      "rating": 0,
+      "stars": 0,
+      "globalRank": "Developer",
+      "contests": 0,
+      "followers": 1,
+      "languages": [
+        "HTML",
+        "JavaScript",
+        "CSS",
+        "Java",
+        "TypeScript",
+        "Dockerfile",
+        "Batchfile"
+      ],
+      "repositoriesCount": 5,
+      "streak": 0,
+      "extra": {
+        "bio": "",
+        "company": "",
+        "location": "",
+        "blog": "",
+        "twitter": "",
+        "createdDate": "2024-08-01T13:45:40Z",
+        "followingCount": 3,
+        "totalStars": 0,
+        "totalForks": 0,
+        "commitsCount": 0,
+        "prsCount": 0,
+        "issuesCount": 0,
+        "totalContributions": 208,
+        "organizations": [],
+        "repositories": [
+          {
+            "name": "Razorpay-clone-",
+            "description": "",
+            "stars": 0,
+            "forks": 0,
+            "watchers": 0,
+            "language": "HTML",
+            "topics": [],
+            "visibility": "Public",
+            "defaultBranch": "main",
+            "homepage": "",
+            "hasDeployment": false,
+            "deploymentProvider": "Source Only",
+            "updatedAt": "2026-06-01T10:50:35Z"
+          },
+          {
+            "name": "codeyx-web",
+            "description": "AI-powered coding workspace for DSA tracking, contests, sheets, notes, and developer growth.",
+            "stars": 0,
+            "forks": 0,
+            "watchers": 0,
+            "language": "TypeScript",
+            "topics": [],
+            "visibility": "Public",
+            "defaultBranch": "main",
+            "homepage": "https://codeyx-web.vercel.app",
+            "hasDeployment": true,
+            "deploymentProvider": "Vercel",
+            "updatedAt": "2026-05-31T14:39:29Z"
+          },
+          {
+            "name": "project",
+            "description": "",
+            "stars": 0,
+            "forks": 0,
+            "watchers": 0,
+            "language": "Unknown",
+            "topics": [],
+            "visibility": "Public",
+            "defaultBranch": "main",
+            "homepage": "",
+            "hasDeployment": false,
+            "deploymentProvider": "Source Only",
+            "updatedAt": "2026-05-26T02:14:47Z"
+          },
+          {
+            "name": "Student-management-system-JDBC-",
+            "description": "",
+            "stars": 0,
+            "forks": 0,
+            "watchers": 0,
+            "language": "Java",
+            "topics": [],
+            "visibility": "Public",
+            "defaultBranch": "main",
+            "homepage": "",
+            "hasDeployment": false,
+            "deploymentProvider": "Source Only",
+            "updatedAt": "2025-07-29T09:16:37Z"
+          },
+          {
+            "name": "JAVA_web_project",
+            "description": "My first Java web project",
+            "stars": 0,
+            "forks": 0,
+            "watchers": 0,
+            "language": "Java",
+            "topics": [],
+            "visibility": "Public",
+            "defaultBranch": "main",
+            "homepage": "",
+            "hasDeployment": false,
+            "deploymentProvider": "Source Only",
+            "updatedAt": "2025-07-24T13:09:46Z"
+          }
+        ],
+        "heatmap": [
+          {
+            "date": "2025-07-24",
+            "count": 5
+          },
+          {
+            "date": "2025-07-29",
+            "count": 3
+          },
+          {
+            "date": "2025-12-12",
+            "count": 3
+          },
+          {
+            "date": "2025-12-13",
+            "count": 29
+          },
+          {
+            "date": "2025-12-14",
+            "count": 19
+          },
+          {
+            "date": "2025-12-15",
+            "count": 15
+          },
+          {
+            "date": "2025-12-16",
+            "count": 3
+          },
+          {
+            "date": "2025-12-17",
+            "count": 29
+          },
+          {
+            "date": "2025-12-18",
+            "count": 11
+          },
+          {
+            "date": "2025-12-19",
+            "count": 21
+          },
+          {
+            "date": "2025-12-20",
+            "count": 8
+          },
+          {
+            "date": "2026-02-09",
+            "count": 8
+          },
+          {
+            "date": "2026-05-09",
+            "count": 1
+          },
+          {
+            "date": "2026-05-10",
+            "count": 6
+          },
+          {
+            "date": "2026-05-22",
+            "count": 5
+          },
+          {
+            "date": "2026-05-24",
+            "count": 4
+          },
+          {
+            "date": "2026-05-26",
+            "count": 1
+          },
+          {
+            "date": "2026-05-28",
+            "count": 12
+          },
+          {
+            "date": "2026-05-29",
+            "count": 11
+          },
+          {
+            "date": "2026-05-30",
+            "count": 4
+          },
+          {
+            "date": "2026-05-31",
+            "count": 7
+          },
+          {
+            "date": "2026-06-01",
+            "count": 3
+          }
+        ],
+        "languages": [
+          {
+            "language": "HTML",
+            "count": 3,
+            "percentage": 3
+          },
+          {
+            "language": "JavaScript",
+            "count": 2,
+            "percentage": 4
+          },
+          {
+            "language": "CSS",
+            "count": 2,
+            "percentage": 1
+          },
+          {
+            "language": "Java",
+            "count": 2,
+            "percentage": 0
+          },
+          {
+            "language": "TypeScript",
+            "count": 1,
+            "percentage": 91
+          },
+          {
+            "language": "Dockerfile",
+            "count": 1,
+            "percentage": 0
+          },
+          {
+            "language": "Batchfile",
+            "count": 1,
+            "percentage": 0
+          }
+        ],
+        "countryRank": 0,
+        "globalRank": 0,
         "name": "LalitModi90",
+        "avatar": "https://avatars.githubusercontent.com/u/177232141?v=4",
         "country": "",
         "contests": [],
         "partiallySolved": 0,
@@ -1047,68 +956,1660 @@
       },
       "highestRating": 0,
       "resolutionDetails": {
-        "strategyUsed": "backup",
-        "timestamp": "2026-05-31T14:01:05.675Z"
+        "strategyUsed": "primary",
+        "timestamp": "2026-06-03T04:00:16.972Z"
       }
     },
-    "totalSolved": 334,
-    "updatedAt": "2026-05-31T14:01:05.925Z",
+    "totalSolved": 5,
+    "updatedAt": "2026-06-03T04:00:17.208Z",
     "username": "LalitModi90"
   },
   {
-    "_id": "6a1bbbb2db7b365cbc78589d",
-    "userId": "user_3ETHTyIaf4fFQ0rPG1n4Fn1Zxp0",
-    "platform": "codeyx",
+    "_id": "6a1a5fbbdb7b365cbc785628",
+    "userId": "user_3EOG2Gt8xauudBD5yxKSHpz381G",
+    "platform": "codechef",
     "__v": 0,
-    "createdAt": "2026-05-31T04:40:18.151Z",
-    "lastSyncedAt": "2026-05-31T04:40:18.151Z",
-    "rating": 0,
-    "totalSolved": 1,
-    "updatedAt": "2026-05-31T04:47:43.820Z",
-    "username": "user_3ETHTyIaf4fFQ0rPG1n4Fn1Zxp0"
-  },
-  {
-    "_id": "6a1c1647db7b365cbc78624d",
-    "userId": "user_3ETHTyIaf4fFQ0rPG1n4Fn1Zxp0",
-    "platform": "geeksforgeeks",
-    "__v": 0,
-    "createdAt": "2026-05-31T11:06:44.180Z",
-    "lastSyncedAt": "2026-05-31T14:01:23.721Z",
-    "rating": 144,
+    "createdAt": "2026-05-30T03:55:43.045Z",
+    "lastSyncedAt": "2026-06-03T04:00:46.313Z",
+    "rating": 1157,
     "stats": {
-      "username": "lalitmodiog7e",
-      "totalSolved": 47,
-      "rating": 144,
-      "stars": 0,
-      "globalRank": "GeeksforGeeks Coder",
-      "contests": 0,
+      "username": "lalitmodi7878",
+      "totalSolved": 85,
+      "rating": 1157,
+      "stars": 1,
+      "globalRank": "1★",
+      "contests": 3,
       "followers": 0,
+      "highestRating": 1157,
+      "topics": [
+        {
+          "subject": "Mathematics",
+          "category": "Fundamental",
+          "solved": 20,
+          "count": 20
+        },
+        {
+          "subject": "Sorting & Arrays",
+          "category": "Intermediate",
+          "solved": 20,
+          "count": 20
+        },
+        {
+          "subject": "Greedy Algorithms",
+          "category": "Intermediate",
+          "solved": 6,
+          "count": 6
+        },
+        {
+          "subject": "Dynamic Programming",
+          "category": "Advanced",
+          "solved": 9,
+          "count": 9
+        },
+        {
+          "subject": "Graph Theory",
+          "category": "Advanced",
+          "solved": 18,
+          "count": 18
+        },
+        {
+          "subject": "Implementation",
+          "category": "Fundamental",
+          "solved": 9,
+          "count": 9
+        },
+        {
+          "subject": "Sorting & Search",
+          "category": "Intermediate",
+          "solved": 3,
+          "count": 3
+        }
+      ],
+      "submissions": [
+        {
+          "id": "chef-sub-0-MATH101",
+          "problemName": "CodeChef-MATH101: Solved Challenge",
+          "name": "CodeChef-MATH101: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "Jun 3, 2026",
+          "date": "Jun 3, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-1-SUM102",
+          "problemName": "CodeChef-SUM102: Solved Challenge",
+          "name": "CodeChef-SUM102: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "Jun 2, 2026",
+          "date": "Jun 2, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-2-ARR103",
+          "problemName": "CodeChef-ARR103: Solved Challenge",
+          "name": "CodeChef-ARR103: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "Jun 2, 2026",
+          "date": "Jun 2, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-3-SORT104",
+          "problemName": "CodeChef-SORT104: Solved Challenge",
+          "name": "CodeChef-SORT104: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "Jun 2, 2026",
+          "date": "Jun 2, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-4-GREEDY105",
+          "problemName": "CodeChef-GREEDY105: Solved Challenge",
+          "name": "CodeChef-GREEDY105: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "Jun 2, 2026",
+          "date": "Jun 2, 2026",
+          "success": true,
+          "tags": [
+            "Greedy Algorithms"
+          ]
+        },
+        {
+          "id": "chef-sub-5-DP106",
+          "problemName": "CodeChef-DP106: Solved Challenge",
+          "name": "CodeChef-DP106: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "Jun 1, 2026",
+          "date": "Jun 1, 2026",
+          "success": true,
+          "tags": [
+            "Dynamic Programming"
+          ]
+        },
+        {
+          "id": "chef-sub-6-TREE107",
+          "problemName": "CodeChef-TREE107: Solved Challenge",
+          "name": "CodeChef-TREE107: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "Jun 1, 2026",
+          "date": "Jun 1, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-7-GRAPH108",
+          "problemName": "CodeChef-GRAPH108: Solved Challenge",
+          "name": "CodeChef-GRAPH108: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "Jun 1, 2026",
+          "date": "Jun 1, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-8-FLOW109",
+          "problemName": "CodeChef-FLOW109: Solved Challenge",
+          "name": "CodeChef-FLOW109: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "Jun 1, 2026",
+          "date": "Jun 1, 2026",
+          "success": true,
+          "tags": [
+            "Implementation"
+          ]
+        },
+        {
+          "id": "chef-sub-9-MATH110",
+          "problemName": "CodeChef-MATH110: Solved Challenge",
+          "name": "CodeChef-MATH110: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 31, 2026",
+          "date": "May 31, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-10-SUM111",
+          "problemName": "CodeChef-SUM111: Solved Challenge",
+          "name": "CodeChef-SUM111: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 31, 2026",
+          "date": "May 31, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-11-ARR112",
+          "problemName": "CodeChef-ARR112: Solved Challenge",
+          "name": "CodeChef-ARR112: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 31, 2026",
+          "date": "May 31, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-12-SORT113",
+          "problemName": "CodeChef-SORT113: Solved Challenge",
+          "name": "CodeChef-SORT113: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 31, 2026",
+          "date": "May 31, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-13-GREEDY114",
+          "problemName": "CodeChef-GREEDY114: Solved Challenge",
+          "name": "CodeChef-GREEDY114: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 30, 2026",
+          "date": "May 30, 2026",
+          "success": true,
+          "tags": [
+            "Greedy Algorithms"
+          ]
+        },
+        {
+          "id": "chef-sub-14-DP115",
+          "problemName": "CodeChef-DP115: Solved Challenge",
+          "name": "CodeChef-DP115: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 30, 2026",
+          "date": "May 30, 2026",
+          "success": true,
+          "tags": [
+            "Dynamic Programming"
+          ]
+        },
+        {
+          "id": "chef-sub-15-TREE116",
+          "problemName": "CodeChef-TREE116: Solved Challenge",
+          "name": "CodeChef-TREE116: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 30, 2026",
+          "date": "May 30, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-16-GRAPH117",
+          "problemName": "CodeChef-GRAPH117: Solved Challenge",
+          "name": "CodeChef-GRAPH117: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 30, 2026",
+          "date": "May 30, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-17-FLOW118",
+          "problemName": "CodeChef-FLOW118: Solved Challenge",
+          "name": "CodeChef-FLOW118: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 29, 2026",
+          "date": "May 29, 2026",
+          "success": true,
+          "tags": [
+            "Implementation"
+          ]
+        },
+        {
+          "id": "chef-sub-18-MATH119",
+          "problemName": "CodeChef-MATH119: Solved Challenge",
+          "name": "CodeChef-MATH119: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 29, 2026",
+          "date": "May 29, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-19-SUM120",
+          "problemName": "CodeChef-SUM120: Solved Challenge",
+          "name": "CodeChef-SUM120: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 29, 2026",
+          "date": "May 29, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-20-ARR121",
+          "problemName": "CodeChef-ARR121: Solved Challenge",
+          "name": "CodeChef-ARR121: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 29, 2026",
+          "date": "May 29, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-21-SORT122",
+          "problemName": "CodeChef-SORT122: Solved Challenge",
+          "name": "CodeChef-SORT122: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 28, 2026",
+          "date": "May 28, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-22-GREEDY123",
+          "problemName": "CodeChef-GREEDY123: Solved Challenge",
+          "name": "CodeChef-GREEDY123: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 28, 2026",
+          "date": "May 28, 2026",
+          "success": true,
+          "tags": [
+            "Greedy Algorithms"
+          ]
+        },
+        {
+          "id": "chef-sub-23-DP124",
+          "problemName": "CodeChef-DP124: Solved Challenge",
+          "name": "CodeChef-DP124: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 28, 2026",
+          "date": "May 28, 2026",
+          "success": true,
+          "tags": [
+            "Dynamic Programming"
+          ]
+        },
+        {
+          "id": "chef-sub-24-TREE125",
+          "problemName": "CodeChef-TREE125: Solved Challenge",
+          "name": "CodeChef-TREE125: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 28, 2026",
+          "date": "May 28, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-25-GRAPH126",
+          "problemName": "CodeChef-GRAPH126: Solved Challenge",
+          "name": "CodeChef-GRAPH126: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 27, 2026",
+          "date": "May 27, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-26-FLOW127",
+          "problemName": "CodeChef-FLOW127: Solved Challenge",
+          "name": "CodeChef-FLOW127: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 27, 2026",
+          "date": "May 27, 2026",
+          "success": true,
+          "tags": [
+            "Implementation"
+          ]
+        },
+        {
+          "id": "chef-sub-27-MATH128",
+          "problemName": "CodeChef-MATH128: Solved Challenge",
+          "name": "CodeChef-MATH128: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 27, 2026",
+          "date": "May 27, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-28-SUM129",
+          "problemName": "CodeChef-SUM129: Solved Challenge",
+          "name": "CodeChef-SUM129: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 27, 2026",
+          "date": "May 27, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-29-ARR130",
+          "problemName": "CodeChef-ARR130: Solved Challenge",
+          "name": "CodeChef-ARR130: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 26, 2026",
+          "date": "May 26, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-30-SORT131",
+          "problemName": "CodeChef-SORT131: Solved Challenge",
+          "name": "CodeChef-SORT131: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 26, 2026",
+          "date": "May 26, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-31-GREEDY132",
+          "problemName": "CodeChef-GREEDY132: Solved Challenge",
+          "name": "CodeChef-GREEDY132: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 26, 2026",
+          "date": "May 26, 2026",
+          "success": true,
+          "tags": [
+            "Greedy Algorithms"
+          ]
+        },
+        {
+          "id": "chef-sub-32-DP133",
+          "problemName": "CodeChef-DP133: Solved Challenge",
+          "name": "CodeChef-DP133: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 26, 2026",
+          "date": "May 26, 2026",
+          "success": true,
+          "tags": [
+            "Dynamic Programming"
+          ]
+        },
+        {
+          "id": "chef-sub-33-TREE134",
+          "problemName": "CodeChef-TREE134: Solved Challenge",
+          "name": "CodeChef-TREE134: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 25, 2026",
+          "date": "May 25, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-34-GRAPH135",
+          "problemName": "CodeChef-GRAPH135: Solved Challenge",
+          "name": "CodeChef-GRAPH135: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 25, 2026",
+          "date": "May 25, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-35-FLOW136",
+          "problemName": "CodeChef-FLOW136: Solved Challenge",
+          "name": "CodeChef-FLOW136: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 25, 2026",
+          "date": "May 25, 2026",
+          "success": true,
+          "tags": [
+            "Implementation"
+          ]
+        },
+        {
+          "id": "chef-sub-36-MATH137",
+          "problemName": "CodeChef-MATH137: Solved Challenge",
+          "name": "CodeChef-MATH137: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 25, 2026",
+          "date": "May 25, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-37-SUM138",
+          "problemName": "CodeChef-SUM138: Solved Challenge",
+          "name": "CodeChef-SUM138: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 24, 2026",
+          "date": "May 24, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-38-ARR139",
+          "problemName": "CodeChef-ARR139: Solved Challenge",
+          "name": "CodeChef-ARR139: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 24, 2026",
+          "date": "May 24, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-39-SORT140",
+          "problemName": "CodeChef-SORT140: Solved Challenge",
+          "name": "CodeChef-SORT140: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 24, 2026",
+          "date": "May 24, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-40-GREEDY141",
+          "problemName": "CodeChef-GREEDY141: Solved Challenge",
+          "name": "CodeChef-GREEDY141: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 24, 2026",
+          "date": "May 24, 2026",
+          "success": true,
+          "tags": [
+            "Greedy Algorithms"
+          ]
+        },
+        {
+          "id": "chef-sub-41-DP142",
+          "problemName": "CodeChef-DP142: Solved Challenge",
+          "name": "CodeChef-DP142: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 23, 2026",
+          "date": "May 23, 2026",
+          "success": true,
+          "tags": [
+            "Dynamic Programming"
+          ]
+        },
+        {
+          "id": "chef-sub-42-TREE143",
+          "problemName": "CodeChef-TREE143: Solved Challenge",
+          "name": "CodeChef-TREE143: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 23, 2026",
+          "date": "May 23, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-43-GRAPH144",
+          "problemName": "CodeChef-GRAPH144: Solved Challenge",
+          "name": "CodeChef-GRAPH144: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 23, 2026",
+          "date": "May 23, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-44-FLOW145",
+          "problemName": "CodeChef-FLOW145: Solved Challenge",
+          "name": "CodeChef-FLOW145: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 23, 2026",
+          "date": "May 23, 2026",
+          "success": true,
+          "tags": [
+            "Implementation"
+          ]
+        },
+        {
+          "id": "chef-sub-45-MATH146",
+          "problemName": "CodeChef-MATH146: Solved Challenge",
+          "name": "CodeChef-MATH146: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 22, 2026",
+          "date": "May 22, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-46-SUM147",
+          "problemName": "CodeChef-SUM147: Solved Challenge",
+          "name": "CodeChef-SUM147: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 22, 2026",
+          "date": "May 22, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-47-ARR148",
+          "problemName": "CodeChef-ARR148: Solved Challenge",
+          "name": "CodeChef-ARR148: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 22, 2026",
+          "date": "May 22, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-48-SORT149",
+          "problemName": "CodeChef-SORT149: Solved Challenge",
+          "name": "CodeChef-SORT149: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 22, 2026",
+          "date": "May 22, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-49-GREEDY150",
+          "problemName": "CodeChef-GREEDY150: Solved Challenge",
+          "name": "CodeChef-GREEDY150: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 21, 2026",
+          "date": "May 21, 2026",
+          "success": true,
+          "tags": [
+            "Greedy Algorithms"
+          ]
+        },
+        {
+          "id": "chef-sub-50-DP151",
+          "problemName": "CodeChef-DP151: Solved Challenge",
+          "name": "CodeChef-DP151: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 21, 2026",
+          "date": "May 21, 2026",
+          "success": true,
+          "tags": [
+            "Dynamic Programming"
+          ]
+        },
+        {
+          "id": "chef-sub-51-TREE152",
+          "problemName": "CodeChef-TREE152: Solved Challenge",
+          "name": "CodeChef-TREE152: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 21, 2026",
+          "date": "May 21, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-52-GRAPH153",
+          "problemName": "CodeChef-GRAPH153: Solved Challenge",
+          "name": "CodeChef-GRAPH153: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 21, 2026",
+          "date": "May 21, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-53-FLOW154",
+          "problemName": "CodeChef-FLOW154: Solved Challenge",
+          "name": "CodeChef-FLOW154: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 20, 2026",
+          "date": "May 20, 2026",
+          "success": true,
+          "tags": [
+            "Implementation"
+          ]
+        },
+        {
+          "id": "chef-sub-54-MATH155",
+          "problemName": "CodeChef-MATH155: Solved Challenge",
+          "name": "CodeChef-MATH155: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 20, 2026",
+          "date": "May 20, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-55-SUM156",
+          "problemName": "CodeChef-SUM156: Solved Challenge",
+          "name": "CodeChef-SUM156: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 20, 2026",
+          "date": "May 20, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-56-ARR157",
+          "problemName": "CodeChef-ARR157: Solved Challenge",
+          "name": "CodeChef-ARR157: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 20, 2026",
+          "date": "May 20, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-57-SORT158",
+          "problemName": "CodeChef-SORT158: Solved Challenge",
+          "name": "CodeChef-SORT158: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 19, 2026",
+          "date": "May 19, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-58-GREEDY159",
+          "problemName": "CodeChef-GREEDY159: Solved Challenge",
+          "name": "CodeChef-GREEDY159: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 19, 2026",
+          "date": "May 19, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Search"
+          ]
+        },
+        {
+          "id": "chef-sub-59-DP160",
+          "problemName": "CodeChef-DP160: Solved Challenge",
+          "name": "CodeChef-DP160: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 19, 2026",
+          "date": "May 19, 2026",
+          "success": true,
+          "tags": [
+            "Dynamic Programming"
+          ]
+        },
+        {
+          "id": "chef-sub-60-TREE161",
+          "problemName": "CodeChef-TREE161: Solved Challenge",
+          "name": "CodeChef-TREE161: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 19, 2026",
+          "date": "May 19, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-61-GRAPH162",
+          "problemName": "CodeChef-GRAPH162: Solved Challenge",
+          "name": "CodeChef-GRAPH162: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 18, 2026",
+          "date": "May 18, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-62-FLOW163",
+          "problemName": "CodeChef-FLOW163: Solved Challenge",
+          "name": "CodeChef-FLOW163: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 18, 2026",
+          "date": "May 18, 2026",
+          "success": true,
+          "tags": [
+            "Implementation"
+          ]
+        },
+        {
+          "id": "chef-sub-63-MATH164",
+          "problemName": "CodeChef-MATH164: Solved Challenge",
+          "name": "CodeChef-MATH164: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 18, 2026",
+          "date": "May 18, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-64-SUM165",
+          "problemName": "CodeChef-SUM165: Solved Challenge",
+          "name": "CodeChef-SUM165: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 18, 2026",
+          "date": "May 18, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-65-ARR166",
+          "problemName": "CodeChef-ARR166: Solved Challenge",
+          "name": "CodeChef-ARR166: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 17, 2026",
+          "date": "May 17, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-66-SORT167",
+          "problemName": "CodeChef-SORT167: Solved Challenge",
+          "name": "CodeChef-SORT167: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 17, 2026",
+          "date": "May 17, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-67-GREEDY168",
+          "problemName": "CodeChef-GREEDY168: Solved Challenge",
+          "name": "CodeChef-GREEDY168: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 17, 2026",
+          "date": "May 17, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Search"
+          ]
+        },
+        {
+          "id": "chef-sub-68-DP169",
+          "problemName": "CodeChef-DP169: Solved Challenge",
+          "name": "CodeChef-DP169: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 17, 2026",
+          "date": "May 17, 2026",
+          "success": true,
+          "tags": [
+            "Dynamic Programming"
+          ]
+        },
+        {
+          "id": "chef-sub-69-TREE170",
+          "problemName": "CodeChef-TREE170: Solved Challenge",
+          "name": "CodeChef-TREE170: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 16, 2026",
+          "date": "May 16, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-70-GRAPH171",
+          "problemName": "CodeChef-GRAPH171: Solved Challenge",
+          "name": "CodeChef-GRAPH171: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 16, 2026",
+          "date": "May 16, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-71-FLOW172",
+          "problemName": "CodeChef-FLOW172: Solved Challenge",
+          "name": "CodeChef-FLOW172: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 16, 2026",
+          "date": "May 16, 2026",
+          "success": true,
+          "tags": [
+            "Implementation"
+          ]
+        },
+        {
+          "id": "chef-sub-72-MATH173",
+          "problemName": "CodeChef-MATH173: Solved Challenge",
+          "name": "CodeChef-MATH173: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 16, 2026",
+          "date": "May 16, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-73-SUM174",
+          "problemName": "CodeChef-SUM174: Solved Challenge",
+          "name": "CodeChef-SUM174: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 15, 2026",
+          "date": "May 15, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-74-ARR175",
+          "problemName": "CodeChef-ARR175: Solved Challenge",
+          "name": "CodeChef-ARR175: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 15, 2026",
+          "date": "May 15, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-75-SORT176",
+          "problemName": "CodeChef-SORT176: Solved Challenge",
+          "name": "CodeChef-SORT176: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 15, 2026",
+          "date": "May 15, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-76-GREEDY177",
+          "problemName": "CodeChef-GREEDY177: Solved Challenge",
+          "name": "CodeChef-GREEDY177: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 15, 2026",
+          "date": "May 15, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Search"
+          ]
+        },
+        {
+          "id": "chef-sub-77-DP178",
+          "problemName": "CodeChef-DP178: Solved Challenge",
+          "name": "CodeChef-DP178: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 14, 2026",
+          "date": "May 14, 2026",
+          "success": true,
+          "tags": [
+            "Dynamic Programming"
+          ]
+        },
+        {
+          "id": "chef-sub-78-TREE179",
+          "problemName": "CodeChef-TREE179: Solved Challenge",
+          "name": "CodeChef-TREE179: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 14, 2026",
+          "date": "May 14, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-79-GRAPH180",
+          "problemName": "CodeChef-GRAPH180: Solved Challenge",
+          "name": "CodeChef-GRAPH180: Solved Challenge",
+          "difficulty": "Hard",
+          "diff": "Hard",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 14, 2026",
+          "date": "May 14, 2026",
+          "success": true,
+          "tags": [
+            "Graph Theory"
+          ]
+        },
+        {
+          "id": "chef-sub-80-FLOW181",
+          "problemName": "CodeChef-FLOW181: Solved Challenge",
+          "name": "CodeChef-FLOW181: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 14, 2026",
+          "date": "May 14, 2026",
+          "success": true,
+          "tags": [
+            "Implementation"
+          ]
+        },
+        {
+          "id": "chef-sub-81-MATH182",
+          "problemName": "CodeChef-MATH182: Solved Challenge",
+          "name": "CodeChef-MATH182: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 13, 2026",
+          "date": "May 13, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-82-SUM183",
+          "problemName": "CodeChef-SUM183: Solved Challenge",
+          "name": "CodeChef-SUM183: Solved Challenge",
+          "difficulty": "Easy",
+          "diff": "Easy",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 13, 2026",
+          "date": "May 13, 2026",
+          "success": true,
+          "tags": [
+            "Mathematics"
+          ]
+        },
+        {
+          "id": "chef-sub-83-ARR184",
+          "problemName": "CodeChef-ARR184: Solved Challenge",
+          "name": "CodeChef-ARR184: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 13, 2026",
+          "date": "May 13, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        },
+        {
+          "id": "chef-sub-84-SORT185",
+          "problemName": "CodeChef-SORT185: Solved Challenge",
+          "name": "CodeChef-SORT185: Solved Challenge",
+          "difficulty": "Medium",
+          "diff": "Medium",
+          "status": "Accepted",
+          "language": "Unknown",
+          "runtime": "0.08s",
+          "executionTime": "0.08s",
+          "memory": "312KB",
+          "submittedTime": "May 13, 2026",
+          "date": "May 13, 2026",
+          "success": true,
+          "tags": [
+            "Sorting & Arrays"
+          ]
+        }
+      ],
+      "languages": [],
       "extra": {
-        "easy": 15,
-        "medium": 18,
-        "hard": 6,
-        "basic": 8,
-        "school": 0,
-        "score": 144,
-        "instituteRank": 0,
         "countryRank": 0,
         "globalRank": 0,
-        "name": "lalitmodiog7e",
-        "avatar": "",
+        "name": "Lalit Modi",
+        "avatar": "https://cdn.codechef.com/sites/default/files/uploads/pictures/508fd3bc923b77941c8ff29b479ff37c.png",
         "country": "",
-        "contests": [],
+        "contests": [
+          {
+            "code": "START236D",
+            "name": "Starters 236 (Rated)",
+            "rating": 1010,
+            "rank": 4893,
+            "delta": 0
+          },
+          {
+            "code": "START237D",
+            "name": "Starters 237 (Rated)",
+            "rating": 1112,
+            "rank": 3687,
+            "delta": 0
+          },
+          {
+            "code": "START238D",
+            "name": "Starters 238 (Rated)",
+            "rating": 1157,
+            "rank": 4704,
+            "delta": 0
+          }
+        ],
         "heatmap": [],
         "partiallySolved": 0,
-        "fullySolved": 0
+        "fullySolved": 85
       },
-      "highestRating": 144,
       "resolutionDetails": {
         "strategyUsed": "primary",
-        "timestamp": "2026-05-31T14:01:23.467Z"
+        "timestamp": "2026-06-03T04:00:45.979Z"
       }
     },
-    "totalSolved": 47,
-    "updatedAt": "2026-05-31T14:01:23.722Z",
-    "username": "lalitmodiog7e"
+    "totalSolved": 85,
+    "updatedAt": "2026-06-03T04:00:46.313Z",
+    "username": "lalitmodi7878"
+  },
+  {
+    "_id": "6a1a70acdb7b365cbc785646",
+    "platform": "codeyx",
+    "userId": "user_3EOG2Gt8xauudBD5yxKSHpz381G",
+    "__v": 0,
+    "createdAt": "2026-05-30T05:07:56.511Z",
+    "lastSyncedAt": "2026-05-30T05:07:56.512Z",
+    "rating": 0,
+    "totalSolved": 50,
+    "updatedAt": "2026-06-03T06:05:30.441Z",
+    "username": "user_3EOG2Gt8xauudBD5yxKSHpz381G"
   }
 ]

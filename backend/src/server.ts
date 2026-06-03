@@ -34,6 +34,7 @@ import swaggerRoutes from './config/swagger';
 import universityRoutes from './routes/university.routes';
 import suggestionRoutes from './routes/suggestion.routes';
 import adminRoutes from './routes/admin.routes';
+import { SystemSettings } from './models/settings.model';
 import notificationRoutes from './routes/notification.routes';
 import feedbackRoutes from './routes/feedback.routes';
 import { startCronJobs } from './cron';
@@ -61,43 +62,10 @@ import { UserActivity } from './models/UserActivity';
 import { UserProgress } from './models/UserProgress';
 import { MasterProblem } from './models/MasterProblem';
 
-setTimeout(async () => {
-    try {
-        const wrongId = 'Laitmodi';
-        const rightId = 'user_3EOG2Gt8xauudBD5yxKSHpz381G';
-        
-        console.log('[MIGRATION] Starting migration from Laitmodi to ' + rightId);
-        
-        // 1. Migrate UserActivity
-        const actUpdate = await UserActivity.updateMany({ userId: wrongId }, { $set: { userId: rightId } });
-        console.log(`[MIGRATION] Migrated ${actUpdate.modifiedCount} activities.`);
-        
-        // 2. Migrate UserProgress
-        const progUpdate = await UserProgress.updateMany({ userId: wrongId }, { $set: { userId: rightId } });
-        console.log(`[MIGRATION] Migrated ${progUpdate.modifiedCount} progress items.`);
-        
-        // 3. Recalculate Stats for Right ID
-        const finalActivities = await UserActivity.find({ userId: rightId, type: 'solved_problem' });
-        
-        await PlatformStats.findOneAndUpdate(
-            { userId: rightId, platform: 'codeyx' },
-            { $set: { totalSolved: finalActivities.length, username: rightId } },
-            { upsert: true }
-        );
-        await PlatformStats.findOneAndUpdate(
-            { userId: rightId, platform: 'leetcode' },
-            { $set: { totalSolved: finalActivities.length, username: rightId } },
-            { upsert: true }
-        );
-        
-        console.log(`[MIGRATION] Complete! Total Solved for right ID is now ${finalActivities.length}`);
-    } catch (err) {
-        console.error('[MIGRATION ERROR]', err);
-    }
-}, 3000);
 
 
 // Initialize UPSTASH/Mongo Cron Background Sync
+
 if (process.env.NODE_ENV === 'production') {
   console.log('🚀 Starting background cron jobs (Production Mode)');
   startCronJobs();
@@ -165,6 +133,31 @@ app.use(cors({
 // Basic Route (Health Check)
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Codeyx API is running successfully!' });
+});
+
+// Public System Settings (for Ads and styling config)
+app.get('/api/settings', async (req, res) => {
+  try {
+    let settings = await SystemSettings.findOne();
+    if (!settings) {
+      settings = await SystemSettings.create({});
+    }
+    const publicSettings = {
+      platformName: settings.platformName,
+      siteDescription: settings.siteDescription,
+      maintenanceMode: settings.maintenanceMode,
+      adType: settings.adType || 'google',
+      googleAdClient: settings.googleAdClient || 'ca-pub-YOUR_PUBLISHER_ID',
+      googleAdSlot: settings.googleAdSlot || 'YOUR_DEFAULT_SLOT_ID',
+      customAdImageUrl: settings.customAdImageUrl || '',
+      customAdLinkUrl: settings.customAdLinkUrl || '',
+      customAdTitle: settings.customAdTitle || '',
+      customAdDescription: settings.customAdDescription || '',
+    };
+    return res.status(200).json({ success: true, data: publicSettings });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'Failed to fetch public settings' });
+  }
 });
 
 // Apply Clerk middleware globally for all subsequent routes (except webhooks which are handled above)

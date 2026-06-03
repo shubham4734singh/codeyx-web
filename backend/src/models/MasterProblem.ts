@@ -3,6 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IPlatformLinks {
   leetcode?: string;
   geeksforgeeks?: string;
+  gfg?: string;
   hackerrank?: string;
   codechef?: string;
   codeforces?: string;

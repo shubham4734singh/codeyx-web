@@ -7,6 +7,8 @@ import { OnboardingProvider } from "../components/OnboardingProvider";
 import ReactQueryProvider from "../providers/ReactQueryProvider";
 import FeedbackButton from "../components/FeedbackButton";
 import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
+import StickyBottomAd from "../components/shared/StickyBottomAd";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -58,6 +60,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2934790485812892"
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
+        />
+      </head>
       <body className={inter.className}>
         <NextTopLoader 
           color="#FF8A00"
@@ -86,6 +96,7 @@ export default function RootLayout({
               <OnboardingProvider>
                 {children}
                 <FeedbackButton />
+                <StickyBottomAd />
                 <Analytics />
               </OnboardingProvider>
             </ReactQueryProvider>

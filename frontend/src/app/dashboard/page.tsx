@@ -13,6 +13,7 @@ import {
 import ActivityHeatmap from '../../components/dashboard/ActivityHeatmap';
 import TopNavbar from '../../components/shared/TopNavbar';
 import { useSocket } from '../../hooks/useSocket';
+import DashboardAdCard from '../../components/shared/DashboardAdCard';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { platformService } from '../../services/platform.service';
 import { progressService } from '../../services/progress.service';
@@ -560,10 +561,16 @@ export default function CodeyxDashboard() {
               </div>
             </div>
 
+            {/* Google Ads Card Widget (Fills empty space in the Left Column) */}
+            <DashboardAdCard />
+
           </div>
 
           {/* RIGHT COLUMN (1 Col) */}
           <div className="space-y-6">
+
+            {/* Google Ads Card Widget */}
+            <DashboardAdCard />
 
             {/* 5️⃣ Upcoming Contests Panel */}
             <div className={`${cardBg} border ${border} rounded-[24px] p-6 shadow-xl`}>

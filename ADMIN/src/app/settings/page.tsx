@@ -1,8 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Save, User, Key, Globe, Shield, Database, RefreshCw } from "lucide-react";
+import { Save, User, Key, Globe, Shield, Database, RefreshCw, Megaphone } from "lucide-react";
 import { useAuth } from "@clerk/nextjs";
+
+const getApiUrl = () => {
+  if (typeof window !== "undefined" && window.location.hostname === "localhost") {
+    return "http://localhost:5005/api";
+  }
+  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:5005/api";
+};
+const API_URL = getApiUrl();
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState('general');
@@ -14,7 +22,15 @@ export default function SettingsPage() {
     siteDescription: "Codeyx is a modern coding platform...",
     maintenanceMode: false,
     alfaLeetcodeUrl: "https://alfa-leetcode-api.onrender.com",
-    githubToken: ""
+    githubToken: "",
+    adType: "google",
+    googleAdClient: "",
+    googleAdSlot: "",
+    googleAdSlotSidebar: "",
+    customAdImageUrl: "",
+    customAdLinkUrl: "",
+    customAdTitle: "",
+    customAdDescription: ""
   });
   const { getToken } = useAuth();
 
@@ -25,12 +41,15 @@ export default function SettingsPage() {
   const fetchSettings = async () => {
     try {
       const token = await getToken();
-      const res = await fetch("http://localhost:5005/api/admin/settings", {
+      const res = await fetch(`${API_URL}/admin/settings`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await res.json();
       if (data.success && data.data) {
-        setSettings(data.data);
+        setSettings(prev => ({
+          ...prev,
+          ...data.data
+        }));
       }
     } catch (err) {
       console.error("Failed to fetch settings", err);
@@ -52,7 +71,7 @@ export default function SettingsPage() {
     setIsSaving(true);
     try {
       const token = await getToken();
-      const res = await fetch("http://localhost:5005/api/admin/settings", {
+      const res = await fetch(`${API_URL}/admin/settings`, {
         method: "PUT",
         headers: { 
           "Content-Type": "application/json",
@@ -105,6 +124,14 @@ export default function SettingsPage() {
             }`}
           >
             <Key size={18} /> API Keys
+          </button>
+          <button 
+            onClick={() => setActiveTab('ads')}
+            className={`w-full flex items-center gap-3 px-4 py-3 font-medium rounded-lg text-sm text-left transition-colors ${
+              activeTab === 'ads' ? 'bg-card border border-primary/20 text-primary shadow-sm' : 'hover:bg-muted text-muted-foreground'
+            }`}
+          >
+            <Megaphone size={18} /> Ads & Promotion
           </button>
           <button 
             onClick={() => setActiveTab('security')}
@@ -177,6 +204,67 @@ export default function SettingsPage() {
                   <input type="password" name="githubToken" value={settings.githubToken} onChange={handleChange} placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxx" className="w-full px-4 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 font-mono" />
                   <p className="text-xs text-muted-foreground mt-1">Used for syncing repositories and commits without rate limits.</p>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'ads' && (
+            <div className="bg-card border border-border rounded-xl shadow-sm overflow-hidden">
+              <div className="px-6 py-4 border-b border-border bg-muted/30">
+                <h3 className="font-bold text-foreground">Ads & Promotion Settings</h3>
+              </div>
+              <div className="p-6 space-y-5">
+                <div>
+                  <label className="text-sm font-medium text-foreground block mb-1.5">Advertisement Type</label>
+                  <select 
+                    name="adType" 
+                    value={settings.adType} 
+                    onChange={handleChange} 
+                    className="w-full px-4 py-2 bg-[#090b11] text-foreground border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 cursor-pointer"
+                  >
+                    <option value="google" className="bg-[#111216] text-white">Google AdSense</option>
+                    <option value="custom" className="bg-[#111216] text-white">Custom Banner Promotion</option>
+                    <option value="none" className="bg-[#111216] text-white">No Ads (Disabled)</option>
+                  </select>
+                </div>
+
+                {settings.adType === 'google' && (
+                  <div className="space-y-4 border-t border-border pt-4">
+                    <div>
+                      <label className="text-sm font-medium text-foreground block mb-1.5">Google AdSense Client ID</label>
+                      <input type="text" name="googleAdClient" value={settings.googleAdClient} onChange={handleChange} placeholder="ca-pub-xxxxxxxxxxxxxxxx" className="w-full px-4 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none" />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-foreground block mb-1.5">Google AdSense Slot ID (Bottom Banner)</label>
+                      <input type="text" name="googleAdSlot" value={settings.googleAdSlot} onChange={handleChange} placeholder="4267648729" className="w-full px-4 py-2 bg-[#090b11] text-foreground border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-foreground block mb-1.5">Google AdSense Slot ID (Sidebar Card)</label>
+                      <input type="text" name="googleAdSlotSidebar" value={settings.googleAdSlotSidebar || ''} onChange={handleChange} placeholder="6235336515" className="w-full px-4 py-2 bg-[#090b11] text-foreground border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+                    </div>
+                  </div>
+                )}
+
+                {settings.adType === 'custom' && (
+                  <div className="space-y-4 border-t border-border pt-4">
+                    <div>
+                      <label className="text-sm font-medium text-foreground block mb-1.5">Custom Ad Title</label>
+                      <input type="text" name="customAdTitle" value={settings.customAdTitle} onChange={handleChange} placeholder="Learn Web Development" className="w-full px-4 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none" />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-foreground block mb-1.5">Custom Ad Description</label>
+                      <textarea name="customAdDescription" value={settings.customAdDescription} onChange={handleChange} placeholder="Upgrade your coding skills today..." rows={2} className="w-full px-4 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none resize-none" />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-foreground block mb-1.5">Custom Ad Target URL (Destination Link)</label>
+                      <input type="text" name="customAdLinkUrl" value={settings.customAdLinkUrl} onChange={handleChange} placeholder="https://example.com/course" className="w-full px-4 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none" />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-foreground block mb-1.5">Custom Ad Banner Image URL (Optional)</label>
+                      <input type="text" name="customAdImageUrl" value={settings.customAdImageUrl} onChange={handleChange} placeholder="https://example.com/banner.png" className="w-full px-4 py-2 bg-background border border-border rounded-lg text-sm focus:outline-none" />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}

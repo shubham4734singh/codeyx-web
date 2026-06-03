@@ -11,7 +11,7 @@ let cachedCategories: any = null;
 let cachedPatterns: any = null;
 let cachedPatternProblems: any = null;
 let lastCacheTime = 0;
-const CACHE_TTL = 1000 * 60 * 5; // 5 minutes
+const CACHE_TTL = 0; // Temporarily disabled for debugging
 
 async function getCachedReferenceData() {
   const now = Date.now();
@@ -23,11 +23,62 @@ async function getCachedReferenceData() {
     Pattern.find({ active: true }).select('categoryId title description difficulty order').sort({ order: 1 }).lean(),
     PatternProblem.find({}).select('patternId masterProblemId').lean()
   ]);
+  
+  console.log(`[DEBUG] DB Query results -> Categories: ${cats.length}, Patterns: ${pats.length}, PatternProblems: ${pProbs.length}`);
+
   cachedCategories = cats;
   cachedPatterns = pats;
   cachedPatternProblems = pProbs;
   lastCacheTime = now;
   return [cats, pats, pProbs];
+}
+
+// Build difficulty breakdown map: patternId → { easy, medium, hard, easySolved, mediumSolved, hardSolved }
+async function getDifficultyBreakdown(
+  patternProblems: any[],
+  solvedSet?: Set<number>
+): Promise<Map<string, { easy: number; medium: number; hard: number; easySolved: number; mediumSolved: number; hardSolved: number }>> {
+  const allMpIds = [...new Set(patternProblems.map(pp => pp.masterProblemId))];
+  const masterProbs = await MasterProblem.find({ problemId: { $in: allMpIds }, active: true })
+    .select('problemId difficulty').lean();
+  const diffMap = new Map<number, string>(); // problemId → difficulty
+  for (const mp of masterProbs) diffMap.set(mp.problemId, mp.difficulty);
+
+  const result = new Map<string, { easy: number; medium: number; hard: number; easySolved: number; mediumSolved: number; hardSolved: number }>();
+  for (const pp of patternProblems) {
+    const pid = pp.patternId.toString();
+    if (!result.has(pid)) result.set(pid, { easy: 0, medium: 0, hard: 0, easySolved: 0, mediumSolved: 0, hardSolved: 0 });
+    const diff = (diffMap.get(pp.masterProblemId) || '').toLowerCase();
+    const entry = result.get(pid)!;
+    const isSolved = solvedSet ? solvedSet.has(pp.masterProblemId) : false;
+    if (diff === 'easy')   { entry.easy++;   if (isSolved) entry.easySolved++; }
+    else if (diff === 'medium') { entry.medium++; if (isSolved) entry.mediumSolved++; }
+    else if (diff === 'hard')   { entry.hard++;   if (isSolved) entry.hardSolved++; }
+  }
+  return result;
+}
+
+// Platform link breakdown (LeetCode / GFG) per pattern
+async function getPlatformLinkBreakdown(patternProblems: any[]): Promise<Map<string, { leetCount: number; gfgCount: number }>> {
+  const allMpIds = [...new Set(patternProblems.map(pp => pp.masterProblemId))];
+  const masterProbs = await MasterProblem.find({ problemId: { $in: allMpIds }, active: true })
+    .select('problemId links').lean();
+  const linkMap = new Map<number, { leet: boolean; gfg: boolean }>();
+  for (const mp of masterProbs) {
+    const hasLeet = !!(mp.links?.leetcode);
+    const hasGfg = !!(mp.links?.geeksforgeeks || mp.links?.gfg);
+    linkMap.set(mp.problemId, { leet: hasLeet, gfg: hasGfg });
+  }
+  const result = new Map<string, { leetCount: number; gfgCount: number }>();
+  for (const pp of patternProblems) {
+    const pid = pp.patternId.toString();
+    if (!result.has(pid)) result.set(pid, { leetCount: 0, gfgCount: 0 });
+    const linkInfo = linkMap.get(pp.masterProblemId) || { leet: false, gfg: false };
+    const entry = result.get(pid)!;
+    if (linkInfo.leet) entry.leetCount++;
+    if (linkInfo.gfg) entry.gfgCount++;
+  }
+  return result;
 }
 
 // ---------------------------------------------------------------------------
@@ -37,6 +88,8 @@ async function getCachedReferenceData() {
 export const getAllCategories = async (req: Request, res: Response) => {
   try {
     const [categories, patterns, patternProblems] = await getCachedReferenceData();
+    const diffBreakdown = await getDifficultyBreakdown(patternProblems);
+    const platformBreakdown = await getPlatformLinkBreakdown(patternProblems);
 
     const problemsByPattern = new Map<string, number>();
     for (const pp of patternProblems) {
@@ -54,15 +107,26 @@ export const getAllCategories = async (req: Request, res: Response) => {
     }
 
     const data = [];
+    let globalTotal = 0;
+    let globalEasy = 0, globalMedium = 0, globalHard = 0;
+    let globalLeet = 0, globalGfg = 0;
+
     for (const cat of categories) {
       const catPatterns = patternsByCategory.get(cat._id.toString()) || [];
 
       const patternsWithCounts = [];
       let categoryTotal = 0;
+      let catEasy = 0, catMedium = 0, catHard = 0;
+      let catLeet = 0, catGfg = 0;
 
       for (const pat of catPatterns) {
         const count = problemsByPattern.get(pat._id.toString()) || 0;
+        const db = diffBreakdown.get(pat._id.toString()) || { easy: 0, medium: 0, hard: 0, easySolved: 0, mediumSolved: 0, hardSolved: 0 };
+        const plat = platformBreakdown.get(pat._id.toString()) || { leetCount: 0, gfgCount: 0 };
         categoryTotal += count;
+        catEasy += db.easy; catMedium += db.medium; catHard += db.hard;
+        catLeet += plat.leetCount; catGfg += plat.gfgCount;
+
         patternsWithCounts.push({
           _id: pat._id,
           title: pat.title,
@@ -70,8 +134,17 @@ export const getAllCategories = async (req: Request, res: Response) => {
           difficulty: pat.difficulty,
           order: pat.order,
           totalProblems: count,
+          easyCount: db.easy,
+          mediumCount: db.medium,
+          hardCount: db.hard,
+          leetCount: plat.leetCount,
+          gfgCount: plat.gfgCount,
         });
       }
+
+      globalTotal += categoryTotal;
+      globalEasy += catEasy; globalMedium += catMedium; globalHard += catHard;
+      globalLeet += catLeet; globalGfg += catGfg;
 
       data.push({
         _id: cat._id,
@@ -80,11 +153,25 @@ export const getAllCategories = async (req: Request, res: Response) => {
         icon: cat.icon,
         order: cat.order,
         totalProblems: categoryTotal,
+        easyCount: catEasy,
+        mediumCount: catMedium,
+        hardCount: catHard,
+        leetCount: catLeet,
+        gfgCount: catGfg,
         patterns: patternsWithCounts,
       });
     }
 
-    return res.status(200).json(new ApiResponse(200, data));
+    const meta = {
+      totalProblems: globalTotal,
+      easyCount: globalEasy,
+      mediumCount: globalMedium,
+      hardCount: globalHard,
+      leetCount: globalLeet,
+      gfgCount: globalGfg,
+    };
+
+    return res.status(200).json(new ApiResponse(200, { categories: data, meta }));
   } catch (error: any) {
     console.error('[patterns:categories] Error:', error.message);
     return res.status(500).json({ success: false, message: error.message });
@@ -103,6 +190,7 @@ export const getCategoriesWithProgress = async (req: Request, res: Response) => 
     }
 
     const [categories, patterns, patternProblems] = await getCachedReferenceData();
+    const diffBreakdown = await getDifficultyBreakdown(patternProblems);
 
     const problemsByPattern = new Map<string, number[]>();
     const allMpIds: number[] = [];
@@ -130,18 +218,30 @@ export const getCategoriesWithProgress = async (req: Request, res: Response) => 
     }).select('problemId').lean();
 
     const solvedSet = new Set(solvedProgress.map(up => up.problemId));
+    const diffSolvedBreakdown = await getDifficultyBreakdown(patternProblems, solvedSet);
+    // Also compute platform link counts (LeetCode & GFG) per pattern
+    const platformBreakdown = await getPlatformLinkBreakdown(patternProblems);
 
     const data = [];
+    let globalTotal = 0, globalSolved = 0;
+    let globalEasy = 0, globalMedium = 0, globalHard = 0;
+    let globalEasySolved = 0, globalMediumSolved = 0, globalHardSolved = 0;
+    let globalLeet = 0, globalGfg = 0;
+
     for (const cat of categories) {
       const catPatterns = patternsByCategory.get(cat._id.toString()) || [];
 
       const patternsWithProgress = [];
       let categorySolved = 0;
       let categoryTotal = 0;
+      let catEasy = 0, catMedium = 0, catHard = 0;
+      let catEasySolved = 0, catMediumSolved = 0, catHardSolved = 0;
+      let catLeet = 0, catGfg = 0;
 
       for (const pat of catPatterns) {
         const mpIds = problemsByPattern.get(pat._id.toString()) || [];
         const total = mpIds.length;
+        const db = diffSolvedBreakdown.get(pat._id.toString()) || { easy: 0, medium: 0, hard: 0, easySolved: 0, mediumSolved: 0, hardSolved: 0 };
 
         let solved = 0;
         if (total > 0) {
@@ -150,6 +250,12 @@ export const getCategoriesWithProgress = async (req: Request, res: Response) => 
 
         categorySolved += solved;
         categoryTotal += total;
+        catEasy += db.easy; catMedium += db.medium; catHard += db.hard;
+        catEasySolved += db.easySolved; catMediumSolved += db.mediumSolved; catHardSolved += db.hardSolved;
+
+        const plat = platformBreakdown.get(pat._id.toString()) || { leetCount: 0, gfgCount: 0 };
+        catLeet += plat.leetCount;
+        catGfg += plat.gfgCount;
 
         patternsWithProgress.push({
           _id: pat._id,
@@ -160,8 +266,21 @@ export const getCategoriesWithProgress = async (req: Request, res: Response) => 
           totalProblems: total,
           solvedProblems: solved,
           progressPercentage: total > 0 ? Math.round((solved / total) * 100) : 0,
+          easyCount: db.easy,
+          mediumCount: db.medium,
+          hardCount: db.hard,
+          easySolved: db.easySolved,
+          mediumSolved: db.mediumSolved,
+          hardSolved: db.hardSolved,
+          leetCount: plat.leetCount,
+          gfgCount: plat.gfgCount,
         });
       }
+
+      globalTotal += categoryTotal; globalSolved += categorySolved;
+      globalEasy += catEasy; globalMedium += catMedium; globalHard += catHard;
+      globalEasySolved += catEasySolved; globalMediumSolved += catMediumSolved; globalHardSolved += catHardSolved;
+      globalLeet += catLeet; globalGfg += catGfg;
 
       data.push({
         _id: cat._id,
@@ -172,11 +291,30 @@ export const getCategoriesWithProgress = async (req: Request, res: Response) => 
         totalProblems: categoryTotal,
         solvedProblems: categorySolved,
         progressPercentage: categoryTotal > 0 ? Math.round((categorySolved / categoryTotal) * 100) : 0,
+        easyCount: catEasy,
+        mediumCount: catMedium,
+        hardCount: catHard,
+        easySolved: catEasySolved,
+        mediumSolved: catMediumSolved,
+        hardSolved: catHardSolved,
+        leetCount: catLeet,
+        gfgCount: catGfg,
         patterns: patternsWithProgress,
       });
     }
 
-    return res.status(200).json(new ApiResponse(200, data));
+    // Attach global summary as first item (meta field)
+    const meta = {
+      totalProblems: globalTotal,
+      solvedProblems: globalSolved,
+      progressPercentage: globalTotal > 0 ? Math.round((globalSolved / globalTotal) * 100) : 0,
+      easyCount: globalEasy, easySolved: globalEasySolved,
+      mediumCount: globalMedium, mediumSolved: globalMediumSolved,
+      hardCount: globalHard, hardSolved: globalHardSolved,
+      leetCount: globalLeet, gfgCount: globalGfg,
+    };
+
+    return res.status(200).json(new ApiResponse(200, { categories: data, meta }));
   } catch (error: any) {
     console.error('[patterns:categories:progress] Error:', error.message);
     return res.status(500).json({ success: false, message: error.message });
@@ -205,6 +343,13 @@ export const getPatternDetail = async (req: Request, res: Response) => {
 
     const mpIds = patternProblems.map(pp => pp.masterProblemId);
     const masterProblems = await MasterProblem.find({ problemId: { $in: mpIds }, active: true }).lean();
+
+    let leetCount = 0;
+    let gfgCount = 0;
+    for (const mp of masterProblems) {
+      if (mp.links?.leetcode) leetCount++;
+      if (mp.links?.geeksforgeeks || mp.links?.gfg) gfgCount++;
+    }
 
     const mpMap = new Map<number, typeof masterProblems[0]>();
     for (const mp of masterProblems) {
@@ -253,6 +398,8 @@ export const getPatternDetail = async (req: Request, res: Response) => {
           description: pattern.description,
           difficulty: pattern.difficulty,
           order: pattern.order,
+          leetCount,
+          gfgCount,
         },
         category: category ? {
           _id: category._id,

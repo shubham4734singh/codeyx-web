@@ -6,7 +6,7 @@ import {
   LayoutList, Search, Layers, BrainCircuit, GitBranch, Link as LinkIcon,
   TreeDeciduous, BarChart4, RefreshCw, Binary, Zap,
   Type, IterationCw, GitCommitVertical, GitFork,
-  ChevronDown, ChevronRight, Target, Loader2,
+  ChevronDown, ChevronRight, Target, Loader2, CheckCircle2, TrendingUp, Sparkles, Flame,
 } from 'lucide-react';
 import Link from 'next/link';
 import { patternsService } from '../../services/patterns.service';
@@ -30,6 +30,7 @@ export default function PatternsPage() {
   const [difficultyFilter, setDifficultyFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [categoriesData, setCategoriesData] = useState<any[]>([]);
+  const [metaData, setMetaData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState('');
   const { isSignedIn, isLoaded } = useUser();
@@ -49,15 +50,21 @@ export default function PatternsPage() {
         if (isSignedIn) {
           try {
             const response: any = await patternsService.getCategoriesWithProgress();
-            result = response?.data || response || [];
+            const payload = response?.data || response;
+            result = payload?.categories || (Array.isArray(payload) ? payload : []);
+            if (!cancelled && payload?.meta) setMetaData(payload.meta);
           } catch (progressErr) {
             console.warn('[Patterns] Progress API failed, falling back to public:', progressErr);
             const response: any = await patternsService.getCategories();
-            result = response?.data || response || [];
+            const payload = response?.data || response;
+            result = payload?.categories || (Array.isArray(payload) ? payload : []);
+            if (!cancelled && payload?.meta) setMetaData(payload.meta);
           }
         } else {
           const response: any = await patternsService.getCategories();
-          result = response?.data || response || [];
+          const payload = response?.data || response;
+          result = payload?.categories || (Array.isArray(payload) ? payload : []);
+          if (!cancelled && payload?.meta) setMetaData(payload.meta);
         }
 
         if (!cancelled) {
@@ -118,7 +125,7 @@ export default function PatternsPage() {
       <TopNavbar />
       <main className="max-w-[1400px] mx-auto px-6 pt-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-6">
           <div>
             <h1 className="text-[32px] font-extrabold text-white mb-2 flex items-center gap-2">
               Pattern-Based Learning <Target size={24} className="text-[#FF8A00]" />
@@ -128,6 +135,101 @@ export default function PatternsPage() {
             </p>
           </div>
         </div>
+
+        {/* Progress Dashboard */}
+        {!isLoading && !fetchError && metaData && (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-10">
+            {/* Left Large Card */}
+            <div className="lg:col-span-6 xl:col-span-7 bg-[#111216] border border-white/5 rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
+              <div className="z-10 w-[70%]">
+                <h2 className="text-xl md:text-2xl font-bold text-white mb-2">Keep pushing, crazy!</h2>
+                <p className="text-sm text-gray-400 leading-relaxed mb-6">
+                  You're building mastery one problem at a time.<br/>Keep the momentum going!
+                </p>
+                <div>
+                  <div className="text-[10px] text-gray-500 font-bold tracking-wider mb-1 uppercase">Total Solved</div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl md:text-5xl font-extrabold text-white">{metaData.solvedProblems || 0}</span>
+                    <span className="text-gray-500 font-medium">/ {metaData.totalProblems || 0}</span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Circular Progress (Positioned on the right) */}
+              <div className="absolute right-8 top-1/2 -translate-y-1/2 z-10 hidden sm:flex items-center justify-center">
+                <div className="relative w-28 h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center bg-[#0B0C10] shadow-[0_0_30px_rgba(255,138,0,0.15)]">
+                  <svg className="absolute inset-0 w-full h-full transform -rotate-90">
+                    <circle cx="50%" cy="50%" r="42%" className="stroke-white/10" strokeWidth="12%" fill="none" />
+                    <circle 
+                      cx="50%" cy="50%" r="42%" 
+                      className="stroke-[#22c55e]" 
+                      strokeWidth="12%" 
+                      fill="none" 
+                      strokeLinecap="round"
+                      strokeDasharray="264%"
+                      strokeDashoffset={`${264 - (264 * (metaData.progressPercentage || 0)) / 100}%`}
+                    />
+                  </svg>
+                  <span className="text-2xl font-extrabold text-white">{metaData.progressPercentage || 0}%</span>
+                </div>
+              </div>
+              
+              {/* Decorative Background Element */}
+              <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-[#22c55e]/5 rounded-full blur-3xl pointer-events-none" />
+            </div>
+
+            {/* Right Grid Cards */}
+            <div className="lg:col-span-6 xl:col-span-5 grid grid-cols-2 gap-4">
+              {/* Easy Card */}
+              <div className="bg-[#111216] border border-white/5 rounded-2xl p-5 flex flex-col justify-between h-[102px]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-bold text-gray-500 tracking-wider">EASY</span>
+                  <CheckCircle2 size={16} className="text-emerald-500" />
+                </div>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-2xl font-bold text-white">{metaData.easySolved || 0}</span>
+                  <span className="text-xs text-gray-500">/ {metaData.easyCount || 0}</span>
+                </div>
+              </div>
+              
+              {/* Medium Card */}
+              <div className="bg-[#111216] border border-white/5 rounded-2xl p-5 flex flex-col justify-between h-[102px]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-bold text-gray-500 tracking-wider">MEDIUM</span>
+                  <TrendingUp size={16} className="text-amber-500" />
+                </div>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-2xl font-bold text-white">{metaData.mediumSolved || 0}</span>
+                  <span className="text-xs text-gray-500">/ {metaData.mediumCount || 0}</span>
+                </div>
+              </div>
+              
+              {/* Hard Card */}
+              <div className="bg-[#111216] border border-white/5 rounded-2xl p-5 flex flex-col justify-between h-[102px]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-bold text-gray-500 tracking-wider">HARD</span>
+                  <Sparkles size={16} className="text-rose-500" />
+                </div>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-2xl font-bold text-white">{metaData.hardSolved || 0}</span>
+                  <span className="text-xs text-gray-500">/ {metaData.hardCount || 0}</span>
+                </div>
+              </div>
+              
+              {/* Streak Card */}
+              <div className="bg-[#111216] border border-white/5 rounded-2xl p-5 flex flex-col justify-between h-[102px]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-bold text-gray-500 tracking-wider">STREAK</span>
+                  <Flame size={16} className="text-orange-500" />
+                </div>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-2xl font-bold text-white">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
 
         {/* Filters */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
