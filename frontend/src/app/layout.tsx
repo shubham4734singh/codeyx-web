@@ -69,7 +69,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <NextTopLoader 
+        <NextTopLoader
           color="#FF8A00"
           initialPosition={0.08}
           crawlSpeed={200}

@@ -7,6 +7,9 @@ import "./globals.css";
 export const metadata = {
   title: "Admin Dashboard - Codeyx",
   description: "Codeyx Admin Panel",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -18,7 +21,7 @@ export default function RootLayout({
     <ClerkProvider
       appearance={{
         layout: {
-          logoImageUrl: "/favicon.ico",
+          logoImageUrl: "/favicon.svg",
         }
       }}
     >

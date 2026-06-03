@@ -121,7 +121,9 @@ app.use(cors({
       origin.startsWith('http://localhost') || 
       origin.startsWith('http://127.0.0.1') ||
       origin.startsWith('chrome-extension://') ||
-      origin === process.env.FRONTEND_URL
+      origin === process.env.FRONTEND_URL ||
+      origin === process.env.ADMIN_URL ||
+      origin === 'https://codeyx-web-admin.vercel.app'
     ) {
       return callback(null, true);
     }
