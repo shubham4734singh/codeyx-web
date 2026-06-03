@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useMemo } from 'react';
 import { useUser } from '@clerk/nextjs';
+import { motion, AnimatePresence } from 'framer-motion';
 import TopNavbar from '../../components/shared/TopNavbar';
 import Link from 'next/link';
 import { progressService } from '../../services/progress.service';
@@ -111,6 +112,14 @@ const renderInsightText = (text: string) => {
   );
 };
 
+const formatAiError = (err: any) => {
+  const msg = err?.message || (typeof err === 'string' ? err : '');
+  if (msg.includes('429') || msg.toLowerCase().includes('limit') || msg.toLowerCase().includes('quota') || msg.toLowerCase().includes('exhausted')) {
+    return 'AI Limit reached. Please try again later or use the second option: switch to Groq / Gemini.';
+  }
+  return msg || 'An unexpected error occurred.';
+};
+
 export default function GlobalAnalyticsPage() {
   const { isSignedIn, isLoaded } = useUser();
   const [activeTab, setActiveTab] = useState<'overall' | 'sheets' | 'patterns'>('overall');
@@ -124,6 +133,11 @@ export default function GlobalAnalyticsPage() {
   const [aiInsights, setAiInsights] = useState<any>(null);
   const [insightsLoading, setInsightsLoading] = useState(false);
   const [insightsProvider, setInsightsProvider] = useState<'gemini' | 'groq'>('gemini');
+  const [errorModal, setErrorModal] = useState<{ isOpen: boolean; title: string; message: string }>({
+    isOpen: false,
+    title: '',
+    message: ''
+  });
 
   useEffect(() => {
     if (!isLoaded || !isSignedIn) return;
@@ -219,6 +233,11 @@ export default function GlobalAnalyticsPage() {
       }
     } catch (err: any) {
       console.error(err);
+      setErrorModal({
+        isOpen: true,
+        title: 'AI Insights Failed',
+        message: formatAiError(err)
+      });
     } finally {
       setInsightsLoading(false);
     }
@@ -845,6 +864,49 @@ export default function GlobalAnalyticsPage() {
           </div>
         )}
       </main>
+
+      {/* Centered Custom Error Modal */}
+      <AnimatePresence>
+        {errorModal.isOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setErrorModal(prev => ({ ...prev, isOpen: false }))}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            {/* Modal Box */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-[#0e131f] p-6 shadow-2xl z-10"
+            >
+              {/* Glow decoration */}
+              <div className="absolute -left-16 -top-16 h-32 w-32 rounded-full bg-[#FF8A00]/10 blur-3xl pointer-events-none" />
+              
+              <div className="flex flex-col items-center text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10 border border-orange-500/20 text-[#FF8A00] mb-4">
+                  <AlertTriangle className="h-6 w-6" />
+                </div>
+                
+                <h3 className="text-base font-bold text-white mb-2">{errorModal.title}</h3>
+                <p className="text-xs text-gray-400 leading-relaxed mb-6 whitespace-pre-line">{errorModal.message}</p>
+                
+                <button
+                  onClick={() => setErrorModal(prev => ({ ...prev, isOpen: false }))}
+                  className="w-full py-2 bg-gradient-to-r from-[#FF8A00] to-orange-500 hover:from-orange-500 hover:to-[#FF8A00] text-black font-extrabold rounded-lg text-xs transition-all shadow-md shadow-[#FF8A00]/20"
+                >
+                  Acknowledge
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 }

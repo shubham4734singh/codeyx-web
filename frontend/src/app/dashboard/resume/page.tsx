@@ -70,6 +70,14 @@ interface AiFeedback {
   }[];
 }
 
+const formatAiError = (err: any) => {
+  const msg = err?.message || (typeof err === 'string' ? err : '');
+  if (msg.includes('429') || msg.toLowerCase().includes('limit') || msg.toLowerCase().includes('quota') || msg.toLowerCase().includes('exhausted')) {
+    return 'AI Limit reached. Please try again later or use the second option: switch to Groq / Gemini.';
+  }
+  return msg || 'An unexpected error occurred.';
+};
+
 export default function ResumeBuilderPage() {
   const [loading, setLoading] = useState(true);
   const [aiScanning, setAiScanning] = useState(false);
@@ -82,6 +90,11 @@ export default function ResumeBuilderPage() {
   const [connectedPlatforms, setConnectedPlatforms] = useState<any[]>([]);
   const [rawCertText, setRawCertText] = useState('');
   const [parsingCerts, setParsingCerts] = useState(false);
+  const [errorModal, setErrorModal] = useState<{ isOpen: boolean; title: string; message: string }>({
+    isOpen: false,
+    title: '',
+    message: ''
+  });
 
   // Core Resume State matching the uploaded image exactly
   const [resume, setResume] = useState<ResumeState>({
@@ -296,7 +309,11 @@ export default function ResumeBuilderPage() {
         setActiveTab('ai');
       }
     } catch (err: any) {
-      alert('AI Scan Failed: ' + (err.message || err));
+      setErrorModal({
+        isOpen: true,
+        title: 'AI Scan Failed',
+        message: formatAiError(err)
+      });
     } finally {
       setAiScanning(false);
     }
@@ -343,7 +360,11 @@ export default function ResumeBuilderPage() {
         alert('Resume auto-tailored successfully to match the job description! Check the sheet preview.');
       }
     } catch (err: any) {
-      alert('AI Auto-Tailoring Failed: ' + (err.message || err));
+      setErrorModal({
+        isOpen: true,
+        title: 'AI Auto-Tailoring Failed',
+        message: formatAiError(err)
+      });
     } finally {
       setAiTailoring(false);
     }
@@ -1137,28 +1158,6 @@ export default function ResumeBuilderPage() {
                 </button>
               </div>
 
-              {/* Local Feedback checklist */}
-              <div className="pt-4 border-t border-border/60 space-y-3">
-                <h4 className="text-[10px] font-bold text-white uppercase tracking-wider">Local Compliance Checklist</h4>
-                {localAnalysis.criticalFixes.map((fix, idx) => (
-                  <div key={idx} className="flex items-start gap-2 text-[10px] text-red-400 bg-red-500/5 border border-red-500/10 p-2.5 rounded-lg">
-                    <AlertTriangle className="h-3.5 w-3.5 shrink-0 text-red-500 mt-0.5" />
-                    <span>{fix}</span>
-                  </div>
-                ))}
-                {localAnalysis.suggestions.map((sug, idx) => (
-                  <div key={idx} className="flex items-start gap-2 text-[10px] text-yellow-400 bg-yellow-500/5 border border-yellow-500/10 p-2.5 rounded-lg">
-                    <CheckCircle className="h-3.5 w-3.5 shrink-0 text-yellow-500 mt-0.5" />
-                    <span>{sug}</span>
-                  </div>
-                ))}
-                {localAnalysis.criticalFixes.length === 0 && (
-                  <div className="flex items-center gap-2 text-[10px] text-green-400 bg-green-500/5 border border-green-500/10 p-2.5 rounded-lg">
-                    <CheckCircle className="h-3.5 w-3.5 text-green-500" />
-                    <span>All local syntax formatting guidelines are fully satisfied!</span>
-                  </div>
-                )}
-              </div>
 
             </div>
           )}
@@ -1478,6 +1477,48 @@ export default function ResumeBuilderPage() {
           }
         }
       `}} />
+
+      {/* Centered Custom Error Modal */}
+      <AnimatePresence>
+        {errorModal.isOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setErrorModal(prev => ({ ...prev, isOpen: false }))}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            {/* Modal Box */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-[#0e131f] p-6 shadow-2xl z-10"
+            >
+              {/* Glow decoration */}
+              <div className="absolute -left-16 -top-16 h-32 w-32 rounded-full bg-[#FF8A00]/10 blur-3xl pointer-events-none" />
+              
+              <div className="flex flex-col items-center text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/10 border border-orange-500/20 text-[#FF8A00] mb-4">
+                  <AlertTriangle className="h-6 w-6" />
+                </div>
+                
+                <h3 className="text-base font-bold text-white mb-2">{errorModal.title}</h3>
+                <p className="text-xs text-gray-400 leading-relaxed mb-6 whitespace-pre-line">{errorModal.message}</p>
+                
+                <button
+                  onClick={() => setErrorModal(prev => ({ ...prev, isOpen: false }))}
+                  className="w-full py-2 bg-gradient-to-r from-[#FF8A00] to-orange-500 hover:from-orange-500 hover:to-[#FF8A00] text-black font-extrabold rounded-lg text-xs transition-all shadow-md shadow-[#FF8A00]/20"
+                >
+                  Acknowledge
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
     </div>
   );

@@ -46,6 +46,17 @@ export const getResumeData = async (req: Request, res: Response) => {
   }
 };
 
+const handleAiError = (error: any, res: Response, defaultMessage: string) => {
+  const errMsg = error.message || '';
+  if (errMsg.includes('429') || errMsg.toLowerCase().includes('limit') || errMsg.toLowerCase().includes('quota') || errMsg.toLowerCase().includes('exhausted')) {
+    return res.status(429).json({
+      success: false,
+      message: 'AI Limit reached. Please try again later or switch to the other execution engine (Gemini / Groq).'
+    });
+  }
+  return res.status(500).json({ success: false, message: defaultMessage + ': ' + errMsg });
+};
+
 const SYSTEM_PROMPT = `
 You are an expert ATS (Applicant Tracking System) parser. Analyze the Candidate's Resume against the provided Job Description.
 Analyze the alignment and provide constructive, detailed feedback. Return ONLY a valid JSON object matching this structure:
@@ -145,7 +156,7 @@ export const analyzeResumeAI = async (req: Request, res: Response) => {
     }
   } catch (error: any) {
     console.error('AI Analysis Error:', error);
-    return res.status(500).json({ success: false, message: 'AI Analysis failed: ' + error.message });
+    return handleAiError(error, res, 'AI Analysis failed');
   }
 };
 
@@ -256,7 +267,7 @@ export const tailorResumeAI = async (req: Request, res: Response) => {
     }
   } catch (error: any) {
     console.error('Tailor AI Error:', error);
-    return res.status(500).json({ success: false, message: 'Auto-tailoring failed: ' + error.message });
+    return handleAiError(error, res, 'Auto-tailoring failed');
   }
 };
 
@@ -382,6 +393,6 @@ Candidate coding progress stats to evaluate:
     }
   } catch (error: any) {
     console.error('Analytics Insights AI Error:', error);
-    return res.status(500).json({ success: false, message: 'Failed to fetch AI Insights: ' + error.message });
+    return handleAiError(error, res, 'Failed to fetch AI Insights');
   }
 };
