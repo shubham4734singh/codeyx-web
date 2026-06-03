@@ -45,7 +45,7 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
         </div>
         
         <div className="flex flex-col sm:flex-row gap-3 items-center">
-          <SignOutButton signOutCallback={() => window.location.href = "/sign-in"}>
+          <SignOutButton>
             <button className="flex items-center gap-2 px-5 py-2.5 bg-destructive text-destructive-foreground rounded-lg text-sm font-semibold hover:bg-destructive/90 transition shadow-sm">
               <LogOut size={16} />
               Switch / Sign Out Account
