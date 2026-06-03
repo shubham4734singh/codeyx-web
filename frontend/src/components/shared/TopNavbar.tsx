@@ -354,13 +354,14 @@ export default function TopNavbar() {
                 { label: 'Patterns', href: '/patterns', isPrivate: false },
                 { label: 'Workspace', href: '/workspace', isWorkspace: true, hasDropdown: true, isPrivate: true },
                 { label: 'Platforms', href: '/dashboard/platforms/leetcode', isPlatforms: true, hasDropdown: true, isPrivate: true },
+                { label: 'Resume', href: '/dashboard/resume', isPrivate: true },
                 { label: 'Projects', href: '/explore-projects', isPrivate: false },
                 { label: 'Contests', href: '/contests', isPrivate: false },
                 { label: 'Leaderboard', href: '/leaderboard', isPrivate: false },
                 { label: 'Profile', href: '/profile', isPrivate: true },
               ]
             ).map((item, i) => {
-              const isActive = pathname === item.href || (pathname.startsWith('/sheets') && item.label === 'Workspace') || (pathname === '/dashboard' && item.label === 'Home') || (pathname.startsWith('/dashboard/platforms') && item.label === 'Platforms') || (pathname.startsWith('/projects') && item.label === 'Projects') || (pathname.startsWith('/contests') && item.label === 'Contests') || (pathname.startsWith('/leaderboard') && item.label === 'Leaderboard') || (pathname.startsWith('/patterns') && item.label === 'Patterns') || (pathname.startsWith('/profile') && item.label === 'Profile');
+              const isActive = pathname === item.href || (pathname.startsWith('/sheets') && item.label === 'Workspace') || (pathname === '/dashboard' && item.label === 'Home') || (pathname.startsWith('/dashboard/platforms') && item.label === 'Platforms') || (pathname.startsWith('/dashboard/resume') && item.label === 'Resume') || (pathname.startsWith('/projects') && item.label === 'Projects') || (pathname.startsWith('/contests') && item.label === 'Contests') || (pathname.startsWith('/leaderboard') && item.label === 'Leaderboard') || (pathname.startsWith('/patterns') && item.label === 'Patterns') || (pathname.startsWith('/profile') && item.label === 'Profile');
 
               if (item.isPrivate && !user) {
                 return (
@@ -708,13 +709,14 @@ export default function TopNavbar() {
                   { label: 'Patterns', href: '/patterns' },
                   { label: 'Workspace', href: '/workspace' },
                   { label: 'Platforms', href: '/dashboard/platforms/leetcode' },
+                  { label: 'Resume', href: '/dashboard/resume' },
                   { label: 'Projects', href: '/explore-projects' },
                   { label: 'Contests', href: '/contests' },
                   { label: 'Leaderboard', href: '/leaderboard' },
                   { label: 'Profile', href: '/profile' },
                 ]
               ).map((item, i) => {
-                const isActive = pathname === item.href || (pathname.startsWith('/sheets') && item.label === 'Workspace') || (pathname === '/dashboard' && item.label === 'Home') || (pathname.startsWith('/dashboard/platforms') && item.label === 'Platforms') || (pathname.startsWith('/projects') && item.label === 'Projects') || (pathname.startsWith('/contests') && item.label === 'Contests') || (pathname.startsWith('/leaderboard') && item.label === 'Leaderboard') || (pathname.startsWith('/patterns') && item.label === 'Patterns') || (pathname.startsWith('/profile') && item.label === 'Profile');
+                const isActive = pathname === item.href || (pathname.startsWith('/sheets') && item.label === 'Workspace') || (pathname === '/dashboard' && item.label === 'Home') || (pathname.startsWith('/dashboard/platforms') && item.label === 'Platforms') || (pathname.startsWith('/dashboard/resume') && item.label === 'Resume') || (pathname.startsWith('/projects') && item.label === 'Projects') || (pathname.startsWith('/contests') && item.label === 'Contests') || (pathname.startsWith('/leaderboard') && item.label === 'Leaderboard') || (pathname.startsWith('/patterns') && item.label === 'Patterns') || (pathname.startsWith('/profile') && item.label === 'Profile');
 
                 return (
                   <Link 

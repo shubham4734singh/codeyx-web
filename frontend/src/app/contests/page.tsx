@@ -314,8 +314,8 @@ export default function ContestsPage() {
               <h1 className="text-3xl font-black text-white mb-2 flex items-center gap-3">
                 Contests <Trophy size={28} className="text-[#FF8A00]" />
               </h1>
-              <p className="text-sm font-semibold text-gray-400">
-                Compete, challenge and improve your problem solving skills.
+              <p className="text-sm font-semibold text-gray-400 max-w-2xl leading-relaxed">
+                Compete, challenge and improve your problem solving skills. Sync with top platforms, view schedules in the contest calendar, and click any contest to set email reminders or synchronize directly to your Google, Outlook, or Apple calendar.
               </p>
             </div>
             
@@ -374,21 +374,28 @@ export default function ContestsPage() {
                               <div className="text-[10px] font-bold text-gray-400">{contest.date}</div>
                             )}
                           </div>
-                          
-                          <div 
-                            className={`rounded-xl p-3 flex flex-col gap-2 transition-all duration-300 ${
+                                          <div 
+                            onClick={() => { setSelectedContest(contest); setReminderStatusMsg(''); }}
+                            className={`rounded-xl p-4 flex flex-col gap-2.5 transition-all duration-300 cursor-pointer group/card ${
                               isToday 
-                                ? 'bg-[#FF8A00]/5 border border-[#FF8A00]/30 shadow-[0_0_15px_rgba(255,138,0,0.1)]' 
-                                : 'bg-[#18181f] border border-white/5 hover:border-white/10'
+                                ? 'bg-[#FF8A00]/5 border border-[#FF8A00]/30 shadow-[0_0_15px_rgba(255,138,0,0.1)] hover:border-[#FF8A00]/50 hover:bg-[#FF8A00]/10 hover:scale-[1.015]' 
+                                : 'bg-[#18181f] border border-white/5 hover:border-[#FF8A00]/30 hover:bg-[#20202a] hover:scale-[1.015]'
                             }`}
                           >
-                            <div className="flex items-center gap-2 text-xs font-bold" style={{ color: isToday ? '#FF8A00' : '#d1d5db' }}>
-                               <div className={`w-2 h-2 rounded-full ${
-                                 contest.status === 'Live' ? 'bg-red-500 animate-pulse' : 'bg-[#FF8A00]'
-                               } ${isToday ? 'shadow-[0_0_8px_#FF8A00]' : ''}`} /> 
-                               {contest.time}
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2 text-xs font-bold" style={{ color: isToday ? '#FF8A00' : '#d1d5db' }}>
+                                 <div className={`w-2 h-2 rounded-full ${
+                                   contest.status === 'Live' ? 'bg-red-500 animate-pulse' : 'bg-[#FF8A00]'
+                                 } ${isToday ? 'shadow-[0_0_8px_#FF8A00]' : ''}`} /> 
+                                 {contest.time}
+                              </div>
+                              <span className="text-[10px] font-bold text-gray-500 group-hover/card:text-[#FF8A00] transition-colors flex items-center gap-1">
+                                <CalendarPlus size={12} />
+                                <span className="opacity-0 group-hover/card:opacity-100 transition-opacity text-[9px] font-black tracking-wider uppercase">Sync</span>
+                              </span>
                             </div>
-                            <button onClick={() => { setSelectedContest(contest); setReminderStatusMsg(''); }} className="text-sm font-black text-white flex items-start gap-2 hover:text-white transition-colors text-left">
+
+                            <div className="text-sm font-black text-white flex items-start gap-2 text-left">
                               <span className={`text-[9px] mt-0.5 px-1.5 py-0.5 rounded border font-black uppercase tracking-widest shrink-0 ${
                                 contest.plat.toLowerCase().includes('leetcode') ? 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20' :
                                 contest.plat.toLowerCase().includes('codechef') ? 'bg-orange-500/10 text-orange-500 border-orange-500/20' :
@@ -397,10 +404,14 @@ export default function ContestsPage() {
                               }`}>
                                 {contest.plat}
                               </span>
-                              <span className="hover:text-[#FF8A00] transition-colors">{contest.name}</span>
-                            </button>
-                            <div className="flex items-center justify-end mt-1">
-                              <span className={`text-[10px] font-bold ${contest.diffColor}`}>{contest.diff}</span>
+                              <span className="group-hover/card:text-[#FF8A00] transition-colors line-clamp-2">{contest.name}</span>
+                            </div>
+
+                            <div className="flex items-center justify-between mt-1 text-[10px]">
+                              <span className="text-gray-500 group-hover/card:text-gray-400 transition-colors text-[9px] font-medium italic">
+                                Click to set reminder / sync
+                              </span>
+                              <span className={`font-bold ${contest.diffColor}`}>{contest.diff}</span>
                             </div>
                           </div>
                         </div>
@@ -470,13 +481,13 @@ export default function ContestsPage() {
                             <button 
                               key={idx} 
                               onClick={() => { setSelectedContest(c); setReminderStatusMsg(''); }} 
-                              className={`px-1.5 py-1 rounded text-[9px] font-bold truncate flex items-center gap-1 ${
-                               c.status === 'Live' ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 
-                               c.plat.toLowerCase().includes('codeforces') ? 'bg-blue-500/10 text-blue-400' :
-                               c.plat.toLowerCase().includes('leetcode') ? 'bg-yellow-500/10 text-yellow-400' :
-                               'bg-white/5 text-gray-300'
+                              className={`px-1.5 py-1 rounded text-[9px] font-bold truncate flex items-center gap-1 transition-all duration-200 hover:scale-[1.04] cursor-pointer ${
+                               c.status === 'Live' ? 'bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30' : 
+                               c.plat.toLowerCase().includes('codeforces') ? 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20' :
+                               c.plat.toLowerCase().includes('leetcode') ? 'bg-yellow-500/10 text-yellow-400 hover:bg-yellow-500/20' :
+                               'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white'
                              }`}
-                             title={`${c.name} at ${c.time}`}
+                             title={`${c.name} at ${c.time} (Click to set reminder/sync)`}
                            >
                              <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${c.status === 'Live' ? 'bg-red-400 animate-pulse' : 'bg-current'}`} />
                              {c.name}
@@ -595,10 +606,10 @@ export default function ContestsPage() {
                       href={getGoogleCalendarUrl(selectedContest)} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex flex-col items-center gap-1 py-3 px-2 bg-[#FF8A00]/10 hover:bg-[#FF8A00]/15 border border-[#FF8A00]/20 hover:border-[#FF8A00]/30 text-xs font-black rounded-xl transition-all duration-300 hover:-translate-y-0.5"
+                      className="flex flex-col items-center gap-1.5 py-3 px-2 bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-[#FF8A00]/30 text-xs font-black rounded-xl transition-all duration-300 hover:-translate-y-0.5"
                     >
-                      <span className="text-[10px] font-black" style={{ color: '#FF8A00' }}>G</span>
-                      <span className="text-[10px] font-bold" style={{ color: '#FF8A00' }}>Google</span>
+                      <CalendarDays size={16} className="text-[#FF8A00] mb-0.5" />
+                      <span className="text-[10px] font-bold text-gray-300">Google</span>
                     </a>
 
                     {/* Outlook */}
@@ -606,22 +617,70 @@ export default function ContestsPage() {
                       href={getOutlookCalendarUrl(selectedContest)} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex flex-col items-center gap-1 py-3 px-2 bg-[#FF8A00]/10 hover:bg-[#FF8A00]/15 border border-[#FF8A00]/20 hover:border-[#FF8A00]/30 text-xs font-black rounded-xl transition-all duration-300 hover:-translate-y-0.5"
+                      className="flex flex-col items-center gap-1.5 py-3 px-2 bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-blue-500/30 text-xs font-black rounded-xl transition-all duration-300 hover:-translate-y-0.5"
                     >
-                      <span className="text-[10px] font-black" style={{ color: '#FF8A00' }}>O</span>
-                      <span className="text-[10px] font-bold" style={{ color: '#FF8A00' }}>Outlook</span>
+                      <Calendar size={16} className="text-blue-400 mb-0.5" />
+                      <span className="text-[10px] font-bold text-gray-300">Outlook</span>
                     </a>
 
                     {/* Apple / Download ICS */}
                     <a 
                       href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5005/api'}/contests/export/ics/${selectedContest.id}`}
                       download
-                      className="flex flex-col items-center gap-1 py-3 px-2 bg-[#FF8A00]/10 hover:bg-[#FF8A00]/15 border border-[#FF8A00]/20 hover:border-[#FF8A00]/30 text-xs font-black rounded-xl transition-all duration-300 hover:-translate-y-0.5"
+                      className="flex flex-col items-center gap-1.5 py-3 px-2 bg-white/[0.02] hover:bg-white/[0.04] border border-white/5 hover:border-emerald-500/30 text-xs font-black rounded-xl transition-all duration-300 hover:-translate-y-0.5"
                     >
-                      <span className="text-[10px] font-black" style={{ color: '#FF8A00' }}></span>
-                      <span className="text-[10px] font-bold" style={{ color: '#FF8A00' }}>Apple / ICS</span>
+                      <CalendarPlus size={16} className="text-emerald-400 mb-0.5" />
+                      <span className="text-[10px] font-bold text-gray-300">Apple / ICS</span>
                     </a>
                   </div>
+                </div>
+
+                {/* Real-time Reminders */}
+                <div className="flex flex-col gap-3 pt-4 border-t border-white/5">
+                  <h3 className="text-[10px] font-bold uppercase tracking-widest flex items-center gap-2" style={{ color: '#aeaeb2' }}>
+                    <BellRing size={13} className="text-[#FF8A00]" /> Set Contest Reminder
+                  </h3>
+                  
+                  <div className="flex gap-2 items-center">
+                    <div className="flex-1 relative">
+                      <select 
+                        value={reminderBefore}
+                        onChange={(e) => setReminderBefore(Number(e.target.value))}
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white outline-none focus:border-[#FF8A00]/50 appearance-none cursor-pointer font-bold"
+                      >
+                        <option value={15} className="bg-[#0d0d12] text-white">15 minutes before</option>
+                        <option value={30} className="bg-[#0d0d12] text-white">30 minutes before</option>
+                        <option value={60} className="bg-[#0d0d12] text-white">1 hour before</option>
+                        <option value={120} className="bg-[#0d0d12] text-white">2 hours before</option>
+                      </select>
+                      <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-400">
+                        <ChevronDown size={14} />
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={handleSetReminder}
+                      disabled={isReminderSubmitting}
+                      className="px-4 py-2.5 bg-[#FF8A00] hover:bg-orange-500 disabled:opacity-50 text-black font-black rounded-xl text-xs transition-all duration-300 flex items-center gap-1.5 shrink-0"
+                    >
+                      {isReminderSubmitting ? (
+                        <div className="w-3.5 h-3.5 border-2 border-black/20 border-t-black animate-spin rounded-full" />
+                      ) : (
+                        <BellRing size={12} strokeWidth={2.5} />
+                      )}
+                      {isReminderSubmitting ? 'Setting...' : 'Set Reminder'}
+                    </button>
+                  </div>
+
+                  {reminderStatusMsg && (
+                    <p className={`text-[11px] font-semibold mt-1 px-3 py-2 rounded-lg border ${
+                      reminderStatusMsg.includes('✅') 
+                        ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' 
+                        : 'text-rose-400 bg-rose-500/10 border-rose-500/20'
+                    }`}>
+                      {reminderStatusMsg}
+                    </p>
+                  )}
                 </div>
 
                 {/* Ultimate Visit Platform Primary CTA */}

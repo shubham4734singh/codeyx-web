@@ -936,9 +936,24 @@ export default function LeaderboardPage() {
              <div className="grid grid-cols-12 gap-4 px-6 py-4 border-b border-white/5 text-[10px] font-extrabold text-gray-500 uppercase tracking-widest items-center">
                 <div className="col-span-1 text-center flex items-center justify-center">Rank</div>
                 <div className="col-span-4 flex items-center gap-2"><Star size={12}/> User</div>
-                <div className="col-span-2 flex items-center gap-1 justify-end">
+                <div className="col-span-2 flex items-center gap-1 justify-end relative group/header-score">
                   <span className="text-[#FF8A00]/70">{activeLeaderboard === 'Contest Leaderboard' ? 'Contest' : 'Codeyx'}</span>&nbsp;{activeLeaderboard === 'Contest Leaderboard' ? 'Rating' : 'Score'}
-                  <span title="Weighted score from 5 radar factors: Problem Solving (30%) + Contest (25%) + Accuracy (20%) + Consistency (15%) + Speed (10%)" className="ml-1 w-3.5 h-3.5 rounded-full border border-gray-600 text-gray-600 text-[8px] flex items-center justify-center cursor-help shrink-0">?</span>
+                  <span className="ml-1 w-3.5 h-3.5 rounded-full border border-gray-600 text-gray-600 text-[8px] flex items-center justify-center cursor-help shrink-0">?</span>
+                  
+                  {activeLeaderboard !== 'Contest Leaderboard' && (
+                    <div className="absolute top-full right-0 mt-2 hidden group-hover/header-score:flex flex-col bg-[#0d0d12]/95 border border-[#FF8A00]/30 rounded-xl p-3 w-64 shadow-2xl z-50 text-[10px] text-gray-300 normal-case font-semibold leading-normal text-left pointer-events-none">
+                      <div className="font-black text-white mb-1.5 border-b border-white/5 pb-1">
+                        Codeyx Score Formula
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <div className="flex justify-between"><span>🧩 Problem Solving (DSA):</span> <span className="text-white">30%</span></div>
+                        <div className="flex justify-between"><span>🏆 Contest Rating:</span> <span className="text-white">25%</span></div>
+                        <div className="flex justify-between"><span>🎯 Accuracy Rate:</span> <span className="text-white">20%</span></div>
+                        <div className="flex justify-between"><span>🔥 Consistency:</span> <span className="text-white">15%</span></div>
+                        <div className="flex justify-between"><span>⚡ Speed Factor:</span> <span className="text-white">10%</span></div>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 <div className="col-span-2 text-right flex items-center justify-end">Problems Solved</div>
                 <div className="col-span-1 text-right flex items-center justify-end">Contests</div>
@@ -1056,10 +1071,10 @@ export default function LeaderboardPage() {
                       </div>
 
                       {/* Score */}
-                      <div className="col-span-2 flex flex-col items-end justify-center gap-1">
+                      <div className="col-span-2 flex flex-col items-end justify-center gap-1 relative group/score">
                         {row.hasData ? (
                           <>
-                            <span className="font-black text-[15px]" style={{ color: row.rank === 1 ? '#eab308' : row.rank === 2 ? '#c084fc' : row.rank === 3 ? '#FF8A00' : '#3b82f6' }}>
+                            <span className="font-black text-[15px] group-hover/score:text-[#FF8A00] transition-colors" style={{ color: row.rank === 1 ? '#eab308' : row.rank === 2 ? '#c084fc' : row.rank === 3 ? '#FF8A00' : '#3b82f6' }}>
                               {activeLeaderboard === 'Contest Leaderboard'
                                 ? (row.calculatedContestScore || 0).toLocaleString()
                                 : `${row.rating}%`}
@@ -1073,6 +1088,23 @@ export default function LeaderboardPage() {
                                     backgroundColor: row.rank === 1 ? '#eab308' : row.rank === 2 ? '#c084fc' : row.rank === 3 ? '#FF8A00' : '#3b82f6'
                                   }}
                                 />
+                              </div>
+                            )}
+
+                            {/* Beautiful Hover Tooltip for Codeyx Score */}
+                            {activeLeaderboard !== 'Contest Leaderboard' && (
+                              <div className="absolute right-full mr-4 top-1/2 -translate-y-1/2 hidden group-hover/score:flex flex-col bg-[#0d0d12]/95 border border-[#FF8A00]/30 rounded-xl p-3 w-64 shadow-2xl z-50 text-[10px] text-gray-300 leading-normal text-left pointer-events-none">
+                                <div className="font-black text-white mb-1.5 flex items-center justify-between border-b border-white/5 pb-1">
+                                  <span>Codeyx Score Breakdown</span>
+                                  <span className="text-[#FF8A00]">{row.rating}%</span>
+                                </div>
+                                <div className="flex flex-col gap-1 font-semibold normal-case">
+                                  <div className="flex justify-between"><span>🧩 Problem Solving (DSA):</span> <span className="text-white">30%</span></div>
+                                  <div className="flex justify-between"><span>🏆 Contest Rating:</span> <span className="text-white">25%</span></div>
+                                  <div className="flex justify-between"><span>🎯 Accuracy Rate:</span> <span className="text-white">20%</span></div>
+                                  <div className="flex justify-between"><span>🔥 Consistency:</span> <span className="text-white">15%</span></div>
+                                  <div className="flex justify-between"><span>⚡ Speed Factor:</span> <span className="text-white">10%</span></div>
+                                </div>
                               </div>
                             )}
                           </>

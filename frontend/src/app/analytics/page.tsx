@@ -5,6 +5,7 @@ import TopNavbar from '../../components/shared/TopNavbar';
 import Link from 'next/link';
 import { progressService } from '../../services/progress.service';
 import { patternsService } from '../../services/patterns.service';
+import { api } from '../../lib/api';
 import {
   PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -13,7 +14,7 @@ import {
 import {
   ArrowLeft, Zap, Target, Flame, BrainCircuit,
   TrendingUp, Clock, AlertTriangle, CheckCircle2,
-  Circle, Trophy, BookOpen, Loader2, Star, Layers, Activity, LayoutDashboard
+  Circle, Trophy, BookOpen, Loader2, Star, Layers, Activity, LayoutDashboard, Sparkles
 } from 'lucide-react';
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -56,6 +57,60 @@ function HeatmapCell({ count, maxCount }: { count: number; maxCount: number }) {
   );
 }
 
+const formatToPoints = (text: string) => {
+  if (!text) return [];
+  
+  const numberedMatch = text.match(/\d+[\)\.]/g);
+  if (numberedMatch && numberedMatch.length > 1) {
+    const firstIndex = text.search(/\d+[\)\.]/);
+    const prefix = text.substring(0, firstIndex).trim();
+    const parts = text.substring(firstIndex).split(/\s*\d+[\)\.]\s*/);
+    const points = parts.map(p => p.trim()).filter(Boolean);
+    if (prefix) {
+      return [prefix, ...points];
+    }
+    return points;
+  }
+  
+  const sentences = text
+    .split(/(?<=[.!?])\s+(?=[A-Z0-9'"])/)
+    .map(s => s.trim())
+    .filter(Boolean);
+    
+  return sentences;
+};
+
+const renderInsightText = (text: string) => {
+  if (!text) return null;
+  const points = formatToPoints(text);
+  
+  if (points.length <= 1) {
+    return <p className="text-[11.5px] text-gray-300 leading-relaxed">{text}</p>;
+  }
+
+  const hasPrefix = points[0].endsWith(':') || 
+                    points[0].toLowerCase().includes('need to') || 
+                    points[0].toLowerCase().includes('struggling across') || 
+                    points[0].toLowerCase().includes('criteria of having') ||
+                    points[0].toLowerCase().includes('adopt a structured');
+  const startIndex = hasPrefix ? 1 : 0;
+  
+  return (
+    <div className="flex flex-col gap-2">
+      {hasPrefix && (
+        <p className="text-[11.5px] text-gray-300 font-bold leading-relaxed">{points[0]}</p>
+      )}
+      <ul className="list-disc pl-4 space-y-1.5 text-[11.5px] text-gray-300 leading-relaxed">
+        {points.slice(startIndex).map((pt, idx) => (
+          <li key={idx} className="marker:text-[#FF8A00]">
+            {pt}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 export default function GlobalAnalyticsPage() {
   const { isSignedIn, isLoaded } = useUser();
   const [activeTab, setActiveTab] = useState<'overall' | 'sheets' | 'patterns'>('overall');
@@ -64,6 +119,11 @@ export default function GlobalAnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [sortOption, setSortOption] = useState<'completion' | 'name' | 'remaining'>('completion');
   const [patternSort, setPatternSort] = useState<'completion' | 'name' | 'remaining'>('completion');
+  
+  // AI study insights states
+  const [aiInsights, setAiInsights] = useState<any>(null);
+  const [insightsLoading, setInsightsLoading] = useState(false);
+  const [insightsProvider, setInsightsProvider] = useState<'gemini' | 'groq'>('gemini');
 
   useEffect(() => {
     if (!isLoaded || !isSignedIn) return;
@@ -104,28 +164,6 @@ export default function GlobalAnalyticsPage() {
     return list;
   }, [patternAnalytics?.patternStats, patternSort]);
 
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen bg-[#0B0C10] text-[#FAFAFA] font-sans">
-        <TopNavbar />
-        <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={32} className="text-[#FF8A00] animate-spin" /></div>
-      </div>
-    );
-  }
-
-  if (!isSignedIn) {
-    return (
-      <div className="min-h-screen bg-[#0B0C10] text-[#FAFAFA] font-sans">
-        <TopNavbar />
-        <div className="max-w-[1400px] mx-auto px-6 pt-20 text-center">
-          <Target size={48} className="mx-auto text-gray-600 mb-4" />
-          <p className="text-gray-400">Sign in to view your analytics.</p>
-          <Link href="/dashboard" className="text-[#FF8A00] text-sm mt-4 inline-block">← Go to Dashboard</Link>
-        </div>
-      </div>
-    );
-  }
-
   // Sheets Stats
   const sheetsSolved = sheetsData.reduce((acc, curr) => acc + (curr.solvedProblems || 0), 0);
   const sheetsTotal = sheetsData.reduce((acc, curr) => acc + (curr.totalProblems || 0), 0);
@@ -156,6 +194,57 @@ export default function GlobalAnalyticsPage() {
     solved: p.solvedProblems,
     total: p.totalProblems,
   }));
+
+  const handleGenerateInsights = async () => {
+    setInsightsLoading(true);
+    setAiInsights(null);
+    try {
+      const response: any = await api.post('/resume/analytics-insights', {
+        totalSolved: Math.max(sheetsSolved, patternsTotalSolved),
+        totalProblems: Math.max(sheetsTotal, patternsTotalProblems),
+        weakPatterns: d?.weakPatterns || [],
+        strongPatterns: d?.strongPatterns || [],
+        difficultySolved: d?.difficultySolved || { Easy: 0, Medium: 0, Hard: 0 },
+        difficultyTotal: d?.difficultyTotal || { Easy: 0, Medium: 0, Hard: 0 },
+        sheetsProgress: sheetsData.map(s => ({
+          title: s.title,
+          solved: s.solvedProblems,
+          total: s.totalProblems,
+          percentage: s.progressPercentage
+        })),
+        provider: insightsProvider
+      });
+      if (response.success && response.data) {
+        setAiInsights(response.data);
+      }
+    } catch (err: any) {
+      console.error(err);
+    } finally {
+      setInsightsLoading(false);
+    }
+  };
+
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-[#0B0C10] text-[#FAFAFA] font-sans">
+        <TopNavbar />
+        <div className="flex items-center justify-center min-h-[60vh]"><Loader2 size={32} className="text-[#FF8A00] animate-spin" /></div>
+      </div>
+    );
+  }
+
+  if (!isSignedIn) {
+    return (
+      <div className="min-h-screen bg-[#0B0C10] text-[#FAFAFA] font-sans">
+        <TopNavbar />
+        <div className="max-w-[1400px] mx-auto px-6 pt-20 text-center">
+          <Target size={48} className="mx-auto text-gray-600 mb-4" />
+          <p className="text-gray-400">Sign in to view your analytics.</p>
+          <Link href="/dashboard" className="text-[#FF8A00] text-sm mt-4 inline-block">← Go to Dashboard</Link>
+        </div>
+      </div>
+    );
+  }
 
   const weekDays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const weeklyChartData = (d?.weeklyProgress || []).map((w: any) => ({
@@ -263,6 +352,136 @@ export default function GlobalAnalyticsPage() {
                 <p className="text-3xl font-extrabold text-emerald-400">{(d?.patternStats || []).filter((p: any) => p.solvedProblems > 0).length}</p>
                 <p className="text-[10px] text-gray-500 mt-1">Out of {d?.totalPatterns || 0} patterns</p>
               </div>
+            </div>
+
+            {/* AI Mentor Insights */}
+            <div className="bg-[#111216]/40 border border-white/5 rounded-2xl p-6 space-y-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="text-[#FF8A00] h-5 w-5 animate-pulse" />
+                  <div>
+                    <h3 className="text-sm font-bold text-white uppercase tracking-wider">AI Study Insights & Roadmap</h3>
+                    <p className="text-[10px] text-gray-500 mt-0.5">Custom study plans analyzed from your weak patterns and solving consistency.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <div className="flex bg-black border border-white/10 rounded-lg p-0.5 text-[9px] font-bold">
+                    <button
+                      onClick={() => setInsightsProvider('gemini')}
+                      className={`px-2 py-1 rounded ${insightsProvider === 'gemini' ? 'bg-[#FF8A00] text-black font-extrabold' : 'text-gray-400'}`}
+                    >
+                      Gemini
+                    </button>
+                    <button
+                      onClick={() => setInsightsProvider('groq')}
+                      className={`px-2 py-1 rounded ${insightsProvider === 'groq' ? 'bg-[#FF8A00] text-black font-extrabold' : 'text-gray-400'}`}
+                    >
+                      Groq Llama
+                    </button>
+                  </div>
+
+                  <button
+                    onClick={handleGenerateInsights}
+                    disabled={insightsLoading}
+                    className="px-3.5 py-1.5 bg-[#FF8A00] hover:bg-orange-500 disabled:opacity-40 text-black font-extrabold text-[10px] rounded-lg transition-all flex items-center gap-1 shadow-md shadow-[#FF8A00]/20"
+                  >
+                    {insightsLoading ? (
+                      <>
+                        <Loader2 className="h-3 w-3 animate-spin" />
+                        Analyzing...
+                      </>
+                    ) : (
+                      <>
+                        <BrainCircuit className="h-3 w-3" />
+                        Ask AI Mentor
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {aiInsights ? (
+                <div className="space-y-6 pt-2 border-t border-white/5 animate-in fade-in duration-500">
+                  {/* Strength, Weakness & Effort Analysis Row */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {/* Strong Topics */}
+                    <div className="bg-emerald-500/5 border border-emerald-500/10 p-4 rounded-xl space-y-2">
+                      <div className="flex items-center gap-2 text-emerald-400 font-bold text-[11px] uppercase tracking-wider">
+                        <CheckCircle2 size={13} /> Topic Strengths
+                      </div>
+                      {renderInsightText(aiInsights.strongTopicsAnalysis)}
+                    </div>
+
+                    {/* Weak Topics */}
+                    <div className="bg-rose-500/5 border border-rose-500/10 p-4 rounded-xl space-y-2">
+                      <div className="flex items-center gap-2 text-rose-400 font-bold text-[11px] uppercase tracking-wider">
+                        <AlertTriangle size={13} /> Topic Weaknesses
+                      </div>
+                      {renderInsightText(aiInsights.weakTopicsAnalysis)}
+                    </div>
+
+                    {/* More Effort Required */}
+                    <div className="bg-amber-500/5 border border-amber-500/10 p-4 rounded-xl space-y-2">
+                      <div className="flex items-center gap-2 text-amber-400 font-bold text-[11px] uppercase tracking-wider">
+                        <Target size={13} /> Effort Needed
+                      </div>
+                      {renderInsightText(aiInsights.effortRequiredAnalysis)}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    {/* Mentorship Tips & Recommended Patterns */}
+                    <div className="lg:col-span-7 space-y-4">
+                      <div className="bg-black/20 border border-white/5 p-4 rounded-xl">
+                        <h4 className="text-[11px] font-bold text-orange-400 uppercase tracking-wider mb-2">Mentor Feedback</h4>
+                        {renderInsightText(aiInsights.learningTip)}
+                      </div>
+
+                      <div className="space-y-2">
+                        <h4 className="text-[11px] font-bold text-white uppercase tracking-wider">Recommended Focus Topics</h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {aiInsights.recommendedPatterns.map((pat: string, idx: number) => {
+                            const parts = pat.split(':');
+                            return (
+                              <div key={idx} className="bg-white/[0.02] border border-white/5 p-3 rounded-lg">
+                                <span className="text-[11px] font-bold text-[#FF8A00] block">{parts[0]}</span>
+                                <span className="text-[10px] text-gray-400 mt-1 block">{parts[1] || ''}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action Items & Placement perspective */}
+                    <div className="lg:col-span-5 space-y-4">
+                      <div className="bg-[#FF8A00]/5 border border-[#FF8A00]/10 p-4 rounded-xl space-y-3">
+                        <h4 className="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                          <Target className="text-[#FF8A00] h-3.5 w-3.5" /> Action Plan
+                        </h4>
+                        <ul className="space-y-2">
+                          {aiInsights.actionItems.map((act: string, idx: number) => (
+                            <li key={idx} className="flex items-start gap-2 text-[11.5px] text-gray-200">
+                              <span className="text-[#FF8A00] font-black mt-0.5">•</span>
+                              <span>{act}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="border border-white/5 bg-black/40 p-4 rounded-xl">
+                        <h4 className="text-[11px] font-bold text-white uppercase tracking-wider mb-1">Interview Advantage</h4>
+                        <p className="text-[11px] text-gray-400 italic leading-relaxed">"{aiInsights.careerAngle}"</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-6 border-t border-white/5 text-gray-500">
+                  <p className="text-xs">Click <strong>"Ask AI Mentor"</strong> to get personal study roadmaps based on your current stats.</p>
+                </div>
+              )}
             </div>
 
             {/* Heatmap */}

@@ -37,6 +37,7 @@ import adminRoutes from './routes/admin.routes';
 import { SystemSettings } from './models/settings.model';
 import notificationRoutes from './routes/notification.routes';
 import feedbackRoutes from './routes/feedback.routes';
+import resumeRoutes from './routes/resume.routes';
 import { startCronJobs } from './cron';
 import { setupWorkers } from './queues/sync.worker';
 import { setupCleanupWorker } from './queues/cleanup.worker';
@@ -204,6 +205,7 @@ app.use('/api/suggestions', suggestionRoutes);
 app.use('/api/feedback', feedbackRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/resume', resumeRoutes);
 app.use('/api', swaggerRoutes);
 
 // Centralized Error Handling Middleware

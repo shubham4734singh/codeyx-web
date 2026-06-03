@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { api } from '@/lib/api';
-import { analyzeResumeLocally, LocalAtsResult } from '@/lib/localAtsChecker';
+import { analyzeResumeLocally, LocalAtsResult } from '@/lib/atsChecker';
 import { 
   Sparkles, AlertTriangle, CheckCircle, FileDown, RefreshCw, Plus, Trash, Eye,
   Link2, CheckCircle2, Globe, Github, Award, ExternalLink

@@ -705,7 +705,7 @@
     "platform": "github",
     "__v": 0,
     "createdAt": "2026-05-29T08:25:20.417Z",
-    "lastSyncedAt": "2026-06-03T04:00:17.207Z",
+    "lastSyncedAt": "2026-06-03T17:00:17.277Z",
     "rating": 0,
     "stats": {
       "username": "LalitModi90",
@@ -725,7 +725,7 @@
         "Batchfile"
       ],
       "repositoriesCount": 5,
-      "streak": 0,
+      "streak": 1,
       "extra": {
         "bio": "",
         "company": "",
@@ -739,9 +739,24 @@
         "commitsCount": 0,
         "prsCount": 0,
         "issuesCount": 0,
-        "totalContributions": 208,
+        "totalContributions": 215,
         "organizations": [],
         "repositories": [
+          {
+            "name": "codeyx-web",
+            "description": "AI-powered coding workspace for DSA tracking, contests, sheets, notes, and developer growth.",
+            "stars": 0,
+            "forks": 0,
+            "watchers": 0,
+            "language": "TypeScript",
+            "topics": [],
+            "visibility": "Public",
+            "defaultBranch": "main",
+            "homepage": "https://codeyx-web.vercel.app",
+            "hasDeployment": true,
+            "deploymentProvider": "Vercel",
+            "updatedAt": "2026-06-03T10:00:24Z"
+          },
           {
             "name": "Razorpay-clone-",
             "description": "",
@@ -756,21 +771,6 @@
             "hasDeployment": false,
             "deploymentProvider": "Source Only",
             "updatedAt": "2026-06-01T10:50:35Z"
-          },
-          {
-            "name": "codeyx-web",
-            "description": "AI-powered coding workspace for DSA tracking, contests, sheets, notes, and developer growth.",
-            "stars": 0,
-            "forks": 0,
-            "watchers": 0,
-            "language": "TypeScript",
-            "topics": [],
-            "visibility": "Public",
-            "defaultBranch": "main",
-            "homepage": "https://codeyx-web.vercel.app",
-            "hasDeployment": true,
-            "deploymentProvider": "Vercel",
-            "updatedAt": "2026-05-31T14:39:29Z"
           },
           {
             "name": "project",
@@ -906,6 +906,10 @@
           {
             "date": "2026-06-01",
             "count": 3
+          },
+          {
+            "date": "2026-06-03",
+            "count": 7
           }
         ],
         "languages": [
@@ -957,11 +961,11 @@
       "highestRating": 0,
       "resolutionDetails": {
         "strategyUsed": "primary",
-        "timestamp": "2026-06-03T04:00:16.972Z"
+        "timestamp": "2026-06-03T17:00:17.037Z"
       }
     },
     "totalSolved": 5,
-    "updatedAt": "2026-06-03T04:00:17.208Z",
+    "updatedAt": "2026-06-03T17:00:17.278Z",
     "username": "LalitModi90"
   },
   {
@@ -970,7 +974,7 @@
     "platform": "codechef",
     "__v": 0,
     "createdAt": "2026-05-30T03:55:43.045Z",
-    "lastSyncedAt": "2026-06-03T04:00:46.313Z",
+    "lastSyncedAt": "2026-06-03T17:00:43.718Z",
     "rating": 1157,
     "stats": {
       "username": "lalitmodi7878",
@@ -1055,8 +1059,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "Jun 2, 2026",
-          "date": "Jun 2, 2026",
+          "submittedTime": "Jun 3, 2026",
+          "date": "Jun 3, 2026",
           "success": true,
           "tags": [
             "Mathematics"
@@ -1073,8 +1077,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "Jun 2, 2026",
-          "date": "Jun 2, 2026",
+          "submittedTime": "Jun 3, 2026",
+          "date": "Jun 3, 2026",
           "success": true,
           "tags": [
             "Sorting & Arrays"
@@ -1127,8 +1131,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "Jun 1, 2026",
-          "date": "Jun 1, 2026",
+          "submittedTime": "Jun 2, 2026",
+          "date": "Jun 2, 2026",
           "success": true,
           "tags": [
             "Dynamic Programming"
@@ -1145,8 +1149,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "Jun 1, 2026",
-          "date": "Jun 1, 2026",
+          "submittedTime": "Jun 2, 2026",
+          "date": "Jun 2, 2026",
           "success": true,
           "tags": [
             "Graph Theory"
@@ -1199,8 +1203,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 31, 2026",
-          "date": "May 31, 2026",
+          "submittedTime": "Jun 1, 2026",
+          "date": "Jun 1, 2026",
           "success": true,
           "tags": [
             "Mathematics"
@@ -1217,8 +1221,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 31, 2026",
-          "date": "May 31, 2026",
+          "submittedTime": "Jun 1, 2026",
+          "date": "Jun 1, 2026",
           "success": true,
           "tags": [
             "Mathematics"
@@ -1271,8 +1275,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 30, 2026",
-          "date": "May 30, 2026",
+          "submittedTime": "May 31, 2026",
+          "date": "May 31, 2026",
           "success": true,
           "tags": [
             "Greedy Algorithms"
@@ -1289,8 +1293,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 30, 2026",
-          "date": "May 30, 2026",
+          "submittedTime": "May 31, 2026",
+          "date": "May 31, 2026",
           "success": true,
           "tags": [
             "Dynamic Programming"
@@ -1343,8 +1347,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 29, 2026",
-          "date": "May 29, 2026",
+          "submittedTime": "May 30, 2026",
+          "date": "May 30, 2026",
           "success": true,
           "tags": [
             "Implementation"
@@ -1361,8 +1365,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 29, 2026",
-          "date": "May 29, 2026",
+          "submittedTime": "May 30, 2026",
+          "date": "May 30, 2026",
           "success": true,
           "tags": [
             "Mathematics"
@@ -1415,8 +1419,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 28, 2026",
-          "date": "May 28, 2026",
+          "submittedTime": "May 29, 2026",
+          "date": "May 29, 2026",
           "success": true,
           "tags": [
             "Sorting & Arrays"
@@ -1433,8 +1437,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 28, 2026",
-          "date": "May 28, 2026",
+          "submittedTime": "May 29, 2026",
+          "date": "May 29, 2026",
           "success": true,
           "tags": [
             "Greedy Algorithms"
@@ -1487,8 +1491,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 27, 2026",
-          "date": "May 27, 2026",
+          "submittedTime": "May 28, 2026",
+          "date": "May 28, 2026",
           "success": true,
           "tags": [
             "Graph Theory"
@@ -1505,8 +1509,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 27, 2026",
-          "date": "May 27, 2026",
+          "submittedTime": "May 28, 2026",
+          "date": "May 28, 2026",
           "success": true,
           "tags": [
             "Implementation"
@@ -1559,8 +1563,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 26, 2026",
-          "date": "May 26, 2026",
+          "submittedTime": "May 27, 2026",
+          "date": "May 27, 2026",
           "success": true,
           "tags": [
             "Sorting & Arrays"
@@ -1577,8 +1581,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 26, 2026",
-          "date": "May 26, 2026",
+          "submittedTime": "May 27, 2026",
+          "date": "May 27, 2026",
           "success": true,
           "tags": [
             "Sorting & Arrays"
@@ -1631,8 +1635,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 25, 2026",
-          "date": "May 25, 2026",
+          "submittedTime": "May 26, 2026",
+          "date": "May 26, 2026",
           "success": true,
           "tags": [
             "Graph Theory"
@@ -1649,8 +1653,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 25, 2026",
-          "date": "May 25, 2026",
+          "submittedTime": "May 26, 2026",
+          "date": "May 26, 2026",
           "success": true,
           "tags": [
             "Graph Theory"
@@ -1703,8 +1707,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 24, 2026",
-          "date": "May 24, 2026",
+          "submittedTime": "May 25, 2026",
+          "date": "May 25, 2026",
           "success": true,
           "tags": [
             "Mathematics"
@@ -1721,8 +1725,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 24, 2026",
-          "date": "May 24, 2026",
+          "submittedTime": "May 25, 2026",
+          "date": "May 25, 2026",
           "success": true,
           "tags": [
             "Sorting & Arrays"
@@ -1775,8 +1779,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 23, 2026",
-          "date": "May 23, 2026",
+          "submittedTime": "May 24, 2026",
+          "date": "May 24, 2026",
           "success": true,
           "tags": [
             "Dynamic Programming"
@@ -1793,8 +1797,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 23, 2026",
-          "date": "May 23, 2026",
+          "submittedTime": "May 24, 2026",
+          "date": "May 24, 2026",
           "success": true,
           "tags": [
             "Graph Theory"
@@ -1847,8 +1851,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 22, 2026",
-          "date": "May 22, 2026",
+          "submittedTime": "May 23, 2026",
+          "date": "May 23, 2026",
           "success": true,
           "tags": [
             "Mathematics"
@@ -1865,8 +1869,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 22, 2026",
-          "date": "May 22, 2026",
+          "submittedTime": "May 23, 2026",
+          "date": "May 23, 2026",
           "success": true,
           "tags": [
             "Mathematics"
@@ -1919,8 +1923,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 21, 2026",
-          "date": "May 21, 2026",
+          "submittedTime": "May 22, 2026",
+          "date": "May 22, 2026",
           "success": true,
           "tags": [
             "Greedy Algorithms"
@@ -1937,8 +1941,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 21, 2026",
-          "date": "May 21, 2026",
+          "submittedTime": "May 22, 2026",
+          "date": "May 22, 2026",
           "success": true,
           "tags": [
             "Dynamic Programming"
@@ -1991,8 +1995,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 20, 2026",
-          "date": "May 20, 2026",
+          "submittedTime": "May 21, 2026",
+          "date": "May 21, 2026",
           "success": true,
           "tags": [
             "Implementation"
@@ -2009,8 +2013,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 20, 2026",
-          "date": "May 20, 2026",
+          "submittedTime": "May 21, 2026",
+          "date": "May 21, 2026",
           "success": true,
           "tags": [
             "Mathematics"
@@ -2063,8 +2067,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 19, 2026",
-          "date": "May 19, 2026",
+          "submittedTime": "May 20, 2026",
+          "date": "May 20, 2026",
           "success": true,
           "tags": [
             "Sorting & Arrays"
@@ -2081,8 +2085,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 19, 2026",
-          "date": "May 19, 2026",
+          "submittedTime": "May 20, 2026",
+          "date": "May 20, 2026",
           "success": true,
           "tags": [
             "Sorting & Search"
@@ -2135,8 +2139,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 18, 2026",
-          "date": "May 18, 2026",
+          "submittedTime": "May 19, 2026",
+          "date": "May 19, 2026",
           "success": true,
           "tags": [
             "Graph Theory"
@@ -2153,8 +2157,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 18, 2026",
-          "date": "May 18, 2026",
+          "submittedTime": "May 19, 2026",
+          "date": "May 19, 2026",
           "success": true,
           "tags": [
             "Implementation"
@@ -2207,8 +2211,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 17, 2026",
-          "date": "May 17, 2026",
+          "submittedTime": "May 18, 2026",
+          "date": "May 18, 2026",
           "success": true,
           "tags": [
             "Sorting & Arrays"
@@ -2225,8 +2229,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 17, 2026",
-          "date": "May 17, 2026",
+          "submittedTime": "May 18, 2026",
+          "date": "May 18, 2026",
           "success": true,
           "tags": [
             "Sorting & Arrays"
@@ -2279,8 +2283,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 16, 2026",
-          "date": "May 16, 2026",
+          "submittedTime": "May 17, 2026",
+          "date": "May 17, 2026",
           "success": true,
           "tags": [
             "Graph Theory"
@@ -2297,8 +2301,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 16, 2026",
-          "date": "May 16, 2026",
+          "submittedTime": "May 17, 2026",
+          "date": "May 17, 2026",
           "success": true,
           "tags": [
             "Graph Theory"
@@ -2351,8 +2355,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 15, 2026",
-          "date": "May 15, 2026",
+          "submittedTime": "May 16, 2026",
+          "date": "May 16, 2026",
           "success": true,
           "tags": [
             "Mathematics"
@@ -2369,8 +2373,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 15, 2026",
-          "date": "May 15, 2026",
+          "submittedTime": "May 16, 2026",
+          "date": "May 16, 2026",
           "success": true,
           "tags": [
             "Sorting & Arrays"
@@ -2423,8 +2427,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 14, 2026",
-          "date": "May 14, 2026",
+          "submittedTime": "May 15, 2026",
+          "date": "May 15, 2026",
           "success": true,
           "tags": [
             "Dynamic Programming"
@@ -2441,8 +2445,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 14, 2026",
-          "date": "May 14, 2026",
+          "submittedTime": "May 15, 2026",
+          "date": "May 15, 2026",
           "success": true,
           "tags": [
             "Graph Theory"
@@ -2495,8 +2499,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 13, 2026",
-          "date": "May 13, 2026",
+          "submittedTime": "May 14, 2026",
+          "date": "May 14, 2026",
           "success": true,
           "tags": [
             "Mathematics"
@@ -2513,8 +2517,8 @@
           "runtime": "0.08s",
           "executionTime": "0.08s",
           "memory": "312KB",
-          "submittedTime": "May 13, 2026",
-          "date": "May 13, 2026",
+          "submittedTime": "May 14, 2026",
+          "date": "May 14, 2026",
           "success": true,
           "tags": [
             "Mathematics"
@@ -2593,11 +2597,11 @@
       },
       "resolutionDetails": {
         "strategyUsed": "primary",
-        "timestamp": "2026-06-03T04:00:45.979Z"
+        "timestamp": "2026-06-03T17:00:42.918Z"
       }
     },
     "totalSolved": 85,
-    "updatedAt": "2026-06-03T04:00:46.313Z",
+    "updatedAt": "2026-06-03T17:00:43.718Z",
     "username": "lalitmodi7878"
   },
   {
