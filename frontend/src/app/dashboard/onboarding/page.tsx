@@ -50,7 +50,7 @@ export default function OnboardingPage() {
   const [degree, setDegree] = useState(profile.degree || 'B.Tech / B.E.');
   const [branch, setBranch] = useState(profile.branch || 'Computer Science');
   const [collegeInput, setCollegeInput] = useState(profile.college || '');
-  const [countryInput, setCountryInput] = useState(profile.country || profile.location || 'India');
+  const [countryInput, setCountryInput] = useState(profile.country || (profile as any).location || 'India');
   const [jobRole, setJobRole] = useState(profile.jobRole || 'SDE / Developer');
   const [gradYear, setGradYear] = useState(profile.gradYear || '2026');
   const [bio, setBio] = useState(profile.bio || '');
