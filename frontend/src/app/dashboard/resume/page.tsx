@@ -545,7 +545,7 @@ export default function ResumeBuilderPage() {
                 }),
                 new TextRun({
                   text: ` | ${proj.techStack.join(", ")}`,
-                  italic: true,
+                  italics: true,
                   size: 19,
                   font: fontName,
                 }),
@@ -620,13 +620,13 @@ export default function ResumeBuilderPage() {
               children: [
                 new TextRun({
                   text: `${edu.degree}${edu.branch ? ` in ${edu.branch}` : ""}`,
-                  italic: true,
+                  italics: true,
                   size: 19,
                   font: fontName,
                 }),
                 new TextRun({
                   text: `\t${edu.location}`,
-                  italic: true,
+                  italics: true,
                   size: 19,
                   font: fontName,
                 }),
