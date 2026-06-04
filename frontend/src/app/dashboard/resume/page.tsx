@@ -90,6 +90,7 @@ export default function ResumeBuilderPage() {
   const [connectedPlatforms, setConnectedPlatforms] = useState<any[]>([]);
   const [rawCertText, setRawCertText] = useState('');
   const [parsingCerts, setParsingCerts] = useState(false);
+  const [downloadingDocx, setDownloadingDocx] = useState(false);
   const [errorModal, setErrorModal] = useState<{ isOpen: boolean; title: string; message: string }>({
     isOpen: false,
     title: '',
@@ -389,6 +390,357 @@ export default function ResumeBuilderPage() {
     }
   };
 
+  // Download Word (DOCX) Document Helper
+  const downloadAsDocx = async () => {
+    setDownloadingDocx(true);
+    try {
+      const docx = await import('docx');
+      const { Document, Packer, Paragraph, TextRun, BorderStyle, TabStopType, AlignmentType } = docx;
+
+      const fileSaver = await import('file-saver');
+      const saveAs = fileSaver.saveAs || (fileSaver as any).default;
+
+      const fontName = fontFamily === 'serif' ? 'Georgia' : 'Arial';
+
+      const createSectionHeader = (titleText: string) => {
+        return new Paragraph({
+          spacing: { before: 180, after: 60 },
+          children: [
+            new TextRun({
+              text: titleText.toUpperCase(),
+              bold: true,
+              size: 22, // 11pt
+              font: fontName,
+            }),
+          ],
+          border: {
+            bottom: {
+              color: "000000",
+              space: 2,
+              style: BorderStyle.SINGLE,
+              size: 6,
+            },
+          },
+        });
+      };
+
+      const docChildren: any[] = [];
+
+      // 1. Name & Contact Info
+      docChildren.push(
+        new Paragraph({
+          alignment: AlignmentType.CENTER,
+          spacing: { after: 40 },
+          children: [
+            new TextRun({
+              text: resume.name.toUpperCase(),
+              bold: true,
+              size: 32, // 16pt
+              font: fontName,
+            }),
+          ],
+        })
+      );
+
+      const contactParts = [];
+      if (resume.phone) contactParts.push(`Phone: ${resume.phone}`);
+      if (resume.email) contactParts.push(resume.email);
+      if (resume.linkedin) contactParts.push(`LinkedIn: ${resume.linkedin.replace(/^https?:\/\//, '')}`);
+      if (resume.github) contactParts.push(`GitHub: ${resume.github.replace(/^https?:\/\//, '')}`);
+      if (resume.leetcode) contactParts.push(`LeetCode: ${resume.leetcode.replace(/^https?:\/\//, '')}`);
+      if (resume.codechef) contactParts.push(`CodeChef: ${resume.codechef.replace(/^https?:\/\//, '')}`);
+
+      if (contactParts.length > 0) {
+        docChildren.push(
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            spacing: { after: 140 },
+            children: [
+              new TextRun({
+                text: contactParts.join(" | "),
+                size: 19, // 9.5pt
+                font: fontName,
+              }),
+            ],
+          })
+        );
+      }
+
+      // 2. Summary
+      if (resume.summary) {
+        docChildren.push(createSectionHeader("Summary"));
+        docChildren.push(
+          new Paragraph({
+            spacing: { after: 80 },
+            alignment: AlignmentType.BOTH,
+            children: [
+              new TextRun({
+                text: resume.summary,
+                size: 19,
+                font: fontName,
+              }),
+            ],
+          })
+        );
+      }
+
+      // 3. Technical Skills
+      docChildren.push(createSectionHeader("Skills"));
+      const skillCategories = [
+        { label: "Languages", value: resume.skillsCategories.languages },
+        { label: "Frontend", value: resume.skillsCategories.frontend },
+        { label: "Backend & DB", value: resume.skillsCategories.backend },
+        { label: "CS Fundamentals", value: resume.skillsCategories.fundamentals },
+        { label: "Tools", value: resume.skillsCategories.tools },
+      ];
+
+      skillCategories.forEach((cat) => {
+        if (cat.value) {
+          docChildren.push(
+            new Paragraph({
+              spacing: { after: 30 },
+              children: [
+                new TextRun({
+                  text: `${cat.label}: `,
+                  bold: true,
+                  size: 19,
+                  font: fontName,
+                }),
+                new TextRun({
+                  text: cat.value,
+                  size: 19,
+                  font: fontName,
+                }),
+              ],
+            })
+          );
+        }
+      });
+
+      // 4. Projects
+      const selectedProjects = resume.projects.filter((p) => p.selected);
+      if (selectedProjects.length > 0) {
+        docChildren.push(createSectionHeader("Projects"));
+        selectedProjects.forEach((proj) => {
+          const links: string[] = [];
+          if (proj.githubUrl) links.push(`GitHub: ${proj.githubUrl}`);
+          if (proj.liveUrl) links.push(`Live: ${proj.liveUrl}`);
+          const linksText = links.length > 0 ? links.join(" | ") : "";
+
+          docChildren.push(
+            new Paragraph({
+              spacing: { before: 60, after: 30 },
+              tabStops: [
+                {
+                  type: TabStopType.RIGHT,
+                  position: 9000,
+                },
+              ],
+              children: [
+                new TextRun({
+                  text: proj.title,
+                  bold: true,
+                  size: 20, // 10pt
+                  font: fontName,
+                }),
+                new TextRun({
+                  text: ` | ${proj.techStack.join(", ")}`,
+                  italic: true,
+                  size: 19,
+                  font: fontName,
+                }),
+                ...(linksText ? [
+                  new TextRun({
+                    text: `\t[${linksText}]`,
+                    size: 17,
+                    font: fontName,
+                  })
+                ] : [])
+              ],
+            })
+          );
+
+          proj.description.split("\n").filter(Boolean).forEach((bullet) => {
+            docChildren.push(
+              new Paragraph({
+                bullet: { level: 0 },
+                spacing: { before: 15, after: 15 },
+                children: [
+                  new TextRun({
+                    text: bullet,
+                    size: 19,
+                    font: fontName,
+                  }),
+                ],
+              })
+            );
+          });
+        });
+      }
+
+      // 5. Education
+      if (resume.education.length > 0) {
+        docChildren.push(createSectionHeader("Education"));
+        resume.education.forEach((edu) => {
+          docChildren.push(
+            new Paragraph({
+              spacing: { before: 60, after: 20 },
+              tabStops: [
+                {
+                  type: TabStopType.RIGHT,
+                  position: 9000,
+                },
+              ],
+              children: [
+                new TextRun({
+                  text: edu.college,
+                  bold: true,
+                  size: 20,
+                  font: fontName,
+                }),
+                new TextRun({
+                  text: `\t${edu.year}`,
+                  bold: true,
+                  size: 18,
+                  font: fontName,
+                }),
+              ],
+            })
+          );
+
+          docChildren.push(
+            new Paragraph({
+              spacing: { after: 30 },
+              tabStops: [
+                {
+                  type: TabStopType.RIGHT,
+                  position: 9000,
+                },
+              ],
+              children: [
+                new TextRun({
+                  text: `${edu.degree}${edu.branch ? ` in ${edu.branch}` : ""}`,
+                  italic: true,
+                  size: 19,
+                  font: fontName,
+                }),
+                new TextRun({
+                  text: `\t${edu.location}`,
+                  italic: true,
+                  size: 19,
+                  font: fontName,
+                }),
+              ],
+            })
+          );
+
+          if (edu.gpa) {
+            docChildren.push(
+              new Paragraph({
+                bullet: { level: 0 },
+                spacing: { before: 15, after: 15 },
+                children: [
+                  new TextRun({
+                    text: edu.gpa,
+                    size: 19,
+                    font: fontName,
+                  }),
+                ],
+              })
+            );
+          }
+        });
+      }
+
+      // 6. Certifications
+      if (resume.certifications && resume.certifications.length > 0) {
+        docChildren.push(createSectionHeader("Certifications"));
+        resume.certifications.forEach((cert) => {
+          docChildren.push(
+            new Paragraph({
+              spacing: { before: 40, after: 40 },
+              tabStops: [
+                {
+                  type: TabStopType.RIGHT,
+                  position: 9000,
+                },
+              ],
+              children: [
+                new TextRun({
+                  text: cert.title,
+                  bold: true,
+                  size: 19,
+                  font: fontName,
+                }),
+                new TextRun({
+                  text: cert.issuer ? ` — ${cert.issuer}` : "",
+                  size: 19,
+                  font: fontName,
+                }),
+                new TextRun({
+                  text: `\t${cert.date}`,
+                  bold: true,
+                  size: 18,
+                  font: fontName,
+                }),
+              ],
+            })
+          );
+        });
+      }
+
+      // 7. Achievements
+      if (resume.achievements.length > 0) {
+        docChildren.push(createSectionHeader("Achievements"));
+        resume.achievements.forEach((ach) => {
+          const regex = /\*\*(.*?)\*\*(.*)/;
+          const match = ach.match(regex);
+          let runs = [];
+          if (match) {
+            runs.push(new TextRun({ text: match[1], bold: true, size: 19, font: fontName }));
+            runs.push(new TextRun({ text: match[2], size: 19, font: fontName }));
+          } else {
+            runs.push(new TextRun({ text: ach, size: 19, font: fontName }));
+          }
+
+          docChildren.push(
+            new Paragraph({
+              bullet: { level: 0 },
+              spacing: { before: 15, after: 15 },
+              children: runs,
+            })
+          );
+        });
+      }
+
+      const doc = new Document({
+        sections: [
+          {
+            properties: {
+              page: {
+                margin: {
+                  top: 720,    // 0.5 inch (720 twips)
+                  bottom: 720, // 0.5 inch
+                  left: 720,   // 0.5 inch
+                  right: 720,  // 0.5 inch
+                }
+              }
+            },
+            children: docChildren,
+          },
+        ],
+      });
+
+      const blob = await Packer.toBlob(doc);
+      saveAs(blob, `${resume.name.replace(/\s+/g, '_')}_Resume.docx`);
+    } catch (err: any) {
+      console.error('Error generating DOCX:', err);
+      alert('Failed to generate Word document. Please try again.');
+    } finally {
+      setDownloadingDocx(false);
+    }
+  };
+
   // Education Helpers
   const addEducation = () => {
     setResume({
@@ -524,6 +876,19 @@ export default function ResumeBuilderPage() {
           >
             <FileDown className="h-4 w-4" />
             Print / Save PDF
+          </button>
+
+          <button 
+            onClick={downloadAsDocx}
+            disabled={downloadingDocx}
+            className="flex items-center gap-1.5 px-4 py-2 bg-[#0e131f] border border-border hover:border-gray-500 text-white font-extrabold rounded-lg text-sm transition-all disabled:opacity-50"
+          >
+            {downloadingDocx ? (
+              <RefreshCw className="h-4 w-4 text-[#FF8A00] animate-spin" />
+            ) : (
+              <FileDown className="h-4 w-4 text-[#FF8A00]" />
+            )}
+            {downloadingDocx ? 'Generating Word...' : 'Download Word (DOCX)'}
           </button>
         </div>
       </header>
