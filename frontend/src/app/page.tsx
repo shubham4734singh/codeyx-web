@@ -1,22 +1,65 @@
+import type { Metadata } from 'next';
 import TopNavbar from '../components/shared/TopNavbar';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
 import HowItWorks from '../components/HowItWorks';
 import Projects from '../components/Projects';
 import AnalyticsDashboard from '../components/AnalyticsDashboard';
+import GEOAuthority from '../components/GEOAuthority';
 import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
 import Link from 'next/link';
 import { Bot, Sparkles } from 'lucide-react';
 
-// Trigger deployment build
+export const metadata: Metadata = {
+  title: "Codeyx | Modern Developer Portfolio & Coding Analytics Tracker",
+  description: "Connect LeetCode, GitHub, and Codeforces to build a verified developer portfolio. Track DSA sheets, practice coding patterns, and climb global leaderboards.",
+  keywords: [
+    "Codeyx",
+    "developer portfolio",
+    "coding analytics",
+    "DSA sheet tracker",
+    "LeetCode tracker",
+    "Github dashboard",
+    "competitive programming rank",
+    "Codeforces ratings",
+    "Striver DSA sheet",
+    "coding leaderboard"
+  ],
+  alternates: {
+    canonical: "https://codeyx-web.vercel.app",
+  },
+  openGraph: {
+    title: "Codeyx | Modern Developer Portfolio & Coding Analytics Tracker",
+    description: "Connect LeetCode, GitHub, and Codeforces to build a verified developer portfolio. Track DSA sheets, practice coding patterns, and climb global leaderboards.",
+    url: "https://codeyx-web.vercel.app",
+    siteName: "Codeyx",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://codeyx-web.vercel.app/assets/logo-dark-them.png",
+        width: 1200,
+        height: 630,
+        alt: "Codeyx Developer Analytics & Portfolio Platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Codeyx | Modern Developer Portfolio & Coding Analytics Tracker",
+    description: "Connect LeetCode, GitHub, and Codeforces to build a verified developer portfolio. Track DSA sheets, practice coding patterns, and climb global leaderboards.",
+    images: ["https://codeyx-web.vercel.app/assets/logo-dark-them.png"],
+  },
+};
+
 export default function Home() {
-  const jsonLd = {
+  const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Codeyx",
     "url": "https://codeyx-web.vercel.app",
-    "description": "Codeyx is a modern coding platform that provides coding sheets, programming contests, developer projects, DSA practice, web development resources, and tools for students and developers to learn, practice, build projects, and improve their coding skills.",
+    "description": "Codeyx is an AI-powered developer platform to track DSA sheets, sync LeetCode and GitHub profiles, showcase projects, and rank on coding leaderboards.",
     "potentialAction": {
       "@type": "SearchAction",
       "target": "https://codeyx-web.vercel.app/explore-sheets?search={search_term_string}",
@@ -24,19 +67,83 @@ export default function Home() {
     }
   };
 
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Codeyx",
+    "url": "https://codeyx-web.vercel.app",
+    "logo": "https://codeyx-web.vercel.app/assets/logo-dark-them.png",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "codeyx6@gmail.com",
+      "contactType": "customer support"
+    },
+    "sameAs": [
+      "https://github.com/LalitModi90/codeyx-web"
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Codeyx?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Codeyx is an all-in-one developer analytics and portfolio platform. It synchronizes coding profiles across LeetCode, GitHub, Codeforces, and GeeksforGeeks into a single verified portfolio for developers, software engineers, and competitive programmers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Codeyx free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, core profile tracking, progress sheet visualizations, global leaderboard rankings, and coding pattern trackers on Codeyx are 100% free."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the Codeyx leaderboard ranking work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Codeyx ranks developers using a weighted algorithm combining their public contest ratings (LeetCode, CodeChef), total problem-solving consistency, and verified open-source GitHub contributions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I sync my LeetCode and GitHub profiles?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! You can connect your profiles by entering your public usernames. Codeyx automatically indexes solved problems, contest stats, and public repositories without requiring credentials."
+        }
+      }
+    ]
+  };
+
   return (
     <main className="min-h-screen relative">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <TopNavbar />
       <Hero />
       <AnalyticsDashboard />
       <Projects />
-
       <Features />
       <HowItWorks />
+      <GEOAuthority />
       <FAQ />
       <Footer />
 

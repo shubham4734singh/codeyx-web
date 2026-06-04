@@ -4,10 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
 const faqs = [
-  { q: "Is Coderyx free to use?", a: "Yes, the core tracking features and analytics are completely free. We also offer a pro tier for advanced AI insights." },
-  { q: "Can I sync my LeetCode profile?", a: "Absolutely. Simply enter your LeetCode username and we'll automatically fetch your submissions and stats." },
-  { q: "Does it support dark mode?", a: "Yes! Coderyx is designed with a premium dark mode as the default experience, but light mode is fully supported." },
-  { q: "How is my data secured?", a: "We use industry-standard encryption and do not store your passwords. We only use public APIs to fetch your coding stats." },
+  { q: "What is Codeyx?", a: "Codeyx is an all-in-one developer analytics and portfolio platform. It synchronizes coding profiles across LeetCode, GitHub, Codeforces, and GeeksforGeeks into a single verified portfolio for developers, software engineers, and competitive programmers." },
+  { q: "Is Codeyx free to use?", a: "Yes, core profile tracking, progress sheet visualizations, global leaderboard rankings, and coding pattern trackers on Codeyx are 100% free." },
+  { q: "How does the Codeyx leaderboard ranking work?", a: "Codeyx ranks developers using a weighted algorithm combining their public contest ratings (LeetCode, CodeChef), total problem-solving consistency, and verified open-source GitHub contributions." },
+  { q: "Can I sync my LeetCode and GitHub profiles?", a: "Yes! You can connect your profiles by entering your public usernames. Codeyx automatically indexes solved problems, contest stats, and public repositories without requiring credentials." },
 ];
 
 export default function FAQ() {

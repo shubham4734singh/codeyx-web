@@ -22,10 +22,10 @@ export default function Hero() {
             🚀 The #1 Portfolio Tracker
           </div>
           <h1 className="text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
-            Track, Analyze & <br/> Share Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">Coding Journey</span>
+            Unified <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">Developer Portfolio</span> & Coding Tracker
           </h1>
           <p className="text-lg lg:text-xl text-[var(--text-muted)] mb-8 max-w-2xl mx-auto lg:mx-0">
-            A modern coding analytics platform for developers. Seamlessly connect LeetCode, GitHub, and Codeforces to showcase your skills like never before.
+            Codeyx is the ultimate developer analytics dashboard and portfolio tracker. Sync your competitive programming profiles from LeetCode, GitHub, Codeforces, and GeeksforGeeks into a single verified page with AI-powered DSA sheet insights.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <button className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-primary to-orange-500 text-white font-semibold text-lg hover:shadow-xl hover:shadow-orange-500/30 transition-all hover:-translate-y-1">

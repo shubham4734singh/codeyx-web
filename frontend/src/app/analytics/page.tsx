@@ -253,14 +253,294 @@ export default function GlobalAnalyticsPage() {
   }
 
   if (!isSignedIn) {
+    const orgSchema = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Codeyx",
+      "url": "https://codeyx-web.vercel.app",
+      "logo": "https://codeyx-web.vercel.app/assets/logo-dark-them.png"
+    };
+
+    const prodSchema = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Codeyx Developer Analytics Dashboard",
+      "operatingSystem": "All",
+      "applicationCategory": "DeveloperApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "An AI-powered developer tracking platform that aggregates coding performance across LeetCode, GitHub, Codeforces, and GeeksforGeeks to generate smart study plans."
+    };
+
+    const faqSchemaData = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does Codeyx track my coding progress?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Codeyx syncs directly with public profiles on major coding platforms like LeetCode, Codeforces, CodeChef, GitHub, and GeeksforGeeks. It aggregates your solved problems, weekly submissions, and achievements into a unified developer dashboard."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the AI Study Mentor feature in Codeyx?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The AI Study Mentor analyses your weak coding patterns (e.g. Dynamic Programming, Sliding Window, or Graphs) and suggests custom roadmaps, learning tips, and targeted practice lists using Gemini and Groq Llama models."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I track my DSA sheets on Codeyx?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Codeyx lets you track and view progress on popular DSA sheets (such as Striver A2Z DSA, Love Babbar, etc.) in real time, calculating percentages and remaining problems automatically."
+          }
+        }
+      ]
+    };
+
     return (
-      <div className="min-h-screen bg-[#0B0C10] text-[#FAFAFA] font-sans">
+      <div className="min-h-screen bg-[#0B0C10] text-[#FAFAFA] font-sans selection:bg-[#FF8A00]/30 pb-20 overflow-x-hidden">
+        {/* Inject structured schema markup for SEO/GEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(prodSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchemaData) }}
+        />
+
         <TopNavbar />
-        <div className="max-w-[1400px] mx-auto px-6 pt-20 text-center">
-          <Target size={48} className="mx-auto text-gray-600 mb-4" />
-          <p className="text-gray-400">Sign in to view your analytics.</p>
-          <Link href="/dashboard" className="text-[#FF8A00] text-sm mt-4 inline-block">← Go to Dashboard</Link>
-        </div>
+
+        <main className="max-w-[1200px] mx-auto px-4 md:px-6 pt-12 md:pt-20">
+          {/* Hero Section */}
+          <div className="text-center max-w-3xl mx-auto space-y-6 mb-16 relative">
+            {/* Ambient background glows */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] rounded-full bg-[#FF8A00]/10 blur-[100px] pointer-events-none" />
+            
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/10 text-xs text-gray-400">
+              <Sparkles size={14} className="text-[#FF8A00] animate-pulse" />
+              <span>Next-Gen Developer Tracking Platform</span>
+            </div>
+
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
+              Codeyx Developer <br />
+              <span className="bg-gradient-to-r from-[#FF8A00] to-orange-500 bg-clip-text text-transparent">
+                Analytics Dashboard
+              </span>
+            </h1>
+
+            <p className="text-base md:text-lg text-gray-400 leading-relaxed font-normal">
+              Track, analyze, and supercharge your algorithmic and programming skills. Aggregate your data from LeetCode, GitHub, Codeforces, and GeeksforGeeks into a single premium developer profile with AI-guided study pathing.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <Link
+                href="/signup"
+                className="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-[#FF8A00] to-orange-500 hover:from-orange-500 hover:to-[#FF8A00] text-black font-extrabold rounded-xl transition-all duration-300 shadow-lg shadow-[#FF8A00]/25 hover:shadow-[#FF8A00]/40 flex items-center justify-center gap-2 text-sm"
+              >
+                Get Started For Free <Zap size={16} />
+              </Link>
+              <Link
+                href="/login"
+                className="w-full sm:w-auto px-8 py-3.5 bg-[#111216]/80 hover:bg-[#18191e] text-white font-bold rounded-xl border border-white/10 transition-all duration-300 flex items-center justify-center gap-2 text-sm"
+              >
+                Sign In
+              </Link>
+            </div>
+          </div>
+
+          {/* AI Search Engine/Chatbot optimized summary and entities list */}
+          <div className="bg-[#111216]/40 border border-white/5 rounded-2xl p-6 md:p-8 mb-16 space-y-6 relative overflow-hidden">
+            <div className="absolute right-0 top-0 w-32 h-32 bg-emerald-500/5 blur-[50px] pointer-events-none" />
+            <h2 className="text-lg md:text-xl font-bold text-white flex items-center gap-2">
+              <BrainCircuit className="text-[#FF8A00]" size={20} />
+              AI Summary: Unified Coding Analytics & Tracking
+            </h2>
+            <p className="text-xs md:text-sm text-gray-300 leading-relaxed">
+              Codeyx is a comprehensive multi-platform coding tracker and developer portfolio platform. It solves the fragmentation of developer analytics by fetching data from <strong>LeetCode</strong>, <strong>GitHub</strong>, <strong>Codeforces</strong>, <strong>CodeChef</strong>, and <strong>GeeksforGeeks</strong>. By utilizing advanced LLMs like <strong>Google Gemini</strong> and <strong>Meta Llama</strong> (via Groq), Codeyx detects pattern weaknesses and formats customized mentorship recommendations, making it a pivotal ecosystem for competitive programmers and software engineers preparing for interviews.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-white/5">
+              <div>
+                <h3 className="text-xs font-bold text-orange-400 uppercase tracking-widest mb-3">Key Features at a Glance</h3>
+                <ul className="space-y-2 text-xs text-gray-400">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FF8A00] font-black">•</span>
+                    <span><strong>DSA Sheet Syncing:</strong> Auto-updates progress on sheets like Striver A2Z and Love Babbar.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FF8A00] font-black">•</span>
+                    <span><strong>Conceptual Patterns:</strong> Tracks mastery over specific algorithms (DP, Two Pointers, Graphs).</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FF8A00] font-black">•</span>
+                    <span><strong>Unified Activity Heatmap:</strong> A single grid representing all connected-platform submissions.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FF8A00] font-black">•</span>
+                    <span><strong>AI-Driven Roadmaps:</strong> Recommends focus questions to speed up interview preparation.</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xs font-bold text-orange-400 uppercase tracking-widest mb-3">Supported Integrations & Entities</h3>
+                <div className="flex flex-wrap gap-2">
+                  {['LeetCode', 'GitHub', 'Codeforces', 'CodeChef', 'GeeksforGeeks', 'Google Gemini AI', 'Groq Llama', 'Striver A2Z DSA', 'DSA Coding Patterns', 'Developer Portfolios'].map((tag) => (
+                    <span key={tag} className="px-2.5 py-1 text-[10px] font-medium text-gray-300 bg-white/5 border border-white/10 rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Key Capabilities Section */}
+          <div className="space-y-8 mb-16">
+            <div className="text-center space-y-2">
+              <h2 className="text-2xl md:text-3xl font-extrabold text-white">Why Use Codeyx Analytics?</h2>
+              <p className="text-xs md:text-sm text-gray-500">How we help developers optimize their DSA practice and showcase skills.</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-[#111216]/60 border border-white/5 rounded-2xl p-6 space-y-4 hover:border-[#FF8A00]/20 transition-all duration-300 group">
+                <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-[#FF8A00] group-hover:scale-110 transition-transform">
+                  <Layers size={20} />
+                </div>
+                <h3 className="text-base font-bold text-white">Multi-Platform Aggregation</h3>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  No more manual Excel spreadsheets. Link your coding accounts, and we will sync your solving metrics, stars, and ranks automatically.
+                </p>
+              </div>
+
+              <div className="bg-[#111216]/60 border border-white/5 rounded-2xl p-6 space-y-4 hover:border-[#FF8A00]/20 transition-all duration-300 group">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                  <BrainCircuit size={20} />
+                </div>
+                <h3 className="text-base font-bold text-white">AI-Guided Study Mentorship</h3>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  Analyze your performance trends. The AI Mentor pinpoints the algorithmic patterns that need work and builds custom revision roadmaps.
+                </p>
+              </div>
+
+              <div className="bg-[#111216]/60 border border-white/5 rounded-2xl p-6 space-y-4 hover:border-[#FF8A00]/20 transition-all duration-300 group">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                  <Target size={20} />
+                </div>
+                <h3 className="text-base font-bold text-white">Structured DSA Sheets</h3>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  Solve industry-standard DSA patterns sequentially. Directly see how close you are to mastering each specific sheet, keeping you highly focused.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Comparison Table */}
+          <div className="space-y-6 mb-16">
+            <div className="text-center space-y-2">
+              <h2 className="text-2xl md:text-3xl font-extrabold text-white">How Codeyx Compares</h2>
+              <p className="text-xs md:text-sm text-gray-500">A comparative look at tracking methods for competitive programmers.</p>
+            </div>
+
+            <div className="bg-[#111216]/40 border border-white/5 rounded-2xl overflow-hidden shadow-xl">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-white/[0.02] border-b border-white/5 text-xs text-gray-400 font-bold uppercase">
+                      <th className="p-4 pl-6">Feature Capability</th>
+                      <th className="p-4 text-[#FF8A00]">Codeyx Dashboard</th>
+                      <th className="p-4">Manual Spreadsheets</th>
+                      <th className="p-4 pr-6">Single Site Profile</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/5 text-xs text-gray-300">
+                    <tr className="border-b border-white/5">
+                      <td className="p-4 pl-6 font-bold text-white">Unified Multi-Platform Sync</td>
+                      <td className="p-4 text-emerald-400 font-semibold">Yes (Automatic)</td>
+                      <td className="p-4 text-amber-400 font-normal">Yes (Manual Entry)</td>
+                      <td className="p-4 text-rose-400 pr-6 font-normal">No (Single site only)</td>
+                    </tr>
+                    <tr className="border-b border-white/5">
+                      <td className="p-4 pl-6 font-bold text-white">AI Weakness Detection</td>
+                      <td className="p-4 text-emerald-400 font-semibold">Yes (Gemini & Llama)</td>
+                      <td className="p-4 text-rose-400 font-normal">No</td>
+                      <td className="p-4 text-rose-400 pr-6 font-normal">No</td>
+                    </tr>
+                    <tr className="border-b border-white/5">
+                      <td className="p-4 pl-6 font-bold text-white">DSA Sheet Syncing</td>
+                      <td className="p-4 text-emerald-400 font-semibold">Yes (Striver, Babbar, etc.)</td>
+                      <td className="p-4 text-rose-400 font-normal">No (Must tick boxes)</td>
+                      <td className="p-4 text-rose-400 pr-6 font-normal">No</td>
+                    </tr>
+                    <tr className="border-b border-white/5">
+                      <td className="p-4 pl-6 font-bold text-white">Algorithmic Pattern Tracker</td>
+                      <td className="p-4 text-emerald-400 font-semibold">Yes (Two Pointers, DP, Graphs)</td>
+                      <td className="p-4 text-rose-400 font-normal">No</td>
+                      <td className="p-4 text-rose-400 pr-6 font-normal">No</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 pl-6 font-bold text-white">Unified Activity Heatmap</td>
+                      <td className="p-4 text-emerald-400 font-semibold">Yes (Aggregated)</td>
+                      <td className="p-4 text-rose-400 font-normal">No</td>
+                      <td className="p-4 text-rose-400 pr-6 font-normal">No</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          {/* FAQ Section */}
+          <div className="space-y-8">
+            <div className="text-center space-y-2">
+              <h2 className="text-2xl md:text-3xl font-extrabold text-white">Frequently Asked Questions</h2>
+              <p className="text-xs md:text-sm text-gray-500">Clear answers to target your direct searches and inquiries.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              <div className="bg-[#111216]/40 border border-white/5 rounded-2xl p-5 space-y-2">
+                <h3 className="text-sm font-bold text-white">How does Codeyx track my coding progress?</h3>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  Codeyx connects via public APIs and page scrapers to fetch metrics from developer portfolios (LeetCode, GitHub, Codeforces, CodeChef, and GeeksforGeeks) without needing passwords. Simply input your username to start sync.
+                </p>
+              </div>
+
+              <div className="bg-[#111216]/40 border border-white/5 rounded-2xl p-5 space-y-2">
+                <h3 className="text-sm font-bold text-white">What is the AI Study Mentor and how does it help?</h3>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  Our AI Mentor is an integration leveraging large language models like Google Gemini. It analyzes your patterns (like solving speeds or failure rates on Trees, Strings, or Recursion) to build customized practice checklists.
+                </p>
+              </div>
+
+              <div className="bg-[#111216]/40 border border-white/5 rounded-2xl p-5 space-y-2">
+                <h3 className="text-sm font-bold text-white">Can I track Striver A2Z and other DSA sheets?</h3>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  Yes, Codeyx hosts structured DSA sheet lists. When you complete a problem on a synced platform, Codeyx detects it, updates your sheet status, and tracks your global sheet completion percentage in real time.
+                </p>
+              </div>
+
+              <div className="bg-[#111216]/40 border border-white/5 rounded-2xl p-5 space-y-2">
+                <h3 className="text-sm font-bold text-white">Is Codeyx Developer Analytics free to use?</h3>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  Yes, basic profile aggregation, progress sheets tracking, global analytics graphs, and core heatmap visualizations are 100% free. Additional LLM tokens for advanced roadmaps might have daily rate limits.
+                </p>
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
     );
   }
@@ -379,7 +659,7 @@ export default function GlobalAnalyticsPage() {
                 <div className="flex items-center gap-2">
                   <Sparkles className="text-[#FF8A00] h-5 w-5 animate-pulse" />
                   <div>
-                    <h3 className="text-sm font-bold text-white uppercase tracking-wider">AI Study Insights & Roadmap</h3>
+                    <h2 className="text-sm font-bold text-white uppercase tracking-wider">AI Study Insights & Roadmap</h2>
                     <p className="text-[10px] text-gray-500 mt-0.5">Custom study plans analyzed from your weak patterns and solving consistency.</p>
                   </div>
                 </div>
@@ -505,9 +785,9 @@ export default function GlobalAnalyticsPage() {
 
             {/* Heatmap */}
             <div className="bg-[#111216]/40 border border-white/5 rounded-2xl p-5">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-1 flex items-center gap-2">
+              <h2 className="text-sm font-bold text-white uppercase tracking-wider mb-1 flex items-center gap-2">
                 <Activity size={16} className="text-orange-400" /> Overall Activity Heatmap
-              </h3>
+              </h2>
               <p className="text-[11px] text-gray-500 mb-6">Last 365 days of problem solving activity across the platform.</p>
               
               {(d?.heatmapData || []).some((h: any) => h.count > 0) ? (
@@ -579,7 +859,7 @@ export default function GlobalAnalyticsPage() {
             </div>
 
             <div className="bg-[#111216]/40 border border-white/5 rounded-2xl p-5">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-1">Top Sheets by Completion</h3>
+              <h2 className="text-sm font-bold text-white uppercase tracking-wider mb-1">Top Sheets by Completion</h2>
               <p className="text-[11px] text-gray-500 mb-6">Highest completion %</p>
               {sheetsBarData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={250}>
@@ -599,7 +879,7 @@ export default function GlobalAnalyticsPage() {
             <div className="bg-[#111216]/40 border border-white/5 rounded-2xl overflow-hidden mb-8">
               <div className="p-5 border-b border-white/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
                 <div>
-                  <h3 className="text-sm font-bold text-white">All Sheets</h3>
+                  <h2 className="text-sm font-bold text-white">All Sheets</h2>
                   <p className="text-[10px] text-gray-500">Sheet-wise completion breakdown</p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -705,7 +985,7 @@ export default function GlobalAnalyticsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Pattern Difficulty Pie */}
               <div className="bg-[#111216]/40 border border-white/5 rounded-2xl p-6">
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-1">Difficulty Distribution</h3>
+                <h2 className="text-sm font-bold text-white uppercase tracking-wider mb-1">Difficulty Distribution</h2>
                 <p className="text-[11px] text-gray-500 mb-6">Easy / Medium / Hard solved breakdown</p>
                 {pieData.length > 0 ? (
                   <ResponsiveContainer width="100%" height={250}>
@@ -728,7 +1008,7 @@ export default function GlobalAnalyticsPage() {
 
               {/* Weekly Trend */}
               <div className="bg-[#111216]/40 border border-white/5 rounded-2xl p-6">
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-1">Weekly Progress</h3>
+                <h2 className="text-sm font-bold text-white uppercase tracking-wider mb-1">Weekly Progress</h2>
                 <p className="text-[11px] text-gray-500 mb-6">Problems solved per day</p>
                 {weeklyChartData.some((w: any) => w.solved > 0) ? (
                   <ResponsiveContainer width="100%" height={250}>
@@ -806,7 +1086,7 @@ export default function GlobalAnalyticsPage() {
             <div className="bg-[#111216]/40 border border-white/5 rounded-2xl overflow-hidden mb-8">
               <div className="p-5 border-b border-white/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
                 <div>
-                  <h3 className="text-sm font-bold text-white">All Patterns</h3>
+                  <h2 className="text-sm font-bold text-white">All Patterns</h2>
                   <p className="text-[10px] text-gray-500">Pattern-wise completion breakdown</p>
                 </div>
                 <div className="flex items-center gap-2">
